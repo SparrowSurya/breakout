@@ -144,6 +144,8 @@ func start_countdown() -> void:
 func start_game() -> void:
 	game_state = GameState.PLAYING
 	
+	ball.setup()
+	
 	paddle.is_playing = true
 	ball.is_playing = true
 

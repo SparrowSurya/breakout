@@ -13,8 +13,10 @@ var is_playing: bool = false
 func _ready() -> void:
 	window_size = get_viewport().get_visible_rect().size
 	ball_size = sprite.get_rect().size
-	velocity = Vector2(0, SPEED)
+	setup()
 
+func setup() -> void:
+	velocity = Vector2(0, SPEED)
 
 func _physics_process(delta: float) -> void:
 	if not is_playing:
