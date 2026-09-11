@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://3brdu7xnjsfu"]
+
+[ext_resource type="Script" uid="uid://385nm63fms3" path="res://scripts/tile.gd" id="1_3dk36"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vse7m"]
+size = Vector2(32, 16)
+
+[node name="Tile" type="StaticBody2D" unique_id=756730742]
+script = ExtResource("1_3dk36")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1931655850]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=806611201]
+shape = SubResource("RectangleShape2D_vse7m")
