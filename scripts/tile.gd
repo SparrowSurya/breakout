@@ -14,6 +14,12 @@ enum TileType {
 @export var tile_type: TileType = TileType.GREEN
 
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var sfx: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+
+const HIT_TILE_SOUND = preload("res://assets/sounds/Ball-Hit-Tile.wav")
+const HIT_METAL_TILE_SOUND = preload("res://assets/sounds/Ball-Hit-Metal-Tile.wav")
+const TILE_DESTORY_SOUND = preload("res://assets/sounds/Tile-Destroy.wav")
 
 var immune: bool = false
 var health: int = 1
@@ -51,13 +57,29 @@ func _process(_delta: float) -> void:
 
 func hit() -> void:
 	if immune:
+		_play(HIT_METAL_TILE_SOUND)
 		return
 		
 	health -= 1
 	if health <= 0:
+		_play(TILE_DESTORY_SOUND)
 		destroy()
+	else:
+		_play(HIT_TILE_SOUND)
 
 
 func destroy() -> void:
 	get_parent().get_parent().tile_destroyed()
+	
+	hide()
+	collision_shape.set_deferred("disabled", true)
+	
+	if sfx.playing:
+		await sfx.finished
+	
 	queue_free()
+
+
+func _play(stream: AudioStream) -> void:
+	sfx.stream = stream
+	sfx.play()

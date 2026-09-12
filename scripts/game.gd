@@ -3,6 +3,7 @@ extends Node2D
 @onready var paddle: CharacterBody2D = $Paddle
 @onready var ball: CharacterBody2D = $Ball
 @onready var tiles_node: Node = $Tiles
+@onready var sfx: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 enum GameState {
 	START,
@@ -16,6 +17,11 @@ const BALL_Y_OFFET: float = 10.0
 const TILE_Y_BEGIN: float = 16.0
 
 const TILE_SCENE = preload("res://scenes/tile.tscn")
+
+const COUNTDOWN_SOUND = preload("res://assets/sounds/Countdown.wav")
+const COUNTDOWN_GO_SOUND = preload("res://assets/sounds/Countdown-Go.wav")
+const GAME_WON_SOUND = preload("res://assets/sounds/Game-Won.wav")
+const GAME_LOST_SOUND = preload("res://assets/sounds/Game-Lost.wav")
 
 var game_state: GameState = GameState.START
 var window_size: Vector2
@@ -61,6 +67,11 @@ func _on_dead_zone_body_entered(body: Node2D) -> void:
 
 
 func end_game(won: bool) -> void:
+	if won:
+		_play(GAME_WON_SOUND)
+	else:
+		_play(GAME_LOST_SOUND)
+
 	ball.is_playing = false
 	paddle.is_playing = false
 
@@ -132,9 +143,11 @@ func start_countdown() -> void:
 
 	for i in range(3, 0, -1):
 		$UI/Countdown.text = str(i)
+		_play(COUNTDOWN_SOUND)
 		await get_tree().create_timer(1.0).timeout
 
 	$UI/Countdown.text = "GO!"
+	_play(COUNTDOWN_GO_SOUND)
 	await get_tree().create_timer(0.5).timeout
 
 	$UI/Countdown.hide()
@@ -155,7 +168,13 @@ func _on_retart_button_pressed() -> void:
 	resetup()
 	start_countdown()
 
+
 func resetup() -> void:
 	for tile in tiles_node.get_children():
 		tile.queue_free()
 	setup()
+
+
+func _play(stream: AudioStream) -> void:
+	sfx.stream = stream
+	sfx.play()
