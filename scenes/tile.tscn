@@ -5,8 +5,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vse7m"]
 size = Vector2(32, 16)
 
-[node name="Tile" type="StaticBody2D" unique_id=756730742]
+[node name="Tile" type="StaticBody2D" unique_id=756730742 node_paths=PackedStringArray("sprite", "sfx", "collision_shape")]
 script = ExtResource("1_3dk36")
+sprite = NodePath("Sprite2D")
+sfx = NodePath("AudioStreamPlayer2D")
+collision_shape = NodePath("CollisionShape2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1931655850]
 

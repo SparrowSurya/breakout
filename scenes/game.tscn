@@ -30,8 +30,17 @@ size = Vector2(681, 20)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ca42v"]
 
-[node name="Game" type="Node2D" unique_id=2136065371]
+[node name="Game" type="Node2D" unique_id=2136065371 node_paths=PackedStringArray("paddle", "ball", "tiles_node", "sfx", "deadzone", "end_screen", "start_screen", "countdown", "result")]
 script = ExtResource("1_yqjtg")
+paddle = NodePath("Paddle")
+ball = NodePath("Ball")
+tiles_node = NodePath("Tiles")
+sfx = NodePath("AudioStreamPlayer2D")
+deadzone = NodePath("DeadZone")
+end_screen = NodePath("UI/EndScreen")
+start_screen = NodePath("UI/StartScreen")
+countdown = NodePath("UI/Countdown")
+result = NodePath("UI/EndScreen/Result")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=555836178]
 position = Vector2(320, 180)

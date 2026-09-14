@@ -1,13 +1,14 @@
 class_name Paddle
 extends CharacterBody2D
 
-@onready var sprite: Sprite2D = $Sprite2D
+@export var sprite: Sprite2D
 
-const SPEED: float = 420
+const SPEED: float = 380
 
 var window_size: Vector2
 var paddle_size: Vector2
 var is_playing: bool = false
+
 
 func _ready() -> void:
 	window_size = get_viewport().get_visible_rect().size
@@ -41,4 +42,4 @@ func _move_right(amount: float) -> void:
 
 
 func get_width() -> float:
-	return $Sprite2D.get_rect().size.x
+	return sprite.get_rect().size.x

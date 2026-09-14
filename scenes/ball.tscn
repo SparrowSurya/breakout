@@ -6,8 +6,10 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_vse7m"]
 radius = 4.0
 
-[node name="Ball" type="CharacterBody2D" unique_id=607830292]
+[node name="Ball" type="CharacterBody2D" unique_id=607830292 node_paths=PackedStringArray("sprite", "sfx")]
 script = ExtResource("1_cxlvu")
+sprite = NodePath("Sprite2D")
+sfx = NodePath("AudioStreamPlayer2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2112803009]
 texture = ExtResource("1_7s4qf")
