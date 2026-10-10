@@ -11,7 +11,7 @@ enum GameState {
 @export var paddle: CharacterBody2D
 @export var ball: CharacterBody2D
 @export var tiles_node: Node
-@export var sfx: AudioStreamPlayer2D
+@export var audio: AudioStreamPlayer2D
 @export var deadzone: Area2D
 @export var end_screen: Control
 @export var start_screen: Control
@@ -181,8 +181,8 @@ func restart_game() -> void:
 
 
 func play_sound(stream: AudioStream) -> void:
-	sfx.stream = stream
-	sfx.play()
+	audio.stream = stream
+	audio.play()
 
 
 func _on_tile_destroyed(tile: Tile) -> void:

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://c6rvaqlpf4mm2"]
+
+[ext_resource type="Script" uid="uid://c33voylcsyl0i" path="res://scripts/hit_particles.gd" id="1_mpbbw"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mpbbw"]
+resource_local_to_scene = true
+size = Vector2(2, 2)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gu2vf"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 150.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 490, 0)
+
+[node name="HitParticles" type="GPUParticles2D" unique_id=936424617]
+z_index = 100
+texture_filter = 1
+emitting = false
+texture = SubResource("PlaceholderTexture2D_mpbbw")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+randomness = 0.3
+use_fixed_seed = true
+seed = 2217692360
+process_material = SubResource("ParticleProcessMaterial_gu2vf")
+script = ExtResource("1_mpbbw")

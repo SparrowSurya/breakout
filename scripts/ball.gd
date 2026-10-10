@@ -5,12 +5,11 @@ const BALL_SPEED: float = 280.0
 const MAX_ANGLE_RAD: float = deg_to_rad(60.0)
 
 @export var sprite: Sprite2D
-@export var sfx: AudioStreamPlayer2D
+@export var audio: AudioStreamPlayer2D
 
 var window_size: Vector2
 var ball_size: Vector2
 var is_playing: bool = false
-
 
 func _ready() -> void:
 	window_size = get_viewport().get_visible_rect().size
@@ -25,9 +24,11 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		var collider = collision.get_collider()
+
 		if collider is Paddle:
 			bounce_from_paddle(collider)
 			play_sound(Constants.SOUND.BallHitPaddle)
+			#paddle_collide_resolve(collision)
 		elif collider is Tile:
 			collider.hit()
 			velocity = velocity.bounce(collision.get_normal())
@@ -54,6 +55,25 @@ func bounce_from_paddle(paddle: Paddle) -> void:
 	velocity = Vector2(sin(angle), -cos(angle)) * BALL_SPEED
 
 
+func paddle_collide_resolve(collision: KinematicCollision2D) -> void:
+	if not collision:
+		return
+	
+	var collider = collision.get_collider()
+	if collider is not Paddle:
+		return
+	
+	var max_iterations = 10
+	var iteration = 0
+	var new_collision = collision
+
+	while iteration < max_iterations and new_collision and new_collision.get_collider() is Paddle:
+		var normal = new_collision.get_normal()
+		var remainder = new_collision.get_remainder().bounce(normal)
+		new_collision = move_and_collide(remainder)
+		iteration += 1
+
+
 func play_sound(stream: AudioStream) -> void:
-	sfx.stream = stream
-	sfx.play()
+	audio.stream = stream
+	audio.play()

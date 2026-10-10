@@ -28,3 +28,12 @@ const TILE: Dictionary = {
 const SCENE: Dictionary = {
 	"Tile": preload("res://scenes/tile.tscn"),
 }
+
+const HEALTH_COLORS: Dictionary = {
+	1: Color("#cba6f7"),
+	2: Color("#89b4fa"),
+	3: Color("#a6e3a1"),
+	4: Color("#f9e2af"),
+	5: Color("#fab387"),
+	6: Color("#f38ba8"),
+}
