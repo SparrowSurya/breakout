@@ -23,8 +23,8 @@ Constants="*uid://cf4k8sfaupugd"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
+window/size/viewport_width=360
+window/size/viewport_height=640
 window/stretch/mode="canvas_items"
 
 [input]

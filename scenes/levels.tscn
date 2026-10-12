@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cwufarrhqvk7p" path="res://scripts/levels.gd" id="1_5ekxl"]
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="1_hcnff"]
+[ext_resource type="Texture2D" uid="uid://b8ssqu068435" path="res://assets/sprites/background.png" id="2_5ekxl"]
 
 [node name="Levels" type="CanvasLayer" unique_id=809987172 node_paths=PackedStringArray("levels_grid_node", "back_button")]
 script = ExtResource("1_5ekxl")
@@ -10,15 +11,23 @@ back_button = NodePath("Control/BackButton")
 
 [node name="Control" type="Control" parent="." unique_id=100792421]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 640.0
-offset_bottom = 360.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Background" type="ColorRect" parent="Control" unique_id=979133405]
-layout_mode = 0
-offset_right = 640.0
-offset_bottom = 360.0
-color = Color(0.11764706, 0.11764706, 0.18039216, 1)
+[node name="Background" type="TextureRect" parent="Control" unique_id=1979209934]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_right = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_5ekxl")
 
 [node name="Label" type="Label" parent="Control" unique_id=76167861]
 layout_mode = 1
@@ -26,9 +35,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -96.0
-offset_top = 58.0
+offset_top = 90.0
 offset_right = 96.0
-offset_bottom = 81.0
+offset_bottom = 113.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
 theme_override_fonts/font = ExtResource("1_hcnff")
@@ -51,18 +60,21 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
-columns = 5
+columns = 4
 
 [node name="BackButton" type="Button" parent="Control" unique_id=1016380815]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 7
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
+anchor_bottom = 1.0
 offset_left = -96.0
-offset_top = 286.0
+offset_top = -100.0
 offset_right = 96.0
-offset_bottom = 309.0
+offset_bottom = -77.0
 grow_horizontal = 2
+grow_vertical = 0
 theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
 theme_override_colors/font_focus_color = Color(0.9607843, 0.8784314, 0.8627451, 1)
 theme_override_colors/font_pressed_color = Color(0.45490196, 0.78039217, 0.9254902, 1)

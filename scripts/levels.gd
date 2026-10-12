@@ -3,8 +3,8 @@ extends CanvasLayer
 @export var levels_grid_node: GridContainer
 @export var back_button: Button
 
-const LEVELS_COUNT: int = 15 # TODO: needs to be read from somewhere else
-const GRID_CAP: int = 15
+const LEVELS_COUNT: int = 16 # TODO: needs to be read from somewhere else
+const GRID_CAP: int = 16
 
 var level_page: int = 0
 var level_label_scene: PackedScene = preload(Constants.SCENE.LevelLabel)
