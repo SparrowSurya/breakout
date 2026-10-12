@@ -26,7 +26,11 @@ const TILE: Dictionary = {
 
 # Instanciable scenes
 const SCENE: Dictionary = {
-	"Tile": preload("res://scenes/tile.tscn"),
+	"LevelLabel": "res://scenes/level_label.tscn",
+	"Levels": "res://scenes/levels.tscn",
+	"MainMenu": "res://scenes/main_menu.tscn",
+	"Particles": "res://scenes/hit_particles.tscn",
+	"Tile": "res://scenes/tile.tscn",
 }
 
 const HEALTH_COLORS: Dictionary = {

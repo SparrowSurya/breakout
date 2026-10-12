@@ -50,6 +50,7 @@ var game_state: GameState
 var tiles_alive: int
 var window_size: Vector2
 var ball_size: Vector2
+var tile_scene: PackedScene = preload(Constants.SCENE.Tile)
 
 
 func _ready() -> void:
@@ -111,7 +112,7 @@ func setup_tiles() -> void:
 			if TILE_ROW_ORDER[row] == Tile.TileType.METAL and col not in METAL_TILE_NOT_ALLOWED_COL:
 				continue
 
-			var tile = Constants.SCENE.Tile.instantiate()
+			var tile = tile_scene.instantiate()
 			tile.tile_type = TILE_ROW_ORDER[row]
 			tile.position = Vector2(
 				start_x + col * (TILE_WIDTH + COL_GAP) + TILE_WIDTH / 2.0,

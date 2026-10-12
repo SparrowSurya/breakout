@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://byq4rg4tli7fv"]
+
+[ext_resource type="Script" uid="uid://dwh16g2erp1p" path="res://scripts/level_label.gd" id="1_hxxa8"]
+[ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_52x5h"]
+
+[node name="LevelLabel" type="Control" unique_id=760873970 node_paths=PackedStringArray("background", "button")]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_hxxa8")
+background = NodePath("Background")
+button = NodePath("Button")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1285744367]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19215687, 0.19607843, 0.26666668, 1)
+
+[node name="Button" type="Button" parent="." unique_id=692739687]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_colors/font_focus_color = Color(0.9607843, 0.8784314, 0.8627451, 1)
+theme_override_colors/font_pressed_color = Color(0.45490196, 0.78039217, 0.9254902, 1)
+theme_override_colors/font_hover_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
+theme_override_fonts/font = ExtResource("2_52x5h")
+theme_override_font_sizes/font_size = 14
+text = "1"
+flat = true

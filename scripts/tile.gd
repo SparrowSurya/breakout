@@ -23,13 +23,13 @@ enum TileType {
 @export var sprite: Sprite2D
 @export var audio: AudioStreamPlayer2D
 @export var collision_shape: CollisionShape2D
-@export var particles_scene: PackedScene
 
 var is_immune: bool = false
 var tile_health: int = 0
 var shake_duration = 0.2 
 var shake_intensity = 3.0
 var shake_steps = 6
+var particles_scene: PackedScene = preload(Constants.SCENE.Particles)
 
 
 func _ready() -> void:

@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://dughj3ox21kgw"]
+
+[ext_resource type="Script" uid="uid://csbn8tgglietc" path="res://scripts/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://dsaq5sy341384" path="res://assets/sprites/heading.png" id="1_ekxnf"]
+[ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://b8ssqu068435" path="res://assets/sprites/background.png" id="2_ekxnf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wu84c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ln24"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rtw2f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tbmy8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oa1go"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jk1qb"]
+
+[node name="MainMenu" type="CanvasLayer" unique_id=839816198 node_paths=PackedStringArray("levels_button")]
+script = ExtResource("1_bqqt6")
+levels_button = NodePath("Control/VBoxContainer/LevelsButton")
+
+[node name="Control" type="Control" parent="." unique_id=684109782]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="Control" unique_id=95953300]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("2_ekxnf")
+
+[node name="Heading" type="TextureRect" parent="Control" unique_id=747190814]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -166.0
+offset_top = 46.0
+offset_right = 166.0
+offset_bottom = 95.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("1_ekxnf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=2007065840]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -180.0
+offset_right = 80.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="LevelsButton" type="Button" parent="Control/VBoxContainer" unique_id=772229583]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_colors/font_focus_color = Color(0.9607843, 0.8784314, 0.8627451, 1)
+theme_override_colors/font_pressed_color = Color(0.45490196, 0.78039217, 0.9254902, 1)
+theme_override_colors/font_hover_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
+theme_override_fonts/font = ExtResource("2_bqqt6")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wu84c")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8ln24")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_rtw2f")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_tbmy8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_oa1go")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jk1qb")
+text = "Levels"
+
+[node name="QuickPlayButton" type="Button" parent="Control/VBoxContainer" unique_id=1520592755]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_colors/font_focus_color = Color(0.9607843, 0.8784314, 0.8627451, 1)
+theme_override_colors/font_pressed_color = Color(0.45490196, 0.78039217, 0.9254902, 1)
+theme_override_colors/font_hover_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
+theme_override_fonts/font = ExtResource("2_bqqt6")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wu84c")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8ln24")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_rtw2f")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_tbmy8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_oa1go")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jk1qb")
+text = "Quick Play"
+
+[node name="SurvivalButton" type="Button" parent="Control/VBoxContainer" unique_id=194554419]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_colors/font_focus_color = Color(0.9607843, 0.8784314, 0.8627451, 1)
+theme_override_colors/font_pressed_color = Color(0.45490196, 0.78039217, 0.9254902, 1)
+theme_override_colors/font_hover_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
+theme_override_fonts/font = ExtResource("2_bqqt6")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wu84c")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8ln24")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_rtw2f")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_tbmy8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_oa1go")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jk1qb")
+text = "Survival"
