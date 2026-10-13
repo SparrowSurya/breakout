@@ -9,8 +9,8 @@ enum GameState {
 	END,       # Game end screen state
 }
 
-const LEVELS: int = 16
 
+var levels_count: int = Constants.LEVELS_DATA.size()
 var level_data: LevelData
 var game_state: GameState = GameState.NONE
 
@@ -38,8 +38,7 @@ func enter_level(level: int) -> void:
 
 # Know if the level exists.
 func has_level(level: int) -> bool:
-	var data = Constants.LEVELS_DATA[level]
-	return data != null
+	return Constants.LEVELS_DATA.has(level)
 
 
 # Helper function that erases old level data when exited.
