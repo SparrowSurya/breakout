@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://chc8wkvisii0"]
 
 [ext_resource type="Script" uid="uid://df2cd8qt25exy" path="res://scripts/level_game.gd" id="1_ner8q"]
-[ext_resource type="Script" uid="uid://2sxgbexfcpjh" path="res://scripts/dead_zone.gd" id="2_ftvvv"]
 [ext_resource type="Texture2D" uid="uid://b8ssqu068435" path="res://assets/sprites/background.png" id="2_pbelj"]
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="4_ac4yb"]
 
@@ -59,7 +58,6 @@ position = Vector2(183.5, -10.5)
 shape = SubResource("RectangleShape2D_oglf6")
 
 [node name="DeadZone" type="Area2D" parent="." unique_id=2068172571]
-script = ExtResource("2_ftvvv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeadZone" unique_id=2074255636]
 position = Vector2(180.5, 697)

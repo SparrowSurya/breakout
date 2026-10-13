@@ -34,8 +34,8 @@ func _ready() -> void:
 		level = GameManager.level_data.level_no
 
 	window_size = get_viewport().get_visible_rect().size
+
 	dead_zone.body_entered.connect(_on_dead_zone_body_entered)
-	
 	play_next_button.pressed.connect(_on_play_next_pressed)
 	play_again_button.pressed.connect(_on_play_again_pressed)
 	exit_button.pressed.connect(_on_exit_pressed)
