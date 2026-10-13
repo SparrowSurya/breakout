@@ -34,13 +34,13 @@ const TILE_HEIGHT := 16.0
 
 # Order of tiles from top to bottom
 const TILE_ROW_ORDER := [
-	Tile.TileType.RED,
-	Tile.TileType.PEACH,
-	Tile.TileType.YELLOW,
-	Tile.TileType.GREEN,
-	Tile.TileType.BLUE,
-	Tile.TileType.MAUVE,
-	Tile.TileType.METAL
+	TileDef.TileType.RED,
+	TileDef.TileType.PEACH,
+	TileDef.TileType.YELLOW,
+	TileDef.TileType.GREEN,
+	TileDef.TileType.BLUE,
+	TileDef.TileType.MAUVE,
+	TileDef.TileType.METAL
 ]
 
 # Exception to metal tile beinig not placed in some columns
@@ -109,7 +109,7 @@ func setup_tiles() -> void:
 		for col in range(TILE_COLS):
 
 			# Metal only appears in specific columns
-			if TILE_ROW_ORDER[row] == Tile.TileType.METAL and col not in METAL_TILE_NOT_ALLOWED_COL:
+			if TILE_ROW_ORDER[row] == TileDef.TileType.METAL and col not in METAL_TILE_NOT_ALLOWED_COL:
 				continue
 
 			var tile = tile_scene.instantiate()
@@ -119,7 +119,7 @@ func setup_tiles() -> void:
 				TILE_Y_BEGIN + row * (TILE_HEIGHT + ROW_GAP)
 			)
 			tiles_node.add_child(tile)
-			if tile.tile_type != Tile.TileType.METAL:
+			if tile.tile_type != TileDef.TileType.METAL:
 				tiles_alive += 1
 			
 			tile.destroyed.connect(_on_tile_destroyed)

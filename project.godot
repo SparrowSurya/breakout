@@ -20,6 +20,8 @@ config/windows_native_icon="uid://ct10a511fmsrd"
 [autoload]
 
 Constants="*uid://cf4k8sfaupugd"
+TileUtils="*uid://d3ygvt034ux0t"
+GameManager="*uid://hxkqgdcppukg"
 
 [display]
 

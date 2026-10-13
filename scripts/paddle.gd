@@ -7,7 +7,6 @@ const SPEED: float = 380
 
 var window_size: Vector2
 var paddle_size: Vector2
-var is_playing: bool = false
 
 
 func _ready() -> void:
@@ -16,7 +15,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not is_playing:
+	if GameManager.game_state != GameManager.GameState.PLAYING:
 		return
 
 	if Input.is_action_pressed("move_left"):

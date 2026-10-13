@@ -11,4 +11,4 @@ func _ready() -> void:
 
 
 func _on_button_clicked() -> void:
-	print("TODO: Goto level %s", level)
+	GameManager.enter_level(level)

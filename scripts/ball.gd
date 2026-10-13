@@ -1,7 +1,7 @@
 class_name Ball
 extends CharacterBody2D
 
-const BALL_SPEED: float = 280.0
+const BALL_SPEED: float = 420.0
 const MAX_ANGLE_RAD: float = deg_to_rad(60.0)
 
 @export var sprite: Sprite2D
@@ -9,7 +9,7 @@ const MAX_ANGLE_RAD: float = deg_to_rad(60.0)
 
 var window_size: Vector2
 var ball_size: Vector2
-var is_playing: bool = false
+
 
 func _ready() -> void:
 	window_size = get_viewport().get_visible_rect().size
@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not is_playing:
+	if GameManager.game_state != GameManager.GameState.PLAYING:
 		return
 
 	var collision = move_and_collide(velocity * delta)
