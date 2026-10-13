@@ -10,7 +10,6 @@ enum GameState {
 }
 
 
-var levels_count: int = Constants.LEVELS_DATA.size()
 var level_data: LevelData
 var game_state: GameState = GameState.NONE
 
@@ -29,16 +28,17 @@ func enter_levels() -> void:
 
 # Enter specific Level.
 func enter_level(level: int) -> void:
-	level_data = LevelData.new(level)
-	game_state = GameState.INITIAL
-	var raw_grid = Constants.LEVELS_DATA[level_data.level_no]
-	level_data.grid = raw_grid
+	level_data = LevelData.load_level(level)
+	if level_data == null:
+		push_warning("GameManager: enter level failed beacause level_data is null")
+		return
+
 	get_tree().change_scene_to_file(Constants.SCENE.LevelGame)
 
 
 # Know if the level exists.
 func has_level(level: int) -> bool:
-	return Constants.LEVELS_DATA.has(level)
+	return level > 0 and level < LevelData.level_count
 
 
 # Helper function that erases old level data when exited.

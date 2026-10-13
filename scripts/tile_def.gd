@@ -63,7 +63,7 @@ static func from_health(health: int) -> TileDef:
 		if entry.health == health:
 			return entry
 	
-	push_warning("TileDef: no entry for health %d, falling back to metal", health)
+	push_warning("TileDef: no entry for health %d, falling back to metal" % health)
 	return _table[0]
 
 
@@ -73,5 +73,5 @@ static func from_type(type: TileType) -> TileDef:
 		if entry.type == type:
 			return entry
 	
-	push_warning("TileDef: no entry for type %d, falling back to metal", type)
+	push_warning("TileDef: no entry for type %d, falling back to metal" % type)
 	return _table[0]
