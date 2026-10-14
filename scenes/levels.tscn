@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cwufarrhqvk7p" path="res://scripts/levels.gd" id="1_5ekxl"]
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="1_hcnff"]
-[ext_resource type="Texture2D" uid="uid://b8ssqu068435" path="res://assets/sprites/background.png" id="2_5ekxl"]
+[ext_resource type="Texture2D" uid="uid://l3eaidps5yc4" path="res://assets/textures/background-pattern.png" id="2_5ekxl"]
 
 [node name="Levels" type="CanvasLayer" unique_id=809987172 node_paths=PackedStringArray("levels_grid_node", "back_button")]
 script = ExtResource("1_5ekxl")
@@ -17,13 +17,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="TextureRect" parent="Control" unique_id=1979209934]
+[node name="Background" type="TextureRect" parent="Control" unique_id=251894117]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -140.0
-offset_right = 140.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2

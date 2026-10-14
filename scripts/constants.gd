@@ -27,6 +27,14 @@ const TILE: Dictionary = {
 	"Metal": preload("res://assets/sprites/tiles/metal.png"),
 }
 
+const BUTTON_TEXTURES: Dictionary = {
+	"Disable": preload("res://assets/textures/button/button-disable.png"),
+	"Focus": preload("res://assets/textures/button/button-focus.png"),
+	"Hover": preload("res://assets/textures/button/button-hover.png"),
+	"Normal": preload("res://assets/textures/button/button-normal.png"),
+	"Press": preload("res://assets/textures/button/button-press.png"),
+}
+
 # Instanciable scenes
 const SCENE: Dictionary = {
 	"Ball": "res://scenes/ball.tscn",

@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dy1xomrq02t83"]
+
+[ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="1_lkjol"]
+[ext_resource type="Script" uid="uid://hj8mpvyqnnxf" path="res://scripts/custom_button.gd" id="1_ql6db"]
+[ext_resource type="Texture2D" uid="uid://dredlx7v752pu" path="res://assets/textures/button/button-press.png" id="2_8n5nm"]
+[ext_resource type="Texture2D" uid="uid://ot1qftf5imdq" path="res://assets/textures/button/button-normal.png" id="2_bfr1r"]
+[ext_resource type="Texture2D" uid="uid://1nbdv104f8k3" path="res://assets/textures/button/button-hover.png" id="3_lkjol"]
+[ext_resource type="Texture2D" uid="uid://cxs4d533x125m" path="res://assets/textures/button/button-disable.png" id="4_fru5d"]
+[ext_resource type="Texture2D" uid="uid://11uerj7i468n" path="res://assets/textures/button/button-focus.png" id="5_px24n"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bfr1r"]
+texture = ExtResource("2_bfr1r")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_32hcy"]
+texture = ExtResource("2_8n5nm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yt7k8"]
+texture = ExtResource("3_lkjol")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qw48a"]
+texture = ExtResource("4_fru5d")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8n5nm"]
+texture = ExtResource("5_px24n")
+
+[node name="CustomButton" type="Button" unique_id=1882703824]
+custom_minimum_size = Vector2(150, 40)
+offset_right = 150.0
+offset_bottom = 40.0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.7294118, 0.7607843, 0.87058824, 1)
+theme_override_colors/font_focus_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_colors/font_pressed_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_colors/font_hover_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_colors/font_disabled_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("1_lkjol")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxTexture_bfr1r")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_32hcy")
+theme_override_styles/hover = SubResource("StyleBoxTexture_yt7k8")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_qw48a")
+theme_override_styles/focus = SubResource("StyleBoxTexture_8n5nm")
+text = "Button"
+script = ExtResource("1_ql6db")
