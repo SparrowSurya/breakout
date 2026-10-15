@@ -1,9 +1,10 @@
 class_name Paddle
 extends CharacterBody2D
 
+
 @export var sprite: Sprite2D
 
-const SPEED: float = 380
+const SPEED: float = 480
 
 var window_size: Vector2
 var paddle_size: Vector2

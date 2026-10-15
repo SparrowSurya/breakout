@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://djq4ust4em0fm"]
+
+[ext_resource type="Script" uid="uid://n87q8s657akb" path="res://scripts/page_nav.gd" id="1_o00bi"]
+[ext_resource type="PackedScene" uid="uid://flgqh3dlwr0a" path="res://scenes/custom_icon_button.tscn" id="1_vi0uj"]
+[ext_resource type="Texture2D" uid="uid://dmcncaudf6iub" path="res://assets/textures/icons/triangle-left.png" id="2_o00bi"]
+[ext_resource type="Texture2D" uid="uid://dg20l0c0blct6" path="res://assets/textures/icons/triangle-right.png" id="3_u5xie"]
+
+[node name="PageNav" type="HBoxContainer" unique_id=1200609767 node_paths=PackedStringArray("prev_button_node", "next_button_node", "indicator_left_node", "indicator_mid_node", "indicator_right_node")]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 32
+script = ExtResource("1_o00bi")
+prev_button_node = NodePath("PrevButton")
+next_button_node = NodePath("NextButton")
+indicator_left_node = NodePath("Indicators/IndicatorLeft")
+indicator_mid_node = NodePath("Indicators/IndicatorMid")
+indicator_right_node = NodePath("Indicators/IndicatorRight")
+
+[node name="PrevButton" parent="." unique_id=354671964 instance=ExtResource("1_vi0uj")]
+layout_mode = 2
+icon = ExtResource("2_o00bi")
+
+[node name="Indicators" type="HBoxContainer" parent="." unique_id=1921140114]
+show_behind_parent = true
+custom_minimum_size = Vector2(48, 0)
+custom_maximum_size = Vector2(48, -1)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="IndicatorLeft" type="ColorRect" parent="Indicators" unique_id=1404375579]
+custom_minimum_size = Vector2(8, 8)
+custom_maximum_size = Vector2(8, 8)
+layout_mode = 2
+color = Color(0.27058825, 0.2784314, 0.34901962, 1)
+
+[node name="IndicatorMid" type="ColorRect" parent="Indicators" unique_id=1840833]
+custom_minimum_size = Vector2(8, 8)
+custom_maximum_size = Vector2(8, 8)
+layout_mode = 2
+color = Color(0.27058825, 0.2784314, 0.34901962, 1)
+
+[node name="IndicatorRight" type="ColorRect" parent="Indicators" unique_id=2035142302]
+custom_minimum_size = Vector2(8, 8)
+custom_maximum_size = Vector2(8, 8)
+layout_mode = 2
+color = Color(0.27058825, 0.2784314, 0.34901962, 1)
+
+[node name="NextButton" parent="." unique_id=2084071639 instance=ExtResource("1_vi0uj")]
+layout_mode = 2
+icon = ExtResource("3_u5xie")

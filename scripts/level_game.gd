@@ -53,9 +53,10 @@ func _setup():
 	end_screen.hide()
 
 
-func _process(delta: float) -> void:
-	if Input.is_action_pressed("continue"):
-		GameManager.enter_levels()
+# TODO: user continue for pause/resum the game
+#func _process(_delta: float) -> void:
+	#if Input.is_action_pressed("continue"):
+		#GameManager.enter_levels()
 
 
 # Instantiate and setup tiles as per the level

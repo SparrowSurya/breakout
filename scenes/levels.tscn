@@ -3,11 +3,19 @@
 [ext_resource type="Script" uid="uid://cwufarrhqvk7p" path="res://scripts/levels.gd" id="1_5ekxl"]
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="1_hcnff"]
 [ext_resource type="Texture2D" uid="uid://l3eaidps5yc4" path="res://assets/textures/background-pattern.png" id="2_5ekxl"]
+[ext_resource type="PackedScene" uid="uid://flgqh3dlwr0a" path="res://scenes/custom_icon_button.tscn" id="4_jj4e6"]
+[ext_resource type="Texture2D" uid="uid://dmcncaudf6iub" path="res://assets/textures/icons/triangle-left.png" id="5_byla0"]
+[ext_resource type="Texture2D" uid="uid://yxj7oo20cy1i" path="res://assets/textures/icons/star.png" id="6_byla0"]
+[ext_resource type="PackedScene" uid="uid://djq4ust4em0fm" path="res://scenes/page_nav.tscn" id="7_r44b6"]
 
-[node name="Levels" type="CanvasLayer" unique_id=809987172 node_paths=PackedStringArray("levels_grid_node", "back_button")]
+[node name="Levels" type="CanvasLayer" unique_id=809987172 node_paths=PackedStringArray("levels_grid_node", "back_button_node", "star_icon_node", "page_nav_node", "footer_node", "star_progress_node")]
 script = ExtResource("1_5ekxl")
 levels_grid_node = NodePath("Control/LevelsGrid")
-back_button = NodePath("Control/BackButton")
+back_button_node = NodePath("Control/TopRow/BackButton")
+star_icon_node = NodePath("Control/TopRow/StarIcon")
+page_nav_node = NodePath("Control/PageNav")
+footer_node = NodePath("Control/Footer")
+star_progress_node = NodePath("Control/TopRow/StarProgress")
 
 [node name="Control" type="Control" parent="." unique_id=100792421]
 layout_mode = 3
@@ -16,6 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Background" type="TextureRect" parent="Control" unique_id=251894117]
 layout_mode = 1
@@ -27,21 +36,56 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("2_5ekxl")
 
-[node name="Label" type="Label" parent="Control" unique_id=76167861]
+[node name="Title" type="Label" parent="Control" unique_id=76167861]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -96.0
-offset_top = 90.0
+offset_top = 98.0
 offset_right = 96.0
-offset_bottom = 113.0
+offset_bottom = 121.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
 theme_override_fonts/font = ExtResource("1_hcnff")
+theme_override_font_sizes/font_size = 20
 text = "Select Level"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TopRow" type="HBoxContainer" parent="Control" unique_id=766174323]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -168.0
+offset_top = 32.0
+offset_right = 160.0
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_constants/separation = 8
+
+[node name="BackButton" parent="Control/TopRow" unique_id=354671964 instance=ExtResource("4_jj4e6")]
+layout_mode = 2
+icon = ExtResource("5_byla0")
+
+[node name="Spacer" type="Control" parent="Control/TopRow" unique_id=1697594280]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StarIcon" type="TextureRect" parent="Control/TopRow" unique_id=719778733]
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_byla0")
+
+[node name="StarProgress" type="Label" parent="Control/TopRow" unique_id=1672025975]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9764706, 0.8862745, 0.6862745, 1)
+theme_override_fonts/font = ExtResource("1_hcnff")
+theme_override_font_sizes/font_size = 14
+text = "0/0"
 
 [node name="LevelsGrid" type="GridContainer" parent="Control" unique_id=1570955680]
 layout_mode = 1
@@ -51,33 +95,42 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -108.0
-offset_top = -42.0
+offset_top = -47.0
 offset_right = 108.0
-offset_bottom = 86.0
+offset_bottom = 81.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 4
 
-[node name="BackButton" type="Button" parent="Control" unique_id=1016380815]
+[node name="Footer" type="Label" parent="Control" unique_id=314382705]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.0
+offset_top = 520.0
+offset_right = 96.0
+offset_bottom = 543.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("1_hcnff")
+theme_override_font_sizes/font_size = 10
+text = "Page 0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PageNav" parent="Control" unique_id=1200609767 instance=ExtResource("7_r44b6")]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -96.0
-offset_top = -100.0
-offset_right = 96.0
-offset_bottom = -77.0
+offset_left = -92.0
+offset_top = -86.0
+offset_right = 92.0
+offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
-theme_override_colors/font_focus_color = Color(0.9607843, 0.8784314, 0.8627451, 1)
-theme_override_colors/font_pressed_color = Color(0.45490196, 0.78039217, 0.9254902, 1)
-theme_override_colors/font_hover_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
-theme_override_fonts/font = ExtResource("1_hcnff")
-theme_override_font_sizes/font_size = 12
-text = "Back"
-flat = true

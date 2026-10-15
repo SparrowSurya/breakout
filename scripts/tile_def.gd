@@ -17,6 +17,15 @@ enum TileType {
 	METAL,
 }
 
+const TILE: Dictionary = {
+	"Mauve": preload("res://assets/sprites/tiles/mauve.png"),
+	"Blue": preload("res://assets/sprites/tiles/blue.png"),
+	"Green": preload("res://assets/sprites/tiles/green.png"),
+	"Yellow": preload("res://assets/sprites/tiles/yellow.png"),
+	"Peach": preload("res://assets/sprites/tiles/peach.png"),
+	"Red": preload("res://assets/sprites/tiles/red.png"),
+	"Metal": preload("res://assets/sprites/tiles/metal.png"),
+}
 
 var health: int
 var is_immune: bool
@@ -47,31 +56,31 @@ static func _build_table() -> void:
 		return
 	
 	_table = [
-		TileDef.new(9, false, Constants.TILE.Metal, TileType.METAL, Constants.HEALTH_COLORS[0]),
-		TileDef.new(1, false, Constants.TILE.Mauve, TileType.MAUVE, Constants.HEALTH_COLORS[1]),
-		TileDef.new(2, false, Constants.TILE.Blue, TileType.BLUE, Constants.HEALTH_COLORS[2]),
-		TileDef.new(3, false, Constants.TILE.Green, TileType.GREEN, Constants.HEALTH_COLORS[3]),
-		TileDef.new(4, false, Constants.TILE.Yellow, TileType.YELLOW, Constants.HEALTH_COLORS[4]),
-		TileDef.new(5, false, Constants.TILE.Peach, TileType.PEACH, Constants.HEALTH_COLORS[5]),
-		TileDef.new(6, false, Constants.TILE.Red, TileType.RED, Constants.HEALTH_COLORS[6]),
+		TileDef.new(9, false, TILE.Metal, TileType.METAL, Palette.OVERLAY0),
+		TileDef.new(1, false, TILE.Mauve, TileType.MAUVE, Palette.MAUVE),
+		TileDef.new(2, false, TILE.Blue, TileType.BLUE, Palette.BLUE),
+		TileDef.new(3, false, TILE.Green, TileType.GREEN, Palette.GREEN),
+		TileDef.new(4, false, TILE.Yellow, TileType.YELLOW, Palette.YELLOW),
+		TileDef.new(5, false, TILE.Peach, TileType.PEACH, Palette.PEACH),
+		TileDef.new(6, false, TILE.Red, TileType.RED, Palette.RED),
 	]
 
 
-static func from_health(health: int) -> TileDef:
+static func from_health(p_health: int) -> TileDef:
 	_build_table()
 	for entry in _table:
-		if entry.health == health:
+		if entry.health == p_health:
 			return entry
 	
-	push_warning("TileDef: no entry for health %d, falling back to metal" % health)
+	push_warning("TileDef: no entry for health %d, falling back to metal" % p_health)
 	return _table[0]
 
 
-static func from_type(type: TileType) -> TileDef:
+static func from_type(p_type: TileType) -> TileDef:
 	_build_table()
 	for entry in _table:
-		if entry.type == type:
+		if entry.type == p_type:
 			return entry
 	
-	push_warning("TileDef: no entry for type %d, falling back to metal" % type)
+	push_warning("TileDef: no entry for type %d, falling back to metal" % p_type)
 	return _table[0]

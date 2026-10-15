@@ -1,14 +1,162 @@
-extends Control
+class_name LevelLabel
+extends PanelContainer
 
-@export var background: ColorRect
-@export var button: Button
-@export var level: int = 1
+@export var border_node: ColorRect
+@export var margin_node: MarginContainer
+@export var overlay_node: ColorRect
+
+@export var indicator_node: ColorRect
+@export var lock_icon_node: TextureRect
+@export var level_node: Label
+@export var tab_locked_status_node: TabContainer
+@export var progress_tab_node: TabContainer
+@export var stars_node: HBoxContainer
+@export var progress_node: ProgressBar
+
+@export var level_no: int = 0
+@export var difficulty: LevelDef.LevelDifficulty = LevelDef.LevelDifficulty.EASY
+@export var locked: bool = true
+@export var progress: float = 0.0
+@export var stars: int = 0
+
+const LOCKED_TAB: int = 0
+const UNLOCKED_TAB: int = 1
+const FINISHED_TAB: int = 0
+const UNFINISHED_TAB: int = 1
+
+const PROGRESS_MIN_VALUE: float = 0.0
+const PROGRESS_MAX_VALUE: float = 100.0
+
+const HOVER_Y_DELTA: float = 8.0
+const PRESS_Y_DELTA: float = 2.0
+const HOVER_BRIGHTNESS: float = 0.15
+
+var active_tween: Tween
+var is_hovered: bool = false
+
+# Track original baseline Y positions
+var orig_border_y: float
+var orig_indicator_y: float
+var orig_margin_y: float
+var orig_overlay_y: float
 
 
 func _ready() -> void:
-	button.text = str(level)
-	button.pressed.connect(_on_button_clicked)
+	gui_input.connect(_on_gui_input)
+	
+	lock_icon_node.modulate = Palette.OVERLAY1
+	level_node.text = str(level_no)
+	
+	progress_node.min_value = PROGRESS_MIN_VALUE
+	progress_node.max_value = PROGRESS_MAX_VALUE
+	
+	for star_node in stars_node.get_children():
+		if star_node is TextureRect:
+			star_node.modulate = Palette.YELLOW
+
+	apply()
+
+	if border_node: orig_border_y = border_node.position.y
+	if indicator_node: orig_indicator_y = indicator_node.position.y
+	if margin_node: orig_margin_y = margin_node.position.y
+	if overlay_node: orig_overlay_y = overlay_node.position.y
+
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
 
 
-func _on_button_clicked() -> void:
-	GameManager.enter_level(level)
+func apply() -> void:
+	if locked:
+		indicator_node.color = Palette.SURFACE1
+		tab_locked_status_node.current_tab = LOCKED_TAB
+	else:
+		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		indicator_node.color = _get_difficulty_color(difficulty)
+		tab_locked_status_node.current_tab = UNLOCKED_TAB
+		progress_node.value = clamp(progress, PROGRESS_MIN_VALUE, PROGRESS_MAX_VALUE)
+		
+		if progress == 100.0:
+			progress_tab_node.current_tab = FINISHED_TAB
+		else:
+			progress_tab_node.current_tab = UNFINISHED_TAB
+			
+			for i in range(stars_node.get_child_count()):
+				var star_node = stars_node.get_child(i)
+				if i < stars:
+					star_node.show()
+				else:
+					star_node.hide()
+
+
+func _on_gui_input(event: InputEvent) -> void:
+	if locked: return
+
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.is_pressed():
+			_on_button_down()
+			GameManager.enter_level(level_no)
+		elif event.is_released():
+			_on_button_up()
+
+
+func _get_difficulty_color(p_difficulty: LevelDef.LevelDifficulty) -> Color:
+	var color = Palette.OVERLAY2
+	match p_difficulty:
+		LevelDef.LevelDifficulty.EASY:
+			color = Palette.GREEN
+		LevelDef.LevelDifficulty.MEDIUM:
+			color = Palette.YELLOW
+		LevelDef.LevelDifficulty.HARD:
+			color = Palette.RED
+	return color
+
+func animate_lift(offset: float, brightness: float) -> void:
+	if locked: return
+
+	if active_tween and active_tween.is_valid():
+		active_tween.kill()
+
+	active_tween = create_tween().set_parallel(true)
+	
+	if border_node:
+		active_tween.tween_property(border_node, "position:y", orig_border_y - offset, 0.1)\
+			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	if indicator_node:
+		active_tween.tween_property(indicator_node, "position:y", orig_indicator_y - offset, 0.1)\
+			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	if margin_node:
+		active_tween.tween_property(margin_node, "position:y", orig_margin_y - offset, 0.1)\
+			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	if overlay_node:
+		active_tween.tween_property(overlay_node, "position:y", orig_margin_y - offset, 0.1)\
+			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		active_tween.tween_property(overlay_node, "color:a", brightness, 0.1)\
+				.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+
+func _on_mouse_entered() -> void:
+	if locked: return
+
+	is_hovered = true
+	animate_lift(HOVER_Y_DELTA, 0.1)
+
+
+func _on_mouse_exited() -> void:
+	if locked: return
+
+	is_hovered = false
+	animate_lift(0.0, 0.0)
+
+
+func _on_button_down() -> void:
+	animate_lift(PRESS_Y_DELTA, 0.2)
+
+
+func _on_button_up() -> void:
+	var mouse_pos = get_local_mouse_position()
+	var is_mouse_inside = Rect2(Vector2.ZERO, size).has_point(mouse_pos)
+	
+	if is_mouse_inside:
+		animate_lift(HOVER_Y_DELTA, 0.1)
+	else:
+		animate_lift(0.0, 0.0)

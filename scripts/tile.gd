@@ -63,9 +63,9 @@ func spawn_particles(pos: Vector2) -> void:
 	var particles = particles_scene.instantiate()
 	get_tree().current_scene.add_child(particles)
 	particles.global_position = pos
-	
+
 	var image := Image.create(2, 2, false, Image.FORMAT_RGBA8)
-	var target_color = Constants.HEALTH_COLORS.get(tile_health, Color.WHITE)
+	var target_color = TileDef.from_health(tile_health).color
 
 	image.fill(target_color)
 	particles.texture = ImageTexture.create_from_image(image)

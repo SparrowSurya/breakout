@@ -10,8 +10,12 @@ enum GameState {
 }
 
 
-var level_data: LevelData
+var level_data: LevelDef
 var game_state: GameState = GameState.NONE
+
+
+func _ready() -> void:
+	LevelDef.initialise()
 
 
 # Enter MainMenu scene.
@@ -28,7 +32,7 @@ func enter_levels() -> void:
 
 # Enter specific Level.
 func enter_level(level: int) -> void:
-	level_data = LevelData.load_level(level)
+	level_data = LevelDef.load_level(level)
 	if level_data == null:
 		push_warning("GameManager: enter level failed beacause level_data is null")
 		return
@@ -38,7 +42,7 @@ func enter_level(level: int) -> void:
 
 # Know if the level exists.
 func has_level(level: int) -> bool:
-	return level > 0 and level < LevelData.level_count
+	return level > 0 and level < LevelDef.level_count
 
 
 # Helper function that erases old level data when exited.

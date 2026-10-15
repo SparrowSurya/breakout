@@ -20,7 +20,6 @@ func _ready() -> void:
 	style_pressed = get_theme_stylebox("pressed") as StyleBoxTexture
 	style_focus = get_theme_stylebox("focus") as StyleBoxTexture # NEW
 	
-	
 	if style_normal: style_normal = style_normal.duplicate()
 	if style_hover: style_hover = style_hover.duplicate()
 	if style_pressed: style_pressed = style_pressed.duplicate()
@@ -40,6 +39,14 @@ func _ready() -> void:
 	button_up.connect(_on_button_up)
 	focus_entered.connect(_on_focus_entered)
 	focus_exited.connect(_on_focus_exited)
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_DRAW:
+		if disabled:
+			mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
+		else:
+			mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 
 
 func animate_graphic_and_text_shift(target_offset: float) -> void:
