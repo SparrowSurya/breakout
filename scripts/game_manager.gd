@@ -6,6 +6,8 @@ enum GameState {
 	INITIAL,   # Initial state
 	COUNTDOWN, # Countdown before starting game
 	PLAYING,   # Game playing state
+	PAUSED,    # Game is paused
+	WAITING,   # Waiting state as small break
 	END,       # Game end screen state
 }
 

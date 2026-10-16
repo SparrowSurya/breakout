@@ -1,8 +1,8 @@
 class_name Tile
 extends StaticBody2D
 
-# Signal is used to identify the tile destoryed
-signal destroyed(tile: Tile)
+# Signal emitted when tile takes damage.
+signal on_hit(tile: Tile, effective_damage: int, destroyed: bool)
 
 @export var tile_type: TileDef.TileType = TileDef.TileType.GREEN
 @export var sprite: Sprite2D
@@ -23,19 +23,23 @@ func _ready() -> void:
 	_apply(TileDef.from_type(tile_type))
 
 
-func hit() -> void:
+func hit(damage: int = 1) -> void:
 	if is_immune:
 		play_sound(Constants.SOUND.BallHitMetalTile)
 		shake()
 		return
-		
+	
+	var effective_damage = tile_health if damage > tile_health else damage
+
 	spawn_particles(position)
-	tile_health -= 1
+	tile_health -= damage
 	if tile_health <= 0:
 		play_sound(Constants.SOUND.TileDestroy)
+		on_hit.emit(self, effective_damage, true)
 		destroy()
 		return
-
+	
+	on_hit.emit(self, effective_damage, false)
 	play_sound(Constants.SOUND.BallHitTile)
 	_apply(TileDef.from_health(tile_health))
 
@@ -49,7 +53,6 @@ func _apply(data: TileDef) -> void:
 
 
 func destroy() -> void:
-	destroyed.emit(self)
 	hide()
 	collision_shape.set_deferred("disabled", true)
 

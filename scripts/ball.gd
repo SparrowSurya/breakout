@@ -7,6 +7,7 @@ const MAX_ANGLE_RAD: float = deg_to_rad(60.0)
 @export var sprite: Sprite2D
 @export var audio: AudioStreamPlayer2D
 
+var damage: int = 1
 var window_size: Vector2
 var ball_size: Vector2
 
@@ -30,7 +31,7 @@ func _physics_process(delta: float) -> void:
 			play_sound(Constants.SOUND.BallHitPaddle)
 			#paddle_collide_resolve(collision)
 		elif collider is Tile:
-			collider.hit()
+			collider.hit(damage)
 			velocity = velocity.bounce(collision.get_normal())
 		else: # Wall
 			velocity = velocity.bounce(collision.get_normal())

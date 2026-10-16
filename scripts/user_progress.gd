@@ -34,14 +34,14 @@ func stars_collected() -> int:
 	return count
 
 
-# Parses the intenral cahce to dictionary
+# Parses the intenral cache to dictionary
 func _to_dict() -> Dictionary[int, Dictionary]:
 	var data: Dictionary[int, Dictionary] = {}
 	for key in _cache.keys():
 		var value = _cache[key]
 		data[key] = {
 			"level_no": value.level_no,
-			"status": _status_to_string(value.LevelStatus),
+			"status": _status_to_string(value.status),
 			"progress": value.progress,
 			"stars": value.stars,
 		}

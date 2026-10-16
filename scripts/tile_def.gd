@@ -18,13 +18,13 @@ enum TileType {
 }
 
 const TILE: Dictionary = {
-	"Mauve": preload("res://assets/sprites/tiles/mauve.png"),
-	"Blue": preload("res://assets/sprites/tiles/blue.png"),
-	"Green": preload("res://assets/sprites/tiles/green.png"),
-	"Yellow": preload("res://assets/sprites/tiles/yellow.png"),
-	"Peach": preload("res://assets/sprites/tiles/peach.png"),
-	"Red": preload("res://assets/sprites/tiles/red.png"),
-	"Metal": preload("res://assets/sprites/tiles/metal.png"),
+	"Mauve": preload("res://assets/textures/tiles/purple.png"),
+	"Blue": preload("res://assets/textures/tiles/blue.png"),
+	"Green": preload("res://assets/textures/tiles/green.png"),
+	"Yellow": preload("res://assets/textures/tiles/yellow.png"),
+	"Peach": preload("res://assets/textures/tiles/orange.png"),
+	"Red": preload("res://assets/textures/tiles/red.png"),
+	"Metal": preload("res://assets/textures/tiles/metal.png"),
 }
 
 var health: int

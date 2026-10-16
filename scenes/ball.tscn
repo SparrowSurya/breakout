@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cxvgn5jfhfjca"]
 
-[ext_resource type="Texture2D" uid="uid://bn2bak65n5ovu" path="res://assets/sprites/ball.png" id="1_7s4qf"]
 [ext_resource type="Script" uid="uid://bf5hpgdf86fby" path="res://scripts/ball.gd" id="1_cxlvu"]
+[ext_resource type="Texture2D" uid="uid://bfnpsmxs5swjd" path="res://assets/textures/ball.png" id="2_cxlvu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vse7m"]
 radius = 4.0
@@ -12,7 +12,7 @@ sprite = NodePath("Sprite2D")
 audio = NodePath("AudioStreamPlayer2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2112803009]
-texture = ExtResource("1_7s4qf")
+texture = ExtResource("2_cxlvu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=488496908]
 shape = SubResource("CircleShape2D_vse7m")
