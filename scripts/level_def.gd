@@ -52,6 +52,9 @@ static func initialise() -> void:
 
 # Parses JSON string representing a level
 static func _parse(line: String) -> LevelDef:
+	if not line.begins_with("{") and not line.ends_with("}"):
+		return null
+
 	var parsed = JSON.parse_string(line)
 	if not parsed is Dictionary:
 		return null

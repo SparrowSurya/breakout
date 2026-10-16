@@ -116,8 +116,6 @@ func _init_variables() -> void:
 		+ wall_top_node.shape.get_rect().size.y / 2.0
 	)
 
-	lives = health_node.get_children().filter(func(node): return node is TextureRect).size()
-
 	progress_bar.min_value = PROGRESS_MIN_VALUE
 	progress_bar.max_value = PROGRESS_MAX_VALUE
 	
@@ -126,9 +124,6 @@ func _init_variables() -> void:
 
 	lost_menu_progress_bar.min_value = PROGRESS_MIN_VALUE
 	lost_menu_progress_bar.max_value = PROGRESS_MAX_VALUE
-	
-	pause_button.disabled = true
-	resume_button.disabled = true
 
 
 # Attaches signals listeners to the signals.;
@@ -151,16 +146,21 @@ func _connect_signals() -> void:
 
 # Setup perfomrs the game setup based on the level selected.
 func setup() -> void:
-	_setup_tiles()
-	_setup_paddle()
-	_setup_ball()
-	_setup_hud()
-
 	pause_resume_tab.current_tab = TAB_PAUSE
+
+	lives = health_node.get_children().filter(func(node): return node is TextureRect).size()
+	
+	pause_button.disabled = true
+	resume_button.disabled = true
 
 	countdown_label.hide()
 	pause_menu.hide()
 	end_menu.hide()
+
+	_setup_tiles()
+	_setup_paddle()
+	_setup_ball()
+	_setup_hud()
 
 
 # Instantiate and setup tiles as per the level
@@ -416,7 +416,7 @@ func play_next_level() -> void:
 
 # Evaluates the stars from the score.
 func evaluate_stars(_score: int) -> int:
-	return 0
+	return lives
 
 # Updates the tiles counter and triggers end game if no tiles left to destroy.
 func tile_destroyed(_tile: Tile, effective_damage: int, destroyed: bool) -> void:

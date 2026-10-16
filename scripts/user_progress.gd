@@ -3,7 +3,7 @@ extends Node
 # User data file
 const USER_PROGRESS_PATH := "user://progress.json"
 
-# A copy of the actual data in file
+# A copy of the actual data in file.
 var _cache: Dictionary[int, LevelProgress] = {}
 
 
@@ -15,6 +15,7 @@ func _ready() -> void:
 # Saves the level progress
 func save(progress: LevelProgress) -> void:
 	_cache[progress.level_no] = progress
+	_unlock_level(progress.level_no+1)
 	var data = _to_dict()
 	_save(data)
 
@@ -32,6 +33,23 @@ func stars_collected() -> int:
 	for key in _cache.keys():
 		count += _cache[key].stars
 	return count
+
+
+# Returns the level_no which after which all are locked
+func highest_unlocked_level() -> int:
+	var level_no: int = 0
+	for key in _cache.keys():
+		var value = _cache[key]
+		var unlocked = value.status == LevelProgress.LevelStatus.UNLOCKED
+		if unlocked and value.level_no > level_no:
+			level_no = value.level_no
+	return level_no
+
+
+# Unlocks given level
+func _unlock_level(level_no: int):
+	if 0 < level_no and level_no <= LevelDef.level_count:
+		_cache[level_no] = LevelProgress.as_wip(level_no, 0.0)
 
 
 # Parses the intenral cache to dictionary

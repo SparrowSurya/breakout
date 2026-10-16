@@ -14,6 +14,7 @@ var style_focus: StyleBoxTexture
 var base_margin_top: float
 var base_margin_bottom: float
 
+
 func _ready() -> void:
 	style_normal = get_theme_stylebox("normal") as StyleBoxTexture
 	style_hover = get_theme_stylebox("hover") as StyleBoxTexture
@@ -37,16 +38,22 @@ func _ready() -> void:
 	mouse_exited.connect(_on_mouse_exited)
 	button_down.connect(_on_button_down)
 	button_up.connect(_on_button_up)
-	focus_entered.connect(_on_focus_entered)
-	focus_exited.connect(_on_focus_exited)
+	
+	_apply_disable_setting()
 
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_DRAW:
-		if disabled:
-			mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
-		else:
-			mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		_apply_disable_setting()
+
+
+func _apply_disable_setting() -> void:
+	if disabled:
+		mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
+		focus_mode = Control.FOCUS_NONE
+	else:
+		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		focus_mode = Control.FOCUS_ALL
 
 
 func animate_graphic_and_text_shift(target_offset: float) -> void:
@@ -81,17 +88,6 @@ func _on_button_down() -> void:
 
 
 func _on_button_up() -> void:
-	if is_hovered():
-		animate_graphic_and_text_shift(HOVER_Y_DELTA)
-	else:
-		animate_graphic_and_text_shift(0.0)
-
-
-func _on_focus_entered() -> void:
-	animate_graphic_and_text_shift(HOVER_Y_DELTA)
-
-
-func _on_focus_exited() -> void:
 	if is_hovered():
 		animate_graphic_and_text_shift(HOVER_Y_DELTA)
 	else:

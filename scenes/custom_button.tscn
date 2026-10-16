@@ -24,6 +24,7 @@ texture = ExtResource("4_fru5d")
 texture = ExtResource("5_px24n")
 
 [node name="CustomButton" type="Button" unique_id=1882703824]
+z_index = 1
 custom_minimum_size = Vector2(150, 40)
 offset_right = 150.0
 offset_bottom = 40.0

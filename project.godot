@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Breakout"
+config/name="breakout"
 run/main_scene="uid://dughj3ox21kgw"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="uid://ct10a511fmsrd"

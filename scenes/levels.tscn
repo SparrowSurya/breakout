@@ -24,7 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 
 [node name="Background" type="TextureRect" parent="Control" unique_id=251894117]
 layout_mode = 1
@@ -72,6 +72,7 @@ icon = ExtResource("5_byla0")
 [node name="Spacer" type="Control" parent="Control/TopRow" unique_id=1697594280]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 
 [node name="StarIcon" type="TextureRect" parent="Control/TopRow" unique_id=719778733]
 custom_minimum_size = Vector2(16, 16)

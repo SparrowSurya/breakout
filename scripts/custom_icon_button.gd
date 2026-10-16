@@ -38,16 +38,23 @@ func _ready() -> void:
 	mouse_exited.connect(_on_mouse_exited)
 	button_down.connect(_on_button_down)
 	button_up.connect(_on_button_up)
-	focus_entered.connect(_on_focus_entered)
-	focus_exited.connect(_on_focus_exited)
+	
+	_apply_disable_setting()
 
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_DRAW:
-		if disabled:
-			mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
-		else:
-			mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		_apply_disable_setting()
+
+
+func _apply_disable_setting() -> void:
+	if disabled:
+		mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
+		focus_mode = Control.FOCUS_NONE
+	else:
+		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		focus_mode = Control.FOCUS_ALL
+
 
 func animate_graphic_and_text_shift(target_offset: float) -> void:
 	if active_tween and active_tween.is_valid():

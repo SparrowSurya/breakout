@@ -4,6 +4,7 @@ extends PanelContainer
 @export var border_node: ColorRect
 @export var margin_node: MarginContainer
 @export var overlay_node: ColorRect
+@export var highlight_node: ColorRect
 
 @export var indicator_node: ColorRect
 @export var lock_icon_node: TextureRect
@@ -39,10 +40,11 @@ var orig_border_y: float
 var orig_indicator_y: float
 var orig_margin_y: float
 var orig_overlay_y: float
+var orig_highlight_y: float
 
 
 func _ready() -> void:
-	gui_input.connect(_on_gui_input)
+	highlight_node.color = Color.TRANSPARENT
 	
 	lock_icon_node.modulate = Palette.OVERLAY1
 	level_node.text = str(level_no)
@@ -50,9 +52,17 @@ func _ready() -> void:
 	progress_node.min_value = PROGRESS_MIN_VALUE
 	progress_node.max_value = PROGRESS_MAX_VALUE
 	
-	for star_node in stars_node.get_children():
-		if star_node is TextureRect:
-			star_node.modulate = Palette.YELLOW
+	var level_progress: LevelProgress = UserProgress.of_level(level_no)
+	var stars_node_list: Array[TextureRect] = []
+	for node in stars_node.get_children():
+		if node is TextureRect:
+			stars_node_list.append(node)
+
+	for i in range(stars_node_list.size()):
+		if i < level_progress.stars:
+			stars_node_list[i].modulate = Palette.YELLOW
+		else:
+			stars_node_list[i].modulate = Palette.SURFACE1
 
 	apply()
 
@@ -60,9 +70,18 @@ func _ready() -> void:
 	if indicator_node: orig_indicator_y = indicator_node.position.y
 	if margin_node: orig_margin_y = margin_node.position.y
 	if overlay_node: orig_overlay_y = overlay_node.position.y
+	if highlight_node: orig_highlight_y = highlight_node.position.y
 
+	gui_input.connect(_on_gui_input)
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
+
+	if locked:
+		focus_mode = Control.FOCUS_NONE
+	else:
+		focus_mode = Control.FOCUS_ALL
+		focus_entered.connect(_on_focus_enter)
+		focus_exited.connect(_on_focus_exit)
 
 
 func apply() -> void:
@@ -98,6 +117,10 @@ func _on_gui_input(event: InputEvent) -> void:
 		elif event.is_released():
 			_on_button_up()
 
+	if has_focus() and event.is_action_pressed("continue"):
+		accept_event()
+		GameManager.enter_level(level_no)
+
 
 func _get_difficulty_color(p_difficulty: LevelDef.LevelDifficulty) -> Color:
 	var color = Palette.OVERLAY2
@@ -109,6 +132,7 @@ func _get_difficulty_color(p_difficulty: LevelDef.LevelDifficulty) -> Color:
 		LevelDef.LevelDifficulty.HARD:
 			color = Palette.RED
 	return color
+
 
 func animate_lift(offset: float, brightness: float) -> void:
 	if locked: return
@@ -126,6 +150,9 @@ func animate_lift(offset: float, brightness: float) -> void:
 			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	if margin_node:
 		active_tween.tween_property(margin_node, "position:y", orig_margin_y - offset, 0.1)\
+			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	if highlight_node:
+		active_tween.tween_property(highlight_node, "position:y", orig_highlight_y - offset, 0.1)\
 			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	if overlay_node:
 		active_tween.tween_property(overlay_node, "position:y", orig_margin_y - offset, 0.1)\
@@ -160,3 +187,11 @@ func _on_button_up() -> void:
 		animate_lift(HOVER_Y_DELTA, 0.1)
 	else:
 		animate_lift(0.0, 0.0)
+
+
+func _on_focus_enter() -> void:
+	highlight_node.color = Palette.LAVENDER
+
+
+func _on_focus_exit() -> void:
+	highlight_node.color = Color.TRANSPARENT
