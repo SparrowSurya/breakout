@@ -39,7 +39,7 @@ func enter_level(level: int) -> void:
 		push_warning("GameManager: enter level failed beacause level_data is null")
 		return
 
-	get_tree().change_scene_to_file(Constants.SCENE.LevelGame)
+	get_tree().change_scene_to_file(Constants.SCENE.Gameplay)
 
 
 # Know if the level exists.

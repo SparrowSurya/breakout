@@ -23,6 +23,6 @@ const SCENE: Dictionary = {
 	"Tile": "res://src/game/tile/tile.tscn",
 	"Ball": "res://src/game/ball/ball.tscn",
 	"MainMenu": "res://src/screens/main_menu/main_menu.tscn",
-	"Levels": "res://src/screens/level_select/levels.tscn",
-	"LevelGame": "res://src/screens/gameplay/level_game.tscn",
+	"Levels": "res://src/screens/level_select/level_select.tscn",
+	"Gameplay": "res://src/screens/gameplay/gameplay.tscn",
 }
