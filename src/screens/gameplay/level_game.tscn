@@ -1,0 +1,804 @@
+[gd_scene format=3 uid="uid://chc8wkvisii0"]
+
+[ext_resource type="Script" uid="uid://df2cd8qt25exy" path="res://src/screens/gameplay/level_game.gd" id="1_akxqx"]
+[ext_resource type="Texture2D" uid="uid://l3eaidps5yc4" path="res://assets/textures/background.png" id="2_h0h0j"]
+[ext_resource type="PackedScene" uid="uid://flgqh3dlwr0a" path="res://src/ui/button/custom_icon_button.tscn" id="3_ghsw2"]
+[ext_resource type="Texture2D" uid="uid://b7mwsiamuf3i6" path="res://assets/textures/icons/pause.png" id="4_m0w58"]
+[ext_resource type="Texture2D" uid="uid://dg20l0c0blct6" path="res://assets/textures/icons/triangle-right.png" id="5_yfbd3"]
+[ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="6_xd7s3"]
+[ext_resource type="Texture2D" uid="uid://ct0l3mhdv2bdy" path="res://assets/textures/icons/heart.png" id="7_llfnd"]
+[ext_resource type="PackedScene" uid="uid://dy1xomrq02t83" path="res://src/ui/button/custom_button.tscn" id="8_gntle"]
+[ext_resource type="Texture2D" uid="uid://yxj7oo20cy1i" path="res://assets/textures/icons/star.png" id="9_lc4mi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ac4yb"]
+size = Vector2(20.5, 640.22656)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oglf6"]
+size = Vector2(416.5, 126.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cqdw0"]
+size = Vector2(533, 114)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_sa604"]
+color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_0viym"]
+color = Color(0.6509804, 0.8901961, 0.6313726, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vse7m"]
+bg_color = Color(0.09411765, 0.09411765, 0.14509805, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.27058825, 0.2784314, 0.34901962, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilsnw"]
+bg_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_13hly"]
+color = Color(0.27058825, 0.2784314, 0.34901962, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_y4bpb"]
+color = Color(0.7058824, 0.74509805, 0.99607843, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 6
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ls246"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g5116"]
+bg_color = Color(0.6509804, 0.8901961, 0.6313726, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sa604"]
+bg_color = Color(0.9529412, 0.54509807, 0.65882355, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_g5116"]
+color = Color(0.27058825, 0.2784314, 0.34901962, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_7gkcw"]
+color = Color(0.7058824, 0.74509805, 0.99607843, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 6
+
+[node name="LevelGame" type="Node2D" unique_id=785940793 node_paths=PackedStringArray("tiles_node", "dead_zone", "countdown_label", "wall_top_node", "audio", "pause_resume_tab", "pause_button", "resume_button", "level_label", "health_node", "score_node", "progress_node", "progress_bar", "pause_menu", "pause_menu_level_no", "pause_menu_progress", "pause_menu_progress_bar", "pause_menu_resume_button", "pause_menu_restart_button", "pause_menu_exit_button", "end_menu", "end_menu_tab", "win_menu_stars", "win_menu_level_no_label", "win_menu_time_label", "win_menu_lives", "win_menu_play_next_button", "win_menu_play_again_button", "win_menu_exit_button", "lost_menu_stars", "lost_menu_level_no_label", "lost_menu_time_label", "lost_menu_progress", "lost_menu_progress_bar", "lost_menu_play_again_button", "lost_menu_exit_button")]
+script = ExtResource("1_akxqx")
+tiles_node = NodePath("tiles")
+dead_zone = NodePath("DeadZone")
+countdown_label = NodePath("UI/Hud/Content/Expanded/Countdown")
+wall_top_node = NodePath("Wall/Top/CollisionShape2D")
+audio = NodePath("AudioStreamPlayer2D")
+pause_resume_tab = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab")
+pause_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/PauseButton")
+resume_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/ResumeButton")
+level_label = NodePath("UI/Hud/Content/Heading/Column/Row1/LevelLabel")
+health_node = NodePath("UI/Hud/Content/Heading/Column/Row1/Health")
+score_node = NodePath("UI/Hud/Content/Heading/Column/Row2/Score")
+progress_node = NodePath("UI/Hud/Content/Heading/Column/Row2/Progress")
+progress_bar = NodePath("UI/Hud/Content/Heading/Column/ProgressBar")
+pause_menu = NodePath("UI/PauseMenu")
+pause_menu_level_no = NodePath("UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/LevelInfoRow/LevelNo")
+pause_menu_progress = NodePath("UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/ProgressInfoRow/Progress")
+pause_menu_progress_bar = NodePath("UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/ProgressBar")
+pause_menu_resume_button = NodePath("UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons/ResumeButton")
+pause_menu_restart_button = NodePath("UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons/RestartButton")
+pause_menu_exit_button = NodePath("UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons/ExitButton")
+end_menu = NodePath("UI/EndMenu")
+end_menu_tab = NodePath("UI/EndMenu/EndMenuTab")
+win_menu_stars = NodePath("UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/Margin2/Stars")
+win_menu_level_no_label = NodePath("UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/LevelInfoRow/LevelNo")
+win_menu_time_label = NodePath("UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/TimeInfoRow/Time")
+win_menu_lives = NodePath("UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/LivesInfoRow/Lives")
+win_menu_play_next_button = NodePath("UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons/PlayNextButton")
+win_menu_play_again_button = NodePath("UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons/PlayAgainButton")
+win_menu_exit_button = NodePath("UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons/ExitButton")
+lost_menu_stars = NodePath("UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/Margin2/Stars")
+lost_menu_level_no_label = NodePath("UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/LevelInfoRow/LevelNo")
+lost_menu_time_label = NodePath("UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/TimeInfoRow/Time")
+lost_menu_progress = NodePath("UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/ProgressInfoRow/Progress")
+lost_menu_progress_bar = NodePath("UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/ProgressBar")
+lost_menu_play_again_button = NodePath("UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons/PlayAgainButton")
+lost_menu_exit_button = NodePath("UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons/ExitButton")
+
+[node name="Wall" type="Node" parent="." unique_id=232112298]
+
+[node name="Left" type="StaticBody2D" parent="Wall" unique_id=1806981390]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Left" unique_id=1388655391]
+position = Vector2(-10.25, 319.22656)
+shape = SubResource("RectangleShape2D_ac4yb")
+
+[node name="Right" type="StaticBody2D" parent="Wall" unique_id=109446844]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Right" unique_id=9793871]
+position = Vector2(370, 319.88672)
+shape = SubResource("RectangleShape2D_ac4yb")
+
+[node name="Top" type="StaticBody2D" parent="Wall" unique_id=890653234]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Top" unique_id=820340591]
+position = Vector2(180.25, 57.25)
+shape = SubResource("RectangleShape2D_oglf6")
+
+[node name="DeadZone" type="Area2D" parent="." unique_id=2068172571]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeadZone" unique_id=2074255636]
+position = Vector2(180.5, 697)
+shape = SubResource("RectangleShape2D_cqdw0")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=333795670]
+position = Vector2(180, 320.00003)
+scale = Vector2(0.99999994, 1)
+texture = ExtResource("2_h0h0j")
+
+[node name="tiles" type="Node2D" parent="." unique_id=731299019]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=598152254]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1814999187]
+
+[node name="Hud" type="Control" parent="UI" unique_id=160369433]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="VBoxContainer" parent="UI/Hud" unique_id=2047548999]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Heading" type="MarginContainer" parent="UI/Hud/Content" unique_id=2080025014]
+custom_minimum_size = Vector2(360, 0)
+custom_maximum_size = Vector2(360, -1)
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+
+[node name="Column" type="VBoxContainer" parent="UI/Hud/Content/Heading" unique_id=333795395]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Row1" type="HBoxContainer" parent="UI/Hud/Content/Heading/Column" unique_id=376081788]
+layout_mode = 2
+
+[node name="PauseResumeTab" type="TabContainer" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=402458401]
+layout_mode = 2
+current_tab = 1
+tabs_visible = false
+
+[node name="PauseButton" parent="UI/Hud/Content/Heading/Column/Row1/PauseResumeTab" unique_id=354671964 instance=ExtResource("3_ghsw2")]
+visible = false
+layout_mode = 2
+icon = ExtResource("4_m0w58")
+metadata/_tab_index = 0
+
+[node name="ResumeButton" parent="UI/Hud/Content/Heading/Column/Row1/PauseResumeTab" unique_id=2012877848 instance=ExtResource("3_ghsw2")]
+layout_mode = 2
+icon = ExtResource("5_yfbd3")
+metadata/_tab_index = 1
+
+[node name="Spacer1" type="Control" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=1465138366]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelLabel" type="Label" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=1212247357]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 16
+text = "Level 0"
+
+[node name="Spacer2" type="Control" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=2007863320]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Health" type="HBoxContainer" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=793975599]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Heart1" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/Health" unique_id=2054607702]
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("7_llfnd")
+
+[node name="Heart2" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/Health" unique_id=1973027382]
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("7_llfnd")
+
+[node name="Heart3" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/Health" unique_id=822890546]
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("7_llfnd")
+
+[node name="Row2" type="HBoxContainer" parent="UI/Hud/Content/Heading/Column" unique_id=1732480876]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ScoreLabel" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=2065674436]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "Score"
+
+[node name="Score" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=688394938]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "000000"
+
+[node name="Spacer1" type="Control" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=68723702]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Progress" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=1668082176]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "0%"
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/Hud/Content/Heading/Column" unique_id=1442031641]
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxLine_sa604")
+theme_override_styles/fill = SubResource("StyleBoxLine_0viym")
+rounded = true
+show_percentage = false
+
+[node name="Expanded" type="Control" parent="UI/Hud/Content" unique_id=442948532]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Countdown" type="Label" parent="UI/Hud/Content/Expanded" unique_id=1463198035]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -320.0
+offset_right = 180.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauseMenu" type="Control" parent="UI" unique_id=1233510534]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="UI/PauseMenu" unique_id=1860561603]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.09411765, 0.09411765, 0.14509805, 0.78431374)
+
+[node name="Center" type="CenterContainer" parent="UI/PauseMenu" unique_id=1813841986]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="PanelContainer" parent="UI/PauseMenu/Center" unique_id=1487854657]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vse7m")
+
+[node name="MainLayout" type="VBoxContainer" parent="UI/PauseMenu/Center/Menu" unique_id=426855834]
+custom_minimum_size = Vector2(296, 0)
+custom_maximum_size = Vector2(296, -1)
+layout_mode = 2
+
+[node name="Heading" type="Label" parent="UI/PauseMenu/Center/Menu/MainLayout" unique_id=1123009585]
+custom_minimum_size = Vector2(0, 54)
+custom_maximum_size = Vector2(-1, 54)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ilsnw")
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Margin" type="MarginContainer" parent="UI/PauseMenu/Center/Menu/MainLayout" unique_id=75329743]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Column" type="VBoxContainer" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin" unique_id=575305874]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LevelInfoRow" type="HBoxContainer" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column" unique_id=914600712]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/LevelInfoRow" unique_id=147817164]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "LEVEL"
+
+[node name="Spacer" type="Control" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/LevelInfoRow" unique_id=1151929475]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelNo" type="Label" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/LevelInfoRow" unique_id=347663353]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="ProgressInfoRow" type="HBoxContainer" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column" unique_id=498372284]
+layout_mode = 2
+
+[node name="ProgressLabel" type="Label" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/ProgressInfoRow" unique_id=1827740150]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "BRICKS CLEARED"
+
+[node name="Spacer" type="Control" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/ProgressInfoRow" unique_id=2144874636]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Progress" type="Label" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/ProgressInfoRow" unique_id=1266848037]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "00%"
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column" unique_id=912860619]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxLine_13hly")
+theme_override_styles/fill = SubResource("StyleBoxLine_y4bpb")
+step = 1.0
+value = 50.0
+rounded = true
+show_percentage = false
+
+[node name="Margin" type="MarginContainer" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column" unique_id=1172862761]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 8
+
+[node name="Buttons" type="VBoxContainer" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/Margin" unique_id=1217406149]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ResumeButton" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons" unique_id=1882703824 instance=ExtResource("8_gntle")]
+layout_mode = 2
+text = "Resume"
+
+[node name="RestartButton" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons" unique_id=1436872565 instance=ExtResource("8_gntle")]
+layout_mode = 2
+text = "Restart"
+
+[node name="ExitButton" parent="UI/PauseMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons" unique_id=1905898217 instance=ExtResource("8_gntle")]
+layout_mode = 2
+text = "Exit"
+
+[node name="EndMenu" type="Control" parent="UI" unique_id=292817303]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="UI/EndMenu" unique_id=1525618013]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.09411765, 0.09411765, 0.14509805, 0.78431374)
+
+[node name="EndMenuTab" type="TabContainer" parent="UI/EndMenu" unique_id=757264464]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ls246")
+current_tab = 0
+tabs_visible = false
+
+[node name="WinMenu" type="Control" parent="UI/EndMenu/EndMenuTab" unique_id=1311145196]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Center" type="CenterContainer" parent="UI/EndMenu/EndMenuTab/WinMenu" unique_id=680635320]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="PanelContainer" parent="UI/EndMenu/EndMenuTab/WinMenu/Center" unique_id=1349413136]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vse7m")
+
+[node name="MainLayout" type="VBoxContainer" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu" unique_id=399547473]
+custom_minimum_size = Vector2(296, 0)
+custom_maximum_size = Vector2(296, -1)
+layout_mode = 2
+
+[node name="Heading" type="Label" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout" unique_id=763087355]
+custom_minimum_size = Vector2(0, 54)
+custom_maximum_size = Vector2(-1, 54)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_g5116")
+text = "LEVEL CLEAR!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Margin" type="MarginContainer" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout" unique_id=1945415804]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Column" type="VBoxContainer" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin" unique_id=1612534913]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Margin2" type="MarginContainer" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column" unique_id=531990368]
+layout_mode = 2
+theme_override_constants/margin_bottom = 16
+
+[node name="Stars" type="HBoxContainer" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/Margin2" unique_id=513167106]
+propagate_maximum_size = false
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/Margin2/Stars" unique_id=1187776726]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("9_lc4mi")
+
+[node name="Star2" type="TextureRect" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/Margin2/Stars" unique_id=526735942]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+offset_transform_position = Vector2(0, -18)
+texture = ExtResource("9_lc4mi")
+
+[node name="Star3" type="TextureRect" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/Margin2/Stars" unique_id=67971132]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("9_lc4mi")
+
+[node name="LevelInfoRow" type="HBoxContainer" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column" unique_id=532554351]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/LevelInfoRow" unique_id=1255051338]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "LEVEL"
+
+[node name="Spacer" type="Control" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/LevelInfoRow" unique_id=198988896]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelNo" type="Label" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/LevelInfoRow" unique_id=1244511509]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "000"
+
+[node name="TimeInfoRow" type="HBoxContainer" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column" unique_id=1587767763]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/TimeInfoRow" unique_id=2065571768]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "TIME TAKEN"
+
+[node name="Spacer" type="Control" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/TimeInfoRow" unique_id=114078253]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Time" type="Label" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/TimeInfoRow" unique_id=1221724130]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "00:00"
+
+[node name="LivesInfoRow" type="HBoxContainer" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column" unique_id=952430254]
+layout_mode = 2
+
+[node name="LivesLabel" type="Label" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/LivesInfoRow" unique_id=1017157974]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "LIVES LEFT"
+
+[node name="Spacer" type="Control" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/LivesInfoRow" unique_id=1987096093]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Lives" type="Label" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/LivesInfoRow" unique_id=1930785535]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Margin" type="MarginContainer" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column" unique_id=1995728424]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 8
+
+[node name="Buttons" type="VBoxContainer" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/Margin" unique_id=288746441]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PlayNextButton" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons" unique_id=1359707975 instance=ExtResource("8_gntle")]
+layout_mode = 2
+text = "Play Next"
+
+[node name="PlayAgainButton" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons" unique_id=1485928411 instance=ExtResource("8_gntle")]
+layout_mode = 2
+text = "Play Again"
+
+[node name="ExitButton" parent="UI/EndMenu/EndMenuTab/WinMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons" unique_id=1190918366 instance=ExtResource("8_gntle")]
+layout_mode = 2
+text = "Exit"
+
+[node name="LoseMenu" type="Control" parent="UI/EndMenu/EndMenuTab" unique_id=17052587]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Center" type="CenterContainer" parent="UI/EndMenu/EndMenuTab/LoseMenu" unique_id=304517238]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="PanelContainer" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center" unique_id=1169710607]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vse7m")
+
+[node name="MainLayout" type="VBoxContainer" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu" unique_id=971143715]
+custom_minimum_size = Vector2(296, 0)
+custom_maximum_size = Vector2(296, -1)
+layout_mode = 2
+
+[node name="Heading" type="Label" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout" unique_id=1811072639]
+custom_minimum_size = Vector2(0, 54)
+custom_maximum_size = Vector2(-1, 54)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_sa604")
+text = "YOU LOSE!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Margin" type="MarginContainer" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout" unique_id=364393467]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Column" type="VBoxContainer" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin" unique_id=2005098205]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Margin2" type="MarginContainer" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column" unique_id=1972362778]
+layout_mode = 2
+theme_override_constants/margin_bottom = 16
+
+[node name="Stars" type="HBoxContainer" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/Margin2" unique_id=1881709506]
+propagate_maximum_size = false
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/Margin2/Stars" unique_id=398078713]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("9_lc4mi")
+
+[node name="Star2" type="TextureRect" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/Margin2/Stars" unique_id=605577260]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+offset_transform_position = Vector2(0, -18)
+texture = ExtResource("9_lc4mi")
+
+[node name="Star3" type="TextureRect" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/Margin2/Stars" unique_id=954411086]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("9_lc4mi")
+
+[node name="LevelInfoRow" type="HBoxContainer" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column" unique_id=515379336]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/LevelInfoRow" unique_id=1486835642]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "LEVEL"
+
+[node name="Spacer" type="Control" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/LevelInfoRow" unique_id=902873081]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelNo" type="Label" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/LevelInfoRow" unique_id=10364580]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="TimeInfoRow" type="HBoxContainer" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column" unique_id=1993587414]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/TimeInfoRow" unique_id=1956351168]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "TIME TAKEN"
+
+[node name="Spacer" type="Control" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/TimeInfoRow" unique_id=1863759918]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Time" type="Label" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/TimeInfoRow" unique_id=79798584]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "00:00"
+
+[node name="ProgressInfoRow" type="HBoxContainer" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column" unique_id=1657476232]
+layout_mode = 2
+
+[node name="ProgressLabel" type="Label" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/ProgressInfoRow" unique_id=793522276]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "BRICKS CLEARED"
+
+[node name="Spacer" type="Control" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/ProgressInfoRow" unique_id=1818638007]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Progress" type="Label" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/ProgressInfoRow" unique_id=1813461305]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("6_xd7s3")
+theme_override_font_sizes/font_size = 8
+text = "00%"
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column" unique_id=470746298]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxLine_g5116")
+theme_override_styles/fill = SubResource("StyleBoxLine_7gkcw")
+step = 1.0
+value = 50.0
+rounded = true
+show_percentage = false
+
+[node name="Margin" type="MarginContainer" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column" unique_id=182330275]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 8
+
+[node name="Buttons" type="VBoxContainer" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/Margin" unique_id=692046640]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PlayAgainButton" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons" unique_id=2145705884 instance=ExtResource("8_gntle")]
+layout_mode = 2
+text = "Play Again"
+
+[node name="ExitButton" parent="UI/EndMenu/EndMenuTab/LoseMenu/Center/Menu/MainLayout/Margin/Column/Margin/Buttons" unique_id=1010405585 instance=ExtResource("8_gntle")]
+layout_mode = 2
+text = "Exit"
