@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://cpniugujj2be8"]
 
 [ext_resource type="Script" uid="uid://cwufarrhqvk7p" path="res://src/screens/level_select/level_select.gd" id="1_1bx5m"]
-[ext_resource type="Texture2D" uid="uid://l3eaidps5yc4" path="res://assets/textures/background.png" id="2_awdye"]
+[ext_resource type="Texture2D" uid="uid://crpsvsth8b4ei" path="res://assets/textures/backgrounds/diamond.png" id="2_t3fn0"]
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="3_xmcw6"]
 [ext_resource type="PackedScene" uid="uid://flgqh3dlwr0a" path="res://src/ui/button/custom_icon_button.tscn" id="4_spov3"]
 [ext_resource type="Texture2D" uid="uid://dmcncaudf6iub" path="res://assets/textures/icons/triangle-left.png" id="5_ghk11"]
 [ext_resource type="Texture2D" uid="uid://yxj7oo20cy1i" path="res://assets/textures/icons/star.png" id="6_3fd8n"]
 [ext_resource type="PackedScene" uid="uid://djq4ust4em0fm" path="res://src/ui/page_nav/page_nav.tscn" id="7_px820"]
 
-[node name="Levels" type="CanvasLayer" unique_id=809987172 node_paths=PackedStringArray("levels_grid_node", "back_button_node", "star_icon_node", "page_nav_node", "footer_node", "star_progress_node")]
+[node name="LevelSelect" type="CanvasLayer" unique_id=809987172 node_paths=PackedStringArray("levels_grid_node", "back_button_node", "star_icon_node", "page_nav_node", "footer_node", "star_progress_node")]
 script = ExtResource("1_1bx5m")
 levels_grid_node = NodePath("Control/LevelsGrid")
 back_button_node = NodePath("Control/TopRow/BackButton")
@@ -34,7 +34,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_awdye")
+texture = ExtResource("2_t3fn0")
 
 [node name="Title" type="Label" parent="Control" unique_id=76167861]
 layout_mode = 1

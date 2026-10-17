@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dughj3ox21kgw"]
 
 [ext_resource type="Script" uid="uid://csbn8tgglietc" path="res://src/screens/main_menu/main_menu.gd" id="1_bqqt6"]
-[ext_resource type="Texture2D" uid="uid://l3eaidps5yc4" path="res://assets/textures/background.png" id="2_8ln24"]
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://crpsvsth8b4ei" path="res://assets/textures/backgrounds/diamond.png" id="2_jcxqt"]
 [ext_resource type="Texture2D" uid="uid://ciadh71jxdsas" path="res://assets/textures/title.png" id="3_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://cvhuugb4bi0go" path="res://assets/textures/tiles/red.png" id="4_1ajci"]
 [ext_resource type="Texture2D" uid="uid://u8xu0my761ng" path="res://assets/textures/tiles/orange.png" id="5_7b55j"]
@@ -37,7 +37,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_8ln24")
+texture = ExtResource("2_jcxqt")
 
 [node name="Title" type="TextureRect" parent="Control" unique_id=747190814]
 layout_mode = 1

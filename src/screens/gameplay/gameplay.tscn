@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://chc8wkvisii0"]
 
 [ext_resource type="Script" uid="uid://df2cd8qt25exy" path="res://src/screens/gameplay/gameplay.gd" id="1_akxqx"]
-[ext_resource type="Texture2D" uid="uid://l3eaidps5yc4" path="res://assets/textures/background.png" id="2_h0h0j"]
+[ext_resource type="Texture2D" uid="uid://dgcsee1bbpsaa" path="res://assets/textures/backgrounds/skyline.png" id="2_4je3d"]
 [ext_resource type="PackedScene" uid="uid://flgqh3dlwr0a" path="res://src/ui/button/custom_icon_button.tscn" id="3_ghsw2"]
 [ext_resource type="Texture2D" uid="uid://b7mwsiamuf3i6" path="res://assets/textures/icons/pause.png" id="4_m0w58"]
 [ext_resource type="Texture2D" uid="uid://dg20l0c0blct6" path="res://assets/textures/icons/triangle-right.png" id="5_yfbd3"]
@@ -74,7 +74,7 @@ grow_begin = 0.0
 grow_end = 0.0
 thickness = 6
 
-[node name="LevelGame" type="Node2D" unique_id=785940793 node_paths=PackedStringArray("tiles_node", "dead_zone", "countdown_label", "wall_top_node", "audio", "pause_resume_tab", "pause_button", "resume_button", "level_label", "health_node", "score_node", "progress_node", "progress_bar", "pause_menu", "pause_menu_level_no", "pause_menu_progress", "pause_menu_progress_bar", "pause_menu_resume_button", "pause_menu_restart_button", "pause_menu_exit_button", "end_menu", "end_menu_tab", "win_menu_stars", "win_menu_level_no_label", "win_menu_time_label", "win_menu_lives", "win_menu_play_next_button", "win_menu_play_again_button", "win_menu_exit_button", "lost_menu_stars", "lost_menu_level_no_label", "lost_menu_time_label", "lost_menu_progress", "lost_menu_progress_bar", "lost_menu_play_again_button", "lost_menu_exit_button")]
+[node name="Gameplay" type="Node2D" unique_id=785940793 node_paths=PackedStringArray("tiles_node", "dead_zone", "countdown_label", "wall_top_node", "audio", "pause_resume_tab", "pause_button", "resume_button", "level_label", "health_node", "time_node", "progress_node", "progress_bar", "pause_menu", "pause_menu_level_no", "pause_menu_progress", "pause_menu_progress_bar", "pause_menu_resume_button", "pause_menu_restart_button", "pause_menu_exit_button", "end_menu", "end_menu_tab", "win_menu_stars", "win_menu_level_no_label", "win_menu_time_label", "win_menu_lives", "win_menu_play_next_button", "win_menu_play_again_button", "win_menu_exit_button", "lost_menu_stars", "lost_menu_level_no_label", "lost_menu_time_label", "lost_menu_progress", "lost_menu_progress_bar", "lost_menu_play_again_button", "lost_menu_exit_button")]
 script = ExtResource("1_akxqx")
 tiles_node = NodePath("tiles")
 dead_zone = NodePath("DeadZone")
@@ -86,7 +86,7 @@ pause_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/Pause
 resume_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/ResumeButton")
 level_label = NodePath("UI/Hud/Content/Heading/Column/Row1/LevelLabel")
 health_node = NodePath("UI/Hud/Content/Heading/Column/Row1/Health")
-score_node = NodePath("UI/Hud/Content/Heading/Column/Row2/Score")
+time_node = NodePath("UI/Hud/Content/Heading/Column/Row2/TimeValue")
 progress_node = NodePath("UI/Hud/Content/Heading/Column/Row2/Progress")
 progress_bar = NodePath("UI/Hud/Content/Heading/Column/ProgressBar")
 pause_menu = NodePath("UI/PauseMenu")
@@ -146,7 +146,7 @@ shape = SubResource("RectangleShape2D_cqdw0")
 [node name="Background" type="Sprite2D" parent="." unique_id=333795670]
 position = Vector2(180, 320.00003)
 scale = Vector2(0.99999994, 1)
-texture = ExtResource("2_h0h0j")
+texture = ExtResource("2_4je3d")
 
 [node name="tiles" type="Node2D" parent="." unique_id=731299019]
 
@@ -244,19 +244,19 @@ texture = ExtResource("7_llfnd")
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="ScoreLabel" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=2065674436]
+[node name="TimeLabel" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=2065674436]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
 theme_override_fonts/font = ExtResource("6_xd7s3")
 theme_override_font_sizes/font_size = 8
-text = "Score"
+text = "TIME"
 
-[node name="Score" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=688394938]
+[node name="TimeValue" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=688394938]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
 theme_override_fonts/font = ExtResource("6_xd7s3")
 theme_override_font_sizes/font_size = 8
-text = "000000"
+text = "00:00"
 
 [node name="Spacer1" type="Control" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=68723702]
 layout_mode = 2
@@ -439,6 +439,7 @@ layout_mode = 2
 text = "Exit"
 
 [node name="EndMenu" type="Control" parent="UI" unique_id=292817303]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

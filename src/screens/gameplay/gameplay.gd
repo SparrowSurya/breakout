@@ -13,7 +13,7 @@ extends Node2D
 @export var resume_button: CustomIconButton
 @export var level_label: Label
 @export var health_node: HBoxContainer
-@export var score_node: Label
+@export var time_node: Label
 @export var progress_node: Label
 @export var progress_bar: ProgressBar
 
@@ -77,7 +77,6 @@ var total_hits: int   ## Total number of hits to break all breakable tiles.
 var hits_left: int    ## Hits left to break all leftover breakable tiles.
 var tiles_left: int   ## Number of breakable tiles left.
 var lives: int        ## Lives count (default: read from the health_node child count)
-var score: int        ## Current score of the game.
 var time: float       ## Stores the stopwatch time data.
 
 
@@ -92,6 +91,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if GameManager.game_state == GameManager.GameState.PLAYING:
 		time += delta
+		_update_time_value()
 	
 	if Input.is_action_just_pressed("continue"):
 		if GameManager.game_state == GameManager.GameState.PLAYING:
@@ -148,7 +148,8 @@ func setup() -> void:
 	pause_resume_tab.current_tab = TAB_PAUSE
 
 	lives = health_node.get_children().filter(func(node): return node is TextureRect).size()
-	
+	time = 0
+
 	pause_button.disabled = true
 	resume_button.disabled = true
 
@@ -239,7 +240,7 @@ func _setup_hud() -> void:
 	pause_menu_level_no.text = level_text
 
 	_update_heart()
-	_update_score()
+	_update_time_value()
 	_update_progress()
 
 
@@ -254,9 +255,9 @@ func _update_heart() -> void:
 		hearts[i].modulate = Palette.RED if i < lives else Palette.SURFACE1
 
 
-# Updates the score in HUD
-func _update_score() -> void:
-	score_node.text = str(score).pad_zeros(SCORE_DIGITS)
+# Updates the time in HUD
+func _update_time_value() -> void:
+	time_node.text = format_time(time)
 
 
 # Updates the progress bar and value in HUD
@@ -350,7 +351,7 @@ func _show_win() -> LevelProgress:
 	win_menu_time_label.text = format_time(time)
 	win_menu_lives.text = str(lives)
 
-	var stars = evaluate_stars(score)
+	var stars = lives
 	var star_nodes = win_menu_stars.get_children()
 	for i in range(star_nodes.size()):
 		if star_nodes[i] is TextureRect:
@@ -397,7 +398,8 @@ func next_attempt() -> void:
 		end_level(false)
 	else:
 		GameManager.game_state = GameManager.GameState.WAITING
-		await get_tree().create_timer(1.0).timeout
+		play_sound(Constants.SOUND.LifeLost)
+		await get_tree().create_timer(2.0).timeout
 		_setup_ball()
 		_setup_paddle()
 		_countdown()

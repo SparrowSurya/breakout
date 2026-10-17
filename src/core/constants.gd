@@ -11,6 +11,7 @@ const SOUND: Dictionary = {
 	"TileDestroy": preload("res://assets/sounds/Tile-Destroy.wav"),
 	"Countdown": preload("res://assets/sounds/Countdown.wav"),
 	"CountdownGo": preload("res://assets/sounds/Countdown-Go.wav"),
+	"LifeLost": preload("res://assets/sounds/Life-Lost.wav"),
 	"GameWon": preload("res://assets/sounds/Game-Won.wav"),
 	"GameLost": preload("res://assets/sounds/Game-Lost.wav"),
 }
