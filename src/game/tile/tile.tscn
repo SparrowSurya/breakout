@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://3brdu7xnjsfu"]
 
 [ext_resource type="Script" uid="uid://385nm63fms3" path="res://src/game/tile/tile.gd" id="1_3dk36"]
-[ext_resource type="Texture2D" uid="uid://58fvam22r6xu" path="res://assets/textures/tiles/blue.png" id="2_javun"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vse7m"]
 size = Vector2(30, 12)
@@ -13,7 +12,6 @@ audio = NodePath("AudioStreamPlayer2D")
 collision_shape = NodePath("CollisionShape2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1931655850]
-texture = ExtResource("2_javun")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=806611201]
 shape = SubResource("RectangleShape2D_vse7m")
