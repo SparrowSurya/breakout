@@ -1,0 +1,171 @@
+[gd_scene format=3 uid="uid://y4qqygcyuk1y"]
+
+[ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="1_3p1fr"]
+[ext_resource type="Script" uid="uid://ded0b547b6hpb" path="res://src/ui/end_menu/win_menu.gd" id="1_krx1n"]
+[ext_resource type="Texture2D" uid="uid://yxj7oo20cy1i" path="res://assets/textures/icons/star.png" id="2_krx1n"]
+[ext_resource type="PackedScene" uid="uid://dy1xomrq02t83" path="res://src/ui/button/custom_button.tscn" id="3_yd7cv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vse7m"]
+bg_color = Color(0.09411765, 0.09411765, 0.14509805, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.27058825, 0.2784314, 0.34901962, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g5116"]
+bg_color = Color(0.6509804, 0.8901961, 0.6313726, 1)
+
+[node name="WinMenu" type="PanelContainer" unique_id=517087513 node_paths=PackedStringArray("stars_node", "level_node", "time_node", "lives_node", "play_next_button", "play_again_button", "exit_button")]
+theme_override_styles/panel = SubResource("StyleBoxFlat_vse7m")
+script = ExtResource("1_krx1n")
+stars_node = NodePath("MainLayout/Margin/Column/Margin2/Stars")
+level_node = NodePath("MainLayout/Margin/Column/LevelInfoRow/LevelNo")
+time_node = NodePath("MainLayout/Margin/Column/TimeInfoRow/Time")
+lives_node = NodePath("MainLayout/Margin/Column/LivesInfoRow/Lives")
+play_next_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/PlayNextButton")
+play_again_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/PlayAgainButton")
+exit_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/ExitButton")
+
+[node name="MainLayout" type="VBoxContainer" parent="." unique_id=1666927791]
+custom_minimum_size = Vector2(296, 0)
+custom_maximum_size = Vector2(296, -1)
+layout_mode = 2
+
+[node name="Heading" type="Label" parent="MainLayout" unique_id=1020706183]
+custom_minimum_size = Vector2(0, 54)
+custom_maximum_size = Vector2(-1, 54)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("1_3p1fr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_g5116")
+text = "LEVEL CLEAR!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Margin" type="MarginContainer" parent="MainLayout" unique_id=1567274248]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Column" type="VBoxContainer" parent="MainLayout/Margin" unique_id=633339274]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Margin2" type="MarginContainer" parent="MainLayout/Margin/Column" unique_id=396607069]
+layout_mode = 2
+theme_override_constants/margin_bottom = 16
+
+[node name="Stars" type="HBoxContainer" parent="MainLayout/Margin/Column/Margin2" unique_id=807134243]
+propagate_maximum_size = false
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="MainLayout/Margin/Column/Margin2/Stars" unique_id=1531726574]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_krx1n")
+
+[node name="Star2" type="TextureRect" parent="MainLayout/Margin/Column/Margin2/Stars" unique_id=943061703]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+offset_transform_position = Vector2(0, -18)
+texture = ExtResource("2_krx1n")
+
+[node name="Star3" type="TextureRect" parent="MainLayout/Margin/Column/Margin2/Stars" unique_id=12875400]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_krx1n")
+
+[node name="LevelInfoRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=751854610]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="MainLayout/Margin/Column/LevelInfoRow" unique_id=534191050]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("1_3p1fr")
+theme_override_font_sizes/font_size = 8
+text = "LEVEL"
+
+[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/LevelInfoRow" unique_id=1301191323]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelNo" type="Label" parent="MainLayout/Margin/Column/LevelInfoRow" unique_id=2092929220]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("1_3p1fr")
+theme_override_font_sizes/font_size = 8
+text = "000"
+
+[node name="TimeInfoRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=1821750948]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=982389470]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("1_3p1fr")
+theme_override_font_sizes/font_size = 8
+text = "TIME TAKEN"
+
+[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=1270380414]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Time" type="Label" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=363623929]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("1_3p1fr")
+theme_override_font_sizes/font_size = 8
+text = "00:00"
+
+[node name="LivesInfoRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=825114613]
+layout_mode = 2
+
+[node name="LivesLabel" type="Label" parent="MainLayout/Margin/Column/LivesInfoRow" unique_id=246086529]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("1_3p1fr")
+theme_override_font_sizes/font_size = 8
+text = "LIVES LEFT"
+
+[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/LivesInfoRow" unique_id=1632734148]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Lives" type="Label" parent="MainLayout/Margin/Column/LivesInfoRow" unique_id=748594601]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("1_3p1fr")
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Margin" type="MarginContainer" parent="MainLayout/Margin/Column" unique_id=9856117]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 8
+
+[node name="Buttons" type="VBoxContainer" parent="MainLayout/Margin/Column/Margin" unique_id=2074377469]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PlayNextButton" parent="MainLayout/Margin/Column/Margin/Buttons" unique_id=1882703824 instance=ExtResource("3_yd7cv")]
+layout_mode = 2
+text = "Play Next"
+
+[node name="PlayAgainButton" parent="MainLayout/Margin/Column/Margin/Buttons" unique_id=1877861657 instance=ExtResource("3_yd7cv")]
+layout_mode = 2
+text = "Play Again"
+
+[node name="ExitButton" parent="MainLayout/Margin/Column/Margin/Buttons" unique_id=29993067 instance=ExtResource("3_yd7cv")]
+layout_mode = 2
+text = "Exit"

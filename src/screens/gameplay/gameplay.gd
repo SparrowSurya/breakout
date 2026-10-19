@@ -17,36 +17,10 @@ extends Node2D
 @export var progress_node: Label
 @export var progress_bar: ProgressBar
 
-# Pause menu nodes
-@export var pause_menu: Control
-@export var pause_menu_level_no: Label
-@export var pause_menu_progress: Label
-@export var pause_menu_progress_bar: ProgressBar
-@export var pause_menu_resume_button: CustomButton
-@export var pause_menu_restart_button: CustomButton
-@export var pause_menu_exit_button: CustomButton
-
-# End status tab
-@export var end_menu: Control
-@export var end_menu_tab: TabContainer
-
-# Win menu nodes
-@export var win_menu_stars: HBoxContainer
-@export var win_menu_level_no_label: Label
-@export var win_menu_time_label: Label
-@export var win_menu_lives: Label
-@export var win_menu_play_next_button: CustomButton
-@export var win_menu_play_again_button: CustomButton
-@export var win_menu_exit_button: CustomButton
-
-# Lost menu nodes
-@export var lost_menu_stars: HBoxContainer
-@export var lost_menu_level_no_label: Label
-@export var lost_menu_time_label: Label
-@export var lost_menu_progress: Label
-@export var lost_menu_progress_bar: ProgressBar
-@export var lost_menu_play_again_button: CustomButton
-@export var lost_menu_exit_button: CustomButton
+# Menus nodes
+@export var pause_menu: PauseMenu
+@export var end_menu: EndMenu
+@export var background_overlay: ColorRect
 
 
 const ball_scene = preload(Constants.SCENE.Ball)
@@ -57,9 +31,6 @@ const TAB_PAUSE: int = 0
 const TAB_RESUME: int = 1
 const TAB_WON: int = 0
 const TAB_LOST: int = 1
-
-const PROGRESS_MIN_VALUE: float = 0.0
-const PROGRESS_MAX_VALUE: float = 100.0
 
 const PADDLE_Y_OFFSET: float = 60.0
 const BALL_Y_OFFSET: float = PADDLE_Y_OFFSET + 20.0
@@ -115,14 +86,8 @@ func _init_variables() -> void:
 		+ wall_top_node.shape.get_rect().size.y / 2.0
 	)
 
-	progress_bar.min_value = PROGRESS_MIN_VALUE
-	progress_bar.max_value = PROGRESS_MAX_VALUE
-
-	pause_menu_progress_bar.min_value = PROGRESS_MIN_VALUE
-	pause_menu_progress_bar.max_value = PROGRESS_MAX_VALUE
-
-	lost_menu_progress_bar.min_value = PROGRESS_MIN_VALUE
-	lost_menu_progress_bar.max_value = PROGRESS_MAX_VALUE
+	progress_bar.min_value = Constants.PROGRESS_MIN
+	progress_bar.max_value = Constants.PROGRESS_MAX
 
 
 # Attaches signals listeners to the signals.;
@@ -131,16 +96,16 @@ func _connect_signals() -> void:
 	pause_button.pressed.connect(pause_level)
 	resume_button.pressed.connect(resume_level)
 
-	pause_menu_resume_button.pressed.connect(resume_level)
-	pause_menu_restart_button.pressed.connect(restart_level)
-	pause_menu_exit_button.pressed.connect(exit_level)
+	pause_menu.resume_button.pressed.connect(resume_level)
+	pause_menu.restart_button.pressed.connect(restart_level)
+	pause_menu.exit_button.pressed.connect(exit_level)
 
-	win_menu_play_next_button.pressed.connect(play_next_level)
-	win_menu_play_again_button.pressed.connect(restart_level)
-	win_menu_exit_button.pressed.connect(exit_level)
+	end_menu.win_menu.play_next_button.pressed.connect(play_next_level)
+	end_menu.win_menu.play_again_button.pressed.connect(restart_level)
+	end_menu.win_menu.exit_button.pressed.connect(exit_level)
 
-	lost_menu_play_again_button.pressed.connect(restart_level)
-	lost_menu_exit_button.pressed.connect(exit_level)
+	end_menu.lose_menu.play_again_button.pressed.connect(restart_level)
+	end_menu.lose_menu.exit_button.pressed.connect(exit_level)
 
 
 # Setup perfomrs the game setup based on the level selected.
@@ -153,6 +118,7 @@ func setup() -> void:
 	pause_button.disabled = true
 	resume_button.disabled = true
 
+	background_overlay.hide()
 	countdown_label.hide()
 	pause_menu.hide()
 	end_menu.hide()
@@ -182,7 +148,7 @@ func _setup_tiles() -> void:
 		var tile_health = data.grid[index]
 		if tile_health == 0: # treats as empty place
 			continue
-		
+
 		var tile: Tile = tile_scene.instantiate()
 		tile.tile_type = TileDef.from_health(tile_health).type
 		tile.position = Vector2(
@@ -193,7 +159,7 @@ func _setup_tiles() -> void:
 		if tile.tile_type != TileDef.TileType.METAL:
 			tiles_left += 1
 			total_hits += tile.tile_health
-		
+
 		tile.on_hit.connect(tile_destroyed)
 	
 	hits_left = total_hits
@@ -224,12 +190,12 @@ func _setup_paddle() -> void:
 		paddle.queue_free()
 
 	paddle = paddle_scene.instantiate()
-	
+
 	var paddle_height = paddle.sprite.texture.get_height()
 	paddle.position.x = (window_size.x - paddle_height) / 2
 	paddle.position.y = window_size.y - PADDLE_Y_OFFSET
 	paddle.z_index = 1
-	
+
 	add_child(paddle)
 
 
@@ -237,7 +203,7 @@ func _setup_paddle() -> void:
 func _setup_hud() -> void:
 	var level_text = "Level %03d" % level_no
 	level_label.text = level_text
-	pause_menu_level_no.text = level_text
+	pause_menu.level_node.text = level_text
 
 	_update_heart()
 	_update_time_value()
@@ -307,9 +273,10 @@ func pause_level() -> void:
 	if GameManager.game_state == GameManager.GameState.PLAYING:
 		GameManager.game_state = GameManager.GameState.PAUSED
 		pause_resume_tab.current_tab = TAB_RESUME
-		pause_menu_progress.text = progress_node.text
-		pause_menu_progress_bar.value = progress_bar.value
-		pause_menu_resume_button.grab_focus()
+		pause_menu.progress_node.text = progress_node.text
+		pause_menu.progress_bar.value = progress_bar.value
+		pause_menu.resume_button.grab_focus()
+		background_overlay.show()
 		pause_menu.show()
 
 
@@ -318,6 +285,7 @@ func resume_level() -> void:
 	if GameManager.game_state == GameManager.GameState.PAUSED:
 		GameManager.game_state = GameManager.GameState.PLAYING
 		pause_resume_tab.current_tab = TAB_PAUSE
+		background_overlay.hide()
 		pause_menu.hide()
 
 
@@ -337,51 +305,14 @@ func end_level(won: bool) -> void:
 	
 	var level_progress: LevelProgress
 	if won:
-		level_progress = _show_win()
+		end_menu.show_win(level_no, format_time(time), lives)
+		level_progress = LevelProgress.as_done(level_no, lives)
 	else:
-		level_progress = _show_lost()
-	
+		end_menu.show_lose(level_no, format_time(time), progress_bar.value)
+		level_progress = LevelProgress.as_wip(level_no, progress_bar.value)
+
+	background_overlay.show()
 	UserProgress.save(level_progress)
-	end_menu.show()
-
-
-# Shows the menu of game won.
-func _show_win() -> LevelProgress:
-	win_menu_level_no_label.text = str(level_no).pad_zeros(3)
-	win_menu_time_label.text = format_time(time)
-	win_menu_lives.text = str(lives)
-
-	var stars = lives
-	var star_nodes = win_menu_stars.get_children()
-	for i in range(star_nodes.size()):
-		if star_nodes[i] is TextureRect:
-			star_nodes[i].modulate = Palette.YELLOW if i < stars else Palette.SURFACE2
-
-	if GameManager.has_level(level_no+1):
-		win_menu_play_next_button.grab_focus()
-	else:
-		win_menu_play_next_button.hide()
-		win_menu_exit_button.grab_focus()
-
-	end_menu_tab.current_tab = TAB_WON
-	return LevelProgress.as_done(level_no, stars)
-
-
-# Shows the menu of game lost.
-func _show_lost() -> LevelProgress:
-	lost_menu_level_no_label.text = str(level_no).pad_zeros(3)
-	lost_menu_time_label.text = format_time(time)
-
-	lost_menu_progress.text = progress_node.text
-	lost_menu_progress_bar.value = progress_bar.value
-
-	for star_node in lost_menu_stars.get_children():
-		if star_node is TextureRect:
-			star_node.modulate = Palette.SURFACE2
-	
-	lost_menu_play_again_button.grab_focus()
-	end_menu_tab.current_tab = TAB_LOST
-	return LevelProgress.as_wip(level_no, progress_bar.value)
 
 
 # Play again same level
@@ -444,7 +375,7 @@ func _on_dead_zone_body_entered(body: Node2D) -> void:
 
 
 func format_time(p_time: float) -> String:
-	var minutes: int = int(p_time) / 60
+	var minutes: int = int(p_time / 60.0)
 	var seconds: int = int(p_time) % 60
 	# Isolate the decimal portion and convert to 2-digit centiseconds
 	#var centiseconds: int = int((time - int(time)) * 100)

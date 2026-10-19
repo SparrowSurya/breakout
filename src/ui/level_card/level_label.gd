@@ -25,9 +25,6 @@ const UNLOCKED_TAB: int = 1
 const FINISHED_TAB: int = 0
 const UNFINISHED_TAB: int = 1
 
-const PROGRESS_MIN_VALUE: float = 0.0
-const PROGRESS_MAX_VALUE: float = 100.0
-
 const HOVER_Y_DELTA: float = 8.0
 const PRESS_Y_DELTA: float = 2.0
 const HOVER_BRIGHTNESS: float = 0.15
@@ -49,8 +46,8 @@ func _ready() -> void:
 	lock_icon_node.modulate = Palette.OVERLAY1
 	level_node.text = str(level_no)
 	
-	progress_node.min_value = PROGRESS_MIN_VALUE
-	progress_node.max_value = PROGRESS_MAX_VALUE
+	progress_node.min_value = Constants.PROGRESS_MIN
+	progress_node.max_value = Constants.PROGRESS_MAX
 	
 	var level_progress: LevelProgress = UserProgress.get_level(level_no)
 	var stars_node_list: Array[TextureRect] = []
@@ -92,7 +89,7 @@ func apply() -> void:
 		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		indicator_node.color = _get_difficulty_color(difficulty)
 		tab_locked_status_node.current_tab = UNLOCKED_TAB
-		progress_node.value = clamp(progress, PROGRESS_MIN_VALUE, PROGRESS_MAX_VALUE)
+		progress_node.value = clamp(progress, Constants.PROGRESS_MIN, Constants.PROGRESS_MAX)
 		
 		if progress == 100.0:
 			progress_tab_node.current_tab = FINISHED_TAB

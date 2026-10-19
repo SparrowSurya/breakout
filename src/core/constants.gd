@@ -27,3 +27,8 @@ const SCENE: Dictionary = {
 	"Levels": "res://src/screens/level_select/level_select.tscn",
 	"Gameplay": "res://src/screens/gameplay/gameplay.tscn",
 }
+
+
+# ProgressBar defaults throughtout the project.
+const PROGRESS_MIN: float = 0.0
+const PROGRESS_MAX: float = 100.0
