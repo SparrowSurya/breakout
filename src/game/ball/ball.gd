@@ -11,6 +11,9 @@ var damage: int = 1
 var window_size: Vector2
 var ball_size: Vector2
 
+## Since ball and paddle can overlap we need to ignore paddle.
+var _ignored_paddle: Paddle = null
+
 
 func _ready() -> void:
 	window_size = get_viewport().get_visible_rect().size
@@ -22,14 +25,14 @@ func _physics_process(delta: float) -> void:
 	if GameManager.game_state != GameManager.GameState.PLAYING:
 		return
 
+	_release_paddle_if_clear()
+
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		var collider = collision.get_collider()
 
 		if collider is Paddle:
-			bounce_from_paddle(collider)
-			play_sound(Constants.SOUND.BallHitPaddle)
-			#paddle_collide_resolve(collision)
+			_on_paddle_hit(collider, collision)
 		elif collider is Tile:
 			collider.hit(damage)
 			velocity = velocity.bounce(collision.get_normal())
@@ -56,23 +59,24 @@ func bounce_from_paddle(paddle: Paddle) -> void:
 	velocity = Vector2(sin(angle), -cos(angle)) * BALL_SPEED
 
 
-func paddle_collide_resolve(collision: KinematicCollision2D) -> void:
-	if not collision:
-		return
-	
-	var collider = collision.get_collider()
-	if collider is not Paddle:
-		return
-	
-	var max_iterations = 10
-	var iteration = 0
-	var new_collision = collision
+func _on_paddle_hit(paddle: Paddle, collision: KinematicCollision2D) -> void:
+	bounce_from_paddle(paddle)
+	play_sound(Constants.SOUND.BallHitPaddle)
 
-	while iteration < max_iterations and new_collision and new_collision.get_collider() is Paddle:
-		var normal = new_collision.get_normal()
-		var remainder = new_collision.get_remainder().bounce(normal)
-		new_collision = move_and_collide(remainder)
-		iteration += 1
+	# Nudge out of any overlap, then ignore the paddle until the ball is clear
+	global_position += collision.get_normal() * (collision.get_depth() + 1.0)
+	add_collision_exception_with(paddle)
+	_ignored_paddle = paddle
+
+
+func _release_paddle_if_clear() -> void:
+	if _ignored_paddle == null:
+		return
+
+	# Ball is clearly above the paddle: safe to collide again
+	if global_position.y < _ignored_paddle.global_position.y - ball_size.y * 1.5:
+		remove_collision_exception_with(_ignored_paddle)
+		_ignored_paddle = null
 
 
 func play_sound(stream: AudioStream) -> void:

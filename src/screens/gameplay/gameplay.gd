@@ -117,7 +117,7 @@ func _init_variables() -> void:
 
 	progress_bar.min_value = PROGRESS_MIN_VALUE
 	progress_bar.max_value = PROGRESS_MAX_VALUE
-	
+
 	pause_menu_progress_bar.min_value = PROGRESS_MIN_VALUE
 	pause_menu_progress_bar.max_value = PROGRESS_MAX_VALUE
 
@@ -444,7 +444,6 @@ func _on_dead_zone_body_entered(body: Node2D) -> void:
 
 
 func format_time(p_time: float) -> String:
-	@warning_ignore("integer_division")
 	var minutes: int = int(p_time) / 60
 	var seconds: int = int(p_time) % 60
 	# Isolate the decimal portion and convert to 2-digit centiseconds

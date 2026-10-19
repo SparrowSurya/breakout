@@ -42,6 +42,11 @@ func enter_level(level: int) -> void:
 	get_tree().change_scene_to_file(Constants.SCENE.Gameplay)
 
 
+# Enter survival mode.
+func enter_survival() -> void:
+	pass
+
+
 # Know if the level exists.
 func has_level(level: int) -> bool:
 	return level > 0 and level <= LevelDef.level_count

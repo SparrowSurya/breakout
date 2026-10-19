@@ -34,7 +34,7 @@ var type: TileType
 var color: Color
 var particle_texture: ImageTexture
 
-static var _table: Array[TileDef] = []
+static var table: Array[TileDef] = []
 
 
 func _init(
@@ -61,11 +61,11 @@ static func _create_particle_texture(p_color: Color) -> ImageTexture:
 
 # Builds tile data table for visible tiles only.
 static func _build_table() -> void:
-	if not _table.is_empty():
+	if not table.is_empty():
 		return
 	
-	_table = [
-		TileDef.new(9, false, TILE.Metal, TileType.METAL, Palette.OVERLAY0),
+	table = [
+		TileDef.new(9, true, TILE.Metal, TileType.METAL, Palette.OVERLAY0),
 		TileDef.new(1, false, TILE.Mauve, TileType.MAUVE, Palette.MAUVE),
 		TileDef.new(2, false, TILE.Blue, TileType.BLUE, Palette.BLUE),
 		TileDef.new(3, false, TILE.Green, TileType.GREEN, Palette.GREEN),
@@ -77,19 +77,19 @@ static func _build_table() -> void:
 
 static func from_health(p_health: int) -> TileDef:
 	_build_table()
-	for entry in _table:
+	for entry in table:
 		if entry.health == p_health:
 			return entry
 	
 	push_warning("TileDef: no entry for health %d, falling back to metal" % p_health)
-	return _table[0]
+	return table[0]
 
 
 static func from_type(p_type: TileType) -> TileDef:
 	_build_table()
-	for entry in _table:
+	for entry in table:
 		if entry.type == p_type:
 			return entry
 	
 	push_warning("TileDef: no entry for type %d, falling back to metal" % p_type)
-	return _table[0]
+	return table[0]

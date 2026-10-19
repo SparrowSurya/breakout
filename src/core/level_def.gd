@@ -2,6 +2,7 @@ class_name LevelDef
 extends RefCounted
 
 
+# Difficulty of the level.
 enum LevelDifficulty {
 	EASY,
 	MEDIUM,
@@ -11,18 +12,19 @@ enum LevelDifficulty {
 # Levels data file
 const LEVELS_PATH := "res://data/levels.jsonl"
 
-var level_no: int
-var difficulty: LevelDifficulty
-var grid: Array
-var rows: int
-var cols: int
-var row_gap: float
-var col_gap: float
-var tile_width: float
-var tile_height: float
+# Leve state data.
+var level_no: int                ## Level number
+var difficulty: LevelDifficulty  ## Level difficulty
+var grid: Array                  ## Represents arrangemen of tiles
+var rows: int                    ## Rows in the grid
+var cols: int                    ## Columns in the grid
+var row_gap: float               ## Gap between rows
+var col_gap: float               ## Gap between columns
+var tile_width: float            ## Width of the tile
+var tile_height: float           ## Height of the tile
 
-static var level_count: int = -1
-static var _cache: Dictionary[int, LevelDef]
+static var level_count: int = -1              ## Total number of levels
+static var _cache: Dictionary[int, LevelDef]  ## STores the levels data
 
 
 # Initialises the initial level data.
