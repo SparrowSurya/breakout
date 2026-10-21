@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dg20l0c0blct6" path="res://assets/textures/icons/triangle-right.png" id="4_oc6km"]
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="5_alm8m"]
 [ext_resource type="Texture2D" uid="uid://ct0l3mhdv2bdy" path="res://assets/textures/icons/heart.png" id="6_sjl88"]
-[ext_resource type="PackedScene" uid="uid://35ty0uj0nieo" path="res://src/ui/pause_menu/pause_menu.tscn" id="7_gmulr"]
+[ext_resource type="PackedScene" uid="uid://35ty0uj0nieo" path="res://src/ui/pause_menu/level_pause_menu.tscn" id="7_gmulr"]
 [ext_resource type="PackedScene" uid="uid://dfq8a462g8n60" path="res://src/ui/end_menu/end_menu.tscn" id="8_pbhj0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yxymf"]
@@ -265,9 +265,18 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="PauseMenu" parent="UI/Menus/Center" unique_id=933271589 instance=ExtResource("7_gmulr")]
+visible = false
 layout_mode = 2
 mouse_filter = 1
 
 [node name="EndMenu" parent="UI/Menus/Center" unique_id=1290878506 instance=ExtResource("8_pbhj0")]
-visible = false
 layout_mode = 2
+current_tab = 1
+
+[node name="WinMenu" parent="UI/Menus/Center/EndMenu" index="1" unique_id=517087513]
+visible = false
+
+[node name="LoseMenu" parent="UI/Menus/Center/EndMenu" index="2" unique_id=1626180265]
+visible = true
+
+[editable path="UI/Menus/Center/EndMenu"]

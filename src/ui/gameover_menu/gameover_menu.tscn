@@ -1,0 +1,205 @@
+[gd_scene format=3 uid="uid://vsydh28yy6x7"]
+
+[ext_resource type="Script" uid="uid://ct0wbtdnlb75p" path="res://src/ui/gameover_menu/gameover_menu.gd" id="1_6owjg"]
+[ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_0cgyt"]
+[ext_resource type="PackedScene" uid="uid://dy1xomrq02t83" path="res://src/ui/button/custom_button.tscn" id="3_45ghm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5ycd"]
+bg_color = Color(0.09411765, 0.09411765, 0.14509805, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.27058825, 0.2784314, 0.34901962, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45ghm"]
+bg_color = Color(0.9529412, 0.54509807, 0.65882355, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hjt3c"]
+bg_color = Color(0.98039216, 0.7019608, 0.5294118, 1)
+border_width_left = 8
+border_width_top = 6
+border_width_right = 8
+border_width_bottom = 6
+border_color = Color(0.98039216, 0.7019608, 0.5294118, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_45ghm"]
+color = Color(0.27058825, 0.2784314, 0.34901962, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_f5ycd"]
+color = Color(0.7058824, 0.74509805, 0.99607843, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 6
+
+[node name="GameoverMenu" type="PanelContainer" unique_id=832792062 node_paths=PackedStringArray("score_value", "new_best", "stage_value", "time_value", "progress_value", "progress_bar", "play_again_button", "exit_button")]
+custom_minimum_size = Vector2(296, 0)
+custom_maximum_size = Vector2(296, -1)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_f5ycd")
+script = ExtResource("1_6owjg")
+score_value = NodePath("MainLayout/Margin/Column/ScoreContainer/Margin1/ScoreValue")
+new_best = NodePath("MainLayout/Margin/Column/ScoreContainer/Margin2/NewBest")
+stage_value = NodePath("MainLayout/Margin/Column/StageInfoRow/StageValue")
+time_value = NodePath("MainLayout/Margin/Column/TimeInfoRow/TimeValue")
+progress_value = NodePath("MainLayout/Margin/Column/ProgressInfoRow/ProgressValue")
+progress_bar = NodePath("MainLayout/Margin/Column/ProgressBar")
+play_again_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/PlayAgainButton")
+exit_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/ExitButton")
+
+[node name="MainLayout" type="VBoxContainer" parent="." unique_id=2079204646]
+layout_mode = 2
+
+[node name="Heading" type="Label" parent="MainLayout" unique_id=131447927]
+custom_minimum_size = Vector2(0, 54)
+custom_maximum_size = Vector2(-1, 54)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("2_0cgyt")
+theme_override_styles/normal = SubResource("StyleBoxFlat_45ghm")
+text = "GAMEOVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Margin" type="MarginContainer" parent="MainLayout" unique_id=1017588693]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Column" type="VBoxContainer" parent="MainLayout/Margin" unique_id=1091265168]
+layout_mode = 2
+
+[node name="ScoreContainer" type="VBoxContainer" parent="MainLayout/Margin/Column" unique_id=1855384147]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="MainLayout/Margin/Column/ScoreContainer" unique_id=272911036]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("2_0cgyt")
+theme_override_font_sizes/font_size = 8
+text = "SCORE"
+
+[node name="Margin1" type="MarginContainer" parent="MainLayout/Margin/Column/ScoreContainer" unique_id=1089150063]
+layout_mode = 2
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_bottom = 12
+
+[node name="ScoreValue" type="Label" parent="MainLayout/Margin/Column/ScoreContainer/Margin1" unique_id=71639830]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("2_0cgyt")
+theme_override_font_sizes/font_size = 24
+text = "000000"
+
+[node name="Margin2" type="MarginContainer" parent="MainLayout/Margin/Column/ScoreContainer" unique_id=1496588639]
+layout_mode = 2
+theme_override_constants/margin_bottom = 16
+
+[node name="NewBest" type="Label" parent="MainLayout/Margin/Column/ScoreContainer/Margin2" unique_id=1059456410]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_fonts/font = ExtResource("2_0cgyt")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_hjt3c")
+text = "NEW BEST!"
+
+[node name="StageInfoRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=361666484]
+layout_mode = 2
+
+[node name="StageLabel" type="Label" parent="MainLayout/Margin/Column/StageInfoRow" unique_id=705351715]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("2_0cgyt")
+theme_override_font_sizes/font_size = 8
+text = "STAGE"
+
+[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/StageInfoRow" unique_id=1903061411]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StageValue" type="Label" parent="MainLayout/Margin/Column/StageInfoRow" unique_id=1068883401]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("2_0cgyt")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="TimeInfoRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=1758452469]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=1950258121]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("2_0cgyt")
+theme_override_font_sizes/font_size = 8
+text = "TIME TAKEN"
+
+[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=1763884578]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimeValue" type="Label" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=1091534942]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("2_0cgyt")
+theme_override_font_sizes/font_size = 8
+text = "00:00"
+
+[node name="ProgressInfoRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=846413091]
+layout_mode = 2
+
+[node name="ProgressLabel" type="Label" parent="MainLayout/Margin/Column/ProgressInfoRow" unique_id=789833233]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("2_0cgyt")
+theme_override_font_sizes/font_size = 8
+text = "STAGE PROGRESS"
+
+[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/ProgressInfoRow" unique_id=1284195954]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ProgressValue" type="Label" parent="MainLayout/Margin/Column/ProgressInfoRow" unique_id=1505083854]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("2_0cgyt")
+theme_override_font_sizes/font_size = 8
+text = "00%"
+
+[node name="ProgressBar" type="ProgressBar" parent="MainLayout/Margin/Column" unique_id=498348260]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxLine_45ghm")
+theme_override_styles/fill = SubResource("StyleBoxLine_f5ycd")
+step = 1.0
+value = 50.0
+rounded = true
+show_percentage = false
+
+[node name="Margin" type="MarginContainer" parent="MainLayout/Margin/Column" unique_id=579672887]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 8
+
+[node name="Buttons" type="VBoxContainer" parent="MainLayout/Margin/Column/Margin" unique_id=288932493]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PlayAgainButton" parent="MainLayout/Margin/Column/Margin/Buttons" unique_id=1616018271 instance=ExtResource("3_45ghm")]
+layout_mode = 2
+text = "Play Again"
+
+[node name="ExitButton" parent="MainLayout/Margin/Column/Margin/Buttons" unique_id=1374897775 instance=ExtResource("3_45ghm")]
+layout_mode = 2
+text = "Exit"

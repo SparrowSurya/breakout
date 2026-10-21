@@ -1,3 +1,304 @@
 [gd_scene format=3 uid="uid://dpjhdbg7ymv0f"]
 
-[node name="SurvivalMode" type="Node2D" unique_id=723584759]
+[ext_resource type="Texture2D" uid="uid://dgcsee1bbpsaa" path="res://assets/textures/backgrounds/skyline.png" id="1_3c3qm"]
+[ext_resource type="Script" uid="uid://kn0mo1vb1yai" path="res://src/screens/game/survival/survival_mode.gd" id="1_rpxn3"]
+[ext_resource type="PackedScene" uid="uid://flgqh3dlwr0a" path="res://src/ui/button/custom_icon_button.tscn" id="2_7eowh"]
+[ext_resource type="Texture2D" uid="uid://b7mwsiamuf3i6" path="res://assets/textures/icons/pause.png" id="3_u5cu1"]
+[ext_resource type="Texture2D" uid="uid://dg20l0c0blct6" path="res://assets/textures/icons/triangle-right.png" id="4_j1mdf"]
+[ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="5_rpxn3"]
+[ext_resource type="Texture2D" uid="uid://ct0l3mhdv2bdy" path="res://assets/textures/icons/heart.png" id="6_l1pf8"]
+[ext_resource type="PackedScene" uid="uid://vsydh28yy6x7" path="res://src/ui/gameover_menu/gameover_menu.tscn" id="8_j1mdf"]
+[ext_resource type="PackedScene" uid="uid://cathyifo4gfcf" path="res://src/ui/pause_menu/survival_pause_menu.tscn" id="8_rpxn3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wcew"]
+size = Vector2(20.5, 640.22656)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4lu6s"]
+size = Vector2(416.5, 131)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j58sk"]
+size = Vector2(533, 114)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_wgdfq"]
+color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_o7lel"]
+color = Color(0.6509804, 0.8901961, 0.6313726, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 6
+
+[node name="SurvivalMode" type="Node2D" unique_id=723584759 node_paths=PackedStringArray("wall_top_collider", "pause_resume_tab", "pause_button", "resume_button", "hearts_node", "score_value", "stage_value", "progress_bar", "best_value", "progress_value", "menus_node", "background_overlay", "pause_menu", "gameover_menu", "tiles_node", "dead_zone", "countdown_label")]
+script = ExtResource("1_rpxn3")
+wall_top_collider = NodePath("Wall/Top/CollisionShape2D")
+pause_resume_tab = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab")
+pause_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/PauseButton")
+resume_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/ResumeButton")
+hearts_node = NodePath("UI/Hud/Content/Heading/Column/Row1/Hearts")
+score_value = NodePath("UI/Hud/Content/Heading/Column/Row2/ScoreValue")
+stage_value = NodePath("UI/Hud/Content/Heading/Column/Row2/StageValue")
+progress_bar = NodePath("UI/Hud/Content/Heading/Column/ProgressBar")
+best_value = NodePath("UI/Hud/Content/Heading/Column/Row4/BestValue")
+progress_value = NodePath("UI/Hud/Content/Heading/Column/Row4/ProgressValue")
+menus_node = NodePath("UI/Menus")
+background_overlay = NodePath("UI/Menus/BackgroundOverlay")
+pause_menu = NodePath("UI/Menus/Center/PauseMenu")
+gameover_menu = NodePath("UI/Menus/Center/GameoverMenu")
+tiles_node = NodePath("tiles")
+dead_zone = NodePath("DeadZone")
+countdown_label = NodePath("UI/Hud/Content/Expanded/CountdownValue")
+
+[node name="Wall" type="Node" parent="." unique_id=1235125441]
+
+[node name="Left" type="StaticBody2D" parent="Wall" unique_id=1689895058]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Left" unique_id=381080428]
+position = Vector2(-10.25, 319.22656)
+shape = SubResource("RectangleShape2D_5wcew")
+
+[node name="Right" type="StaticBody2D" parent="Wall" unique_id=1065485685]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Right" unique_id=1707148290]
+position = Vector2(370, 319.88672)
+shape = SubResource("RectangleShape2D_5wcew")
+
+[node name="Top" type="StaticBody2D" parent="Wall" unique_id=1637031241]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Top" unique_id=155789150]
+position = Vector2(180.25, 59.5)
+shape = SubResource("RectangleShape2D_4lu6s")
+
+[node name="DeadZone" type="Area2D" parent="." unique_id=1240073152]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeadZone" unique_id=1507970924]
+position = Vector2(180.5, 697)
+shape = SubResource("RectangleShape2D_j58sk")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1646774718]
+position = Vector2(180, 320.00003)
+scale = Vector2(0.99999994, 1)
+texture = ExtResource("1_3c3qm")
+
+[node name="tiles" type="Node2D" parent="." unique_id=1195613857]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1043231751]
+
+[node name="Hud" type="Control" parent="UI" unique_id=1145609621]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Content" type="VBoxContainer" parent="UI/Hud" unique_id=1333774499]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Heading" type="MarginContainer" parent="UI/Hud/Content" unique_id=234067441]
+custom_minimum_size = Vector2(360, 0)
+custom_maximum_size = Vector2(360, -1)
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+
+[node name="Column" type="VBoxContainer" parent="UI/Hud/Content/Heading" unique_id=498526194]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Row1" type="HBoxContainer" parent="UI/Hud/Content/Heading/Column" unique_id=2088447450]
+layout_mode = 2
+
+[node name="PauseResumeTab" type="TabContainer" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=943028623]
+layout_mode = 2
+current_tab = 0
+tabs_visible = false
+
+[node name="PauseButton" parent="UI/Hud/Content/Heading/Column/Row1/PauseResumeTab" unique_id=354671964 instance=ExtResource("2_7eowh")]
+layout_mode = 2
+icon = ExtResource("3_u5cu1")
+metadata/_tab_index = 0
+
+[node name="ResumeButton" parent="UI/Hud/Content/Heading/Column/Row1/PauseResumeTab" unique_id=1719935351 instance=ExtResource("2_7eowh")]
+visible = false
+layout_mode = 2
+icon = ExtResource("4_j1mdf")
+metadata/_tab_index = 1
+
+[node name="Spacer1" type="Control" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=1740775359]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=360783955]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
+theme_override_fonts/font = ExtResource("5_rpxn3")
+theme_override_font_sizes/font_size = 16
+text = "Survival"
+
+[node name="Spacer2" type="Control" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=2134242013]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Hearts" type="HBoxContainer" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=1141416882]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Heart1" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/Hearts" unique_id=1866156674]
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("6_l1pf8")
+
+[node name="Heart2" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/Hearts" unique_id=1519554325]
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("6_l1pf8")
+
+[node name="Heart3" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/Hearts" unique_id=140556585]
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("6_l1pf8")
+
+[node name="Control" type="Control" parent="UI/Hud/Content/Heading/Column" unique_id=12378638]
+layout_mode = 2
+
+[node name="Row2" type="HBoxContainer" parent="UI/Hud/Content/Heading/Column" unique_id=1363263086]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ScoreLabel" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=800941400]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("5_rpxn3")
+theme_override_font_sizes/font_size = 8
+text = "SCORE"
+
+[node name="ScoreValue" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=161875240]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("5_rpxn3")
+theme_override_font_sizes/font_size = 8
+text = "000000"
+
+[node name="Spacer" type="Control" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=695498677]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StageLabel" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=816684193]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("5_rpxn3")
+theme_override_font_sizes/font_size = 8
+text = "STAGE"
+
+[node name="StageValue" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=740409412]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("5_rpxn3")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/Hud/Content/Heading/Column" unique_id=1604820938]
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxLine_wgdfq")
+theme_override_styles/fill = SubResource("StyleBoxLine_o7lel")
+rounded = true
+show_percentage = false
+
+[node name="Row4" type="HBoxContainer" parent="UI/Hud/Content/Heading/Column" unique_id=1220466918]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BestLabel" type="Label" parent="UI/Hud/Content/Heading/Column/Row4" unique_id=1736008601]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("5_rpxn3")
+theme_override_font_sizes/font_size = 8
+text = "BEST"
+
+[node name="BestValue" type="Label" parent="UI/Hud/Content/Heading/Column/Row4" unique_id=236016613]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("5_rpxn3")
+theme_override_font_sizes/font_size = 8
+text = "000000"
+
+[node name="Spacer1" type="Control" parent="UI/Hud/Content/Heading/Column/Row4" unique_id=217527411]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ProgressValue" type="Label" parent="UI/Hud/Content/Heading/Column/Row4" unique_id=2098582125]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("5_rpxn3")
+theme_override_font_sizes/font_size = 8
+text = "0%"
+
+[node name="Expanded" type="Control" parent="UI/Hud/Content" unique_id=269203635]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="CountdownValue" type="Label" parent="UI/Hud/Content/Expanded" unique_id=1332112821]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("5_rpxn3")
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menus" type="Control" parent="UI" unique_id=1530056813]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundOverlay" type="ColorRect" parent="UI/Menus" unique_id=1823504078]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.09411765, 0.09411765, 0.14509805, 0.78431374)
+
+[node name="Center" type="CenterContainer" parent="UI/Menus" unique_id=2080526120]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseMenu" parent="UI/Menus/Center" unique_id=933271589 instance=ExtResource("8_rpxn3")]
+layout_mode = 2
+
+[node name="GameoverMenu" parent="UI/Menus/Center" unique_id=832792062 instance=ExtResource("8_j1mdf")]
+layout_mode = 2

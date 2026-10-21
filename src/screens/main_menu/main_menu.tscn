@@ -15,11 +15,13 @@
 [ext_resource type="Texture2D" uid="uid://bfnpsmxs5swjd" path="res://assets/textures/ball.png" id="11_gw5y6"]
 [ext_resource type="Texture2D" uid="uid://clgcs176514mb" path="res://assets/textures/paddle.png" id="12_svtp6"]
 
-[node name="MainMenu" type="CanvasLayer" unique_id=839816198 node_paths=PackedStringArray("initial_focus", "levels_button", "survival_button")]
+[node name="MainMenu" type="CanvasLayer" unique_id=839816198 node_paths=PackedStringArray("initial_focus", "levels_button", "survival_button", "highscore_value", "version_value")]
 script = ExtResource("1_bqqt6")
 initial_focus = NodePath("Control/VBoxContainer/QuickPlayButton")
 levels_button = NodePath("Control/VBoxContainer/LevelsButton")
 survival_button = NodePath("Control/VBoxContainer/SurvivalButton")
+highscore_value = NodePath("Control/HighscoreContainer/HighscoreValue")
+version_value = NodePath("Control/VersionValue")
 
 [node name="Control" type="Control" parent="." unique_id=684109782]
 layout_mode = 3
@@ -216,7 +218,7 @@ text = "Levels"
 layout_mode = 2
 text = "Survival"
 
-[node name="VersionLabel" type="Label" parent="Control" unique_id=1261550447]
+[node name="VersionValue" type="Label" parent="Control" unique_id=1261550447]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -225,40 +227,35 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -60.0
 offset_top = -27.0
-offset_right = -16.0
-offset_bottom = -16.0
+offset_right = -28.0
+offset_bottom = -19.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
 theme_override_fonts/font = ExtResource("2_bqqt6")
 theme_override_font_sizes/font_size = 8
-text = "v0.1"
+text = "v0.0.0"
 
-[node name="HighScoreLabel" type="Label" parent="Control" unique_id=2144953521]
+[node name="HighscoreContainer" type="HBoxContainer" parent="Control" unique_id=1100534265]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 16.0
 offset_top = -24.0
-offset_right = 32.0
+offset_right = 84.0
 offset_bottom = -16.0
 grow_vertical = 0
+
+[node name="HighscoreLabel" type="Label" parent="Control/HighscoreContainer" unique_id=2144953521]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
 theme_override_fonts/font = ExtResource("2_bqqt6")
 theme_override_font_sizes/font_size = 8
 text = "HI"
 
-[node name="HighScore" type="Label" parent="Control" unique_id=689352423]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 42.0
-offset_top = -24.0
-offset_right = 90.0
-offset_bottom = -16.0
-grow_vertical = 0
+[node name="HighscoreValue" type="Label" parent="Control/HighscoreContainer" unique_id=689352423]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.9764706, 0.8862745, 0.6862745, 1)
 theme_override_fonts/font = ExtResource("2_bqqt6")
 theme_override_font_sizes/font_size = 8

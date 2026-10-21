@@ -66,10 +66,10 @@ static func _parse(line: String) -> LevelDef:
 	level_def.difficulty = _parse_difficulty(parsed.get("difficulty", "easy"))
 	level_def.rows = int(parsed.get("rows", 0))
 	level_def.cols = int(parsed.get("cols", 0))
-	level_def.row_gap = float(parsed.get("row_gap", 4.0))
-	level_def.col_gap = float(parsed.get("col_gap", 8.0))
-	level_def.tile_width = float(parsed.get("tile_width", 30.0))
-	level_def.tile_height = float(parsed.get("tile_height", 12.0))
+	level_def.row_gap = float(parsed.get("row_gap", Constants.DEFAULT_ROW_GAP))
+	level_def.col_gap = float(parsed.get("col_gap", Constants.DEFAULT_COL_GAP))
+	level_def.tile_width = float(parsed.get("tile_width", Constants.DEFAULT_TILE_WIDTH))
+	level_def.tile_height = float(parsed.get("tile_height", Constants.DEFAULT_TILE_HEIGHT))
 
 	for value in parsed.get("grid", []):
 		level_def.grid.append(int(value))

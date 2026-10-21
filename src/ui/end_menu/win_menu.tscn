@@ -17,6 +17,9 @@ border_color = Color(0.27058825, 0.2784314, 0.34901962, 1)
 bg_color = Color(0.6509804, 0.8901961, 0.6313726, 1)
 
 [node name="WinMenu" type="PanelContainer" unique_id=517087513 node_paths=PackedStringArray("stars_node", "level_node", "time_node", "lives_node", "play_next_button", "play_again_button", "exit_button")]
+custom_minimum_size = Vector2(296, 0)
+custom_maximum_size = Vector2(296, -1)
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_vse7m")
 script = ExtResource("1_krx1n")
 stars_node = NodePath("MainLayout/Margin/Column/Margin2/Stars")

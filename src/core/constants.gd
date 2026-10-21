@@ -2,6 +2,11 @@ class_name Constants
 extends Resource
 
 
+const VERSION_MAJOR: int = 0
+const VERSION_MINOR: int = 1
+const VERSION_PATCH: int = 0
+
+
 ## Mapping from sound name to sound asset filepath.
 const SOUND: Dictionary = {
 
@@ -16,6 +21,7 @@ const SOUND: Dictionary = {
 	"LifeLost": preload("res://assets/sounds/Life-Lost.wav"),
 	"GameWon": preload("res://assets/sounds/Game-Won.wav"),
 	"GameLost": preload("res://assets/sounds/Game-Lost.wav"),
+	"StageFinished": preload("res://assets/sounds/Stage-Finished.wav"),
 }
 
 
@@ -35,3 +41,10 @@ const SCENE: Dictionary = {
 	"Particles": "res://src/game/particles/hit_particles.tscn",
 	"Tile": "res://src/game/tile/tile.tscn",
 }
+
+
+const DEFAULT_TILE_WIDTH: float = 30.0
+const DEFAULT_TILE_HEIGHT: float = 12.0
+const DEFAULT_ROW_GAP: float = 4.0
+const DEFAULT_COL_GAP: float = 8.0
+#

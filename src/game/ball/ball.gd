@@ -1,6 +1,8 @@
 class_name Ball
 extends CharacterBody2D
 
+signal on_hit_paddle(ball: Ball, paddle: Paddle)
+
 const BALL_SPEED: float = 420.0
 const MAX_ANGLE_RAD: float = deg_to_rad(60.0)
 
@@ -33,6 +35,7 @@ func _physics_process(delta: float) -> void:
 
 		if collider is Paddle:
 			_on_paddle_hit(collider, collision)
+			on_hit_paddle.emit(self, collider)
 		elif collider is Tile:
 			collider.hit(damage)
 			velocity = velocity.bounce(collision.get_normal())

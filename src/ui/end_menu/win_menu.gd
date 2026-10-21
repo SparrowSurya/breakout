@@ -11,8 +11,8 @@ extends PanelContainer
 @export var exit_button: CustomButton
 
 
-## Applies the value to the nodes.
-func apply(level_no: int, time: String, lives: int) -> void:
+## Updates the values in the nodes.
+func update(level_no: int, time: String, lives: int) -> void:
 	level_node.text = str(level_no).pad_zeros(3)
 	time_node.text = time
 	lives_node.text = str(lives)

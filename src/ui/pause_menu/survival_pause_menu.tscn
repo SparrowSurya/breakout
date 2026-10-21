@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://35ty0uj0nieo"]
+[gd_scene format=3 uid="uid://cathyifo4gfcf"]
 
-[ext_resource type="Script" uid="uid://dsgijc5nwkhgr" path="res://src/ui/pause_menu/pause_menu.gd" id="1_fsbbv"]
-[ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_kqx3l"]
-[ext_resource type="PackedScene" uid="uid://dy1xomrq02t83" path="res://src/ui/button/custom_button.tscn" id="3_j7lcx"]
+[ext_resource type="Script" uid="uid://sv441wajbi6h" path="res://src/ui/pause_menu/survival_pause_menu.gd" id="1_u1ls8"]
+[ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_7uhee"]
+[ext_resource type="PackedScene" uid="uid://dy1xomrq02t83" path="res://src/ui/button/custom_button.tscn" id="3_rb6dp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_peth0"]
 bg_color = Color(0.09411765, 0.09411765, 0.14509805, 1)
@@ -27,11 +27,14 @@ grow_begin = 0.0
 grow_end = 0.0
 thickness = 6
 
-[node name="PauseMenu" type="PanelContainer" unique_id=933271589 node_paths=PackedStringArray("level_node", "progress_node", "progress_bar", "resume_button", "restart_button", "exit_button")]
+[node name="SurvivalPauseMenu" type="PanelContainer" unique_id=933271589 node_paths=PackedStringArray("stage_value", "time_value", "progress_value", "progress_bar", "resume_button", "restart_button", "exit_button")]
+custom_minimum_size = Vector2(296, 0)
+custom_maximum_size = Vector2(296, -1)
 theme_override_styles/panel = SubResource("StyleBoxFlat_peth0")
-script = ExtResource("1_fsbbv")
-level_node = NodePath("MainLayout/Margin/Column/LevelInfoRow/LevelNo")
-progress_node = NodePath("MainLayout/Margin/Column/ProgressInfoRow/Progress")
+script = ExtResource("1_u1ls8")
+stage_value = NodePath("MainLayout/Margin/Column/StageInfoRow/StageValue")
+time_value = NodePath("MainLayout/Margin/Column/TimeInfoRow/TimeValue")
+progress_value = NodePath("MainLayout/Margin/Column/ProgressInfoRow/ProgressValue")
 progress_bar = NodePath("MainLayout/Margin/Column/ProgressBar")
 resume_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/ResumeButton")
 restart_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/RestartButton")
@@ -48,7 +51,7 @@ custom_maximum_size = Vector2(-1, 54)
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_colors/font_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
-theme_override_fonts/font = ExtResource("2_kqx3l")
+theme_override_fonts/font = ExtResource("2_7uhee")
 theme_override_styles/normal = SubResource("StyleBoxFlat_qrgyy")
 text = "PAUSED"
 horizontal_alignment = 1
@@ -65,26 +68,47 @@ theme_override_constants/margin_bottom = 24
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="LevelInfoRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=1036002652]
+[node name="StageInfoRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=1036002652]
 layout_mode = 2
 
-[node name="LevelLabel" type="Label" parent="MainLayout/Margin/Column/LevelInfoRow" unique_id=118648847]
+[node name="StageLabel" type="Label" parent="MainLayout/Margin/Column/StageInfoRow" unique_id=118648847]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
-theme_override_fonts/font = ExtResource("2_kqx3l")
+theme_override_fonts/font = ExtResource("2_7uhee")
 theme_override_font_sizes/font_size = 8
-text = "LEVEL"
+text = "STAGE"
 
-[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/LevelInfoRow" unique_id=976573410]
+[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/StageInfoRow" unique_id=976573410]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LevelNo" type="Label" parent="MainLayout/Margin/Column/LevelInfoRow" unique_id=1933088284]
+[node name="StageValue" type="Label" parent="MainLayout/Margin/Column/StageInfoRow" unique_id=1933088284]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
-theme_override_fonts/font = ExtResource("2_kqx3l")
+theme_override_fonts/font = ExtResource("2_7uhee")
 theme_override_font_sizes/font_size = 8
 text = "00"
+
+[node name="TimeInfoRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=1764959314]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=348505984]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("2_7uhee")
+theme_override_font_sizes/font_size = 8
+text = "TIME TAKEN"
+
+[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=1817347801]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimeValue" type="Label" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=504241976]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("2_7uhee")
+theme_override_font_sizes/font_size = 8
+text = "00:00"
 
 [node name="ProgressInfoRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=30505656]
 layout_mode = 2
@@ -92,18 +116,18 @@ layout_mode = 2
 [node name="ProgressLabel" type="Label" parent="MainLayout/Margin/Column/ProgressInfoRow" unique_id=276874786]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
-theme_override_fonts/font = ExtResource("2_kqx3l")
+theme_override_fonts/font = ExtResource("2_7uhee")
 theme_override_font_sizes/font_size = 8
-text = "BRICKS CLEARED"
+text = "STAGE PROGRESS"
 
 [node name="Spacer" type="Control" parent="MainLayout/Margin/Column/ProgressInfoRow" unique_id=1777135995]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Progress" type="Label" parent="MainLayout/Margin/Column/ProgressInfoRow" unique_id=846409796]
+[node name="ProgressValue" type="Label" parent="MainLayout/Margin/Column/ProgressInfoRow" unique_id=846409796]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
-theme_override_fonts/font = ExtResource("2_kqx3l")
+theme_override_fonts/font = ExtResource("2_7uhee")
 theme_override_font_sizes/font_size = 8
 text = "00%"
 
@@ -127,14 +151,14 @@ theme_override_constants/margin_right = 8
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="ResumeButton" parent="MainLayout/Margin/Column/Margin/Buttons" unique_id=1882703824 instance=ExtResource("3_j7lcx")]
+[node name="ResumeButton" parent="MainLayout/Margin/Column/Margin/Buttons" unique_id=1882703824 instance=ExtResource("3_rb6dp")]
 layout_mode = 2
 text = "Resume"
 
-[node name="RestartButton" parent="MainLayout/Margin/Column/Margin/Buttons" unique_id=1030521768 instance=ExtResource("3_j7lcx")]
+[node name="RestartButton" parent="MainLayout/Margin/Column/Margin/Buttons" unique_id=1030521768 instance=ExtResource("3_rb6dp")]
 layout_mode = 2
 text = "Restart"
 
-[node name="ExitButton" parent="MainLayout/Margin/Column/Margin/Buttons" unique_id=1774915183 instance=ExtResource("3_j7lcx")]
+[node name="ExitButton" parent="MainLayout/Margin/Column/Margin/Buttons" unique_id=1774915183 instance=ExtResource("3_rb6dp")]
 layout_mode = 2
 text = "Exit"

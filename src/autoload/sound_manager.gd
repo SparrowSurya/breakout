@@ -9,14 +9,11 @@ const BUS_MUSIC: StringName = &"Music"
 const BUS_SOUND: StringName = &"Sound"
 const BUS_SFX: StringName = &"SFX"
 
-const SOUND_POOL_SIZE: int = 4
-const SFX_POOL_SIZE: int = 8
-
 var music_player: AudioStreamPlayer ## Plays background music.
+var sound_player: AudioStreamPlayer ## Plays ui sounds.
+var sfx_player: AudioStreamPlayer   ## Plays in-game sfx.
 
-var _sound_pool: Array[AudioStreamPlayer] = [] ## Plays ui sounds.
-var _sfx_pool: Array[AudioStreamPlayer] = []   ## Plays in-game sfx.
-var _music_stream: AudioStream                 ## Last playing music stream.
+var _music_stream: AudioStream      ## Last playing music stream.
 var _levels: Dictionary = {
 	BUS_MUSIC: VOLUME_MAX,
 	BUS_SOUND: VOLUME_MAX,
@@ -31,12 +28,9 @@ func _ready() -> void:
 		_ensure_bus(bus)
 
 	music_player = _make_player(BUS_MUSIC, "MusicPlayer")
+	sound_player = _make_player(BUS_SOUND, "SoundPlayer")
+	sfx_player = _make_player(BUS_SFX, "SfxPlayer")
 	music_player.finished.connect(_on_music_finished)
-
-	for i in SOUND_POOL_SIZE:
-		_sound_pool.append(_make_player(BUS_SOUND, "SoundPlayer%d" % i))
-	for i in SFX_POOL_SIZE:
-		_sfx_pool.append(_make_player(BUS_SFX, "SfxPlayer%d" % i))
 
 	for bus in _levels.keys():
 		_set_bus_level(bus, _levels[bus])
@@ -63,13 +57,12 @@ func stop_music() -> void:
 
 ## Plays ui related sounds (buttons, menus).
 func play_sound(stream: AudioStream) -> void:
-	_play_pooled(_sound_pool, stream)
+	_play(sound_player, stream)
 
 
-## Plays in-game sfx. pitch_variation (e.g. 0.05) randomises pitch slightly
-## so repeated hits don't sound identical.
+## Plays in-game sfx. pitch_variation (e.g. 0.05) randomises pitch slightly.
 func play_sfx(stream: AudioStream, pitch_variation: float = 0.0) -> void:
-	_play_pooled(_sfx_pool, stream, pitch_variation)
+	_play(sfx_player, stream, pitch_variation)
 
 
 func set_music_volume(level: float) -> void:
@@ -89,6 +82,16 @@ func get_sound_volume() -> float:
 
 func get_sfx_volume() -> float:
 	return _levels[BUS_SFX]
+
+
+func _play(player: AudioStreamPlayer, stream: AudioStream, pitch_variation: float = 0.0) -> void:
+	if stream == null:
+		push_warning("SoundManager: stream is null")
+		return
+
+	player.stream = stream
+	player.pitch_scale = 1.0 + randf_range(-pitch_variation, pitch_variation)
+	player.play()
 
 
 ## Clamps to the allowed range, stores it, and applies it to the bus.
@@ -123,28 +126,6 @@ func _ensure_bus(bus: StringName) -> void:
 	var idx: int = AudioServer.bus_count - 1
 	AudioServer.set_bus_name(idx, bus)
 	AudioServer.set_bus_send(idx, &"Master")
-
-
-func _play_pooled(pool: Array[AudioStreamPlayer], stream: AudioStream, pitch_variation: float = 0.0) -> void:
-	if stream == null:
-		push_warning("SoundManager: stream is null")
-		return
-
-	var player: AudioStreamPlayer = _pick_player(pool)
-	player.stream = stream
-	player.pitch_scale = 1.0 + randf_range(-pitch_variation, pitch_variation)
-	player.play()
-
-
-## Returns an idle player, or steals the one that has been playing longest.
-func _pick_player(pool: Array[AudioStreamPlayer]) -> AudioStreamPlayer:
-	var oldest: AudioStreamPlayer = pool[0]
-	for player in pool:
-		if not player.playing:
-			return player
-		if player.get_playback_position() > oldest.get_playback_position():
-			oldest = player
-	return oldest
 
 
 ## Uses the stream's own loop flag when it has one (no gap at the loop point).

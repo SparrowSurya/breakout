@@ -29,6 +29,9 @@ grow_end = 0.0
 thickness = 6
 
 [node name="LoseMenu" type="PanelContainer" unique_id=1626180265 node_paths=PackedStringArray("stars_node", "level_node", "time_node", "progress_node", "progress_bar", "play_again_button", "exit_button")]
+custom_minimum_size = Vector2(296, 0)
+custom_maximum_size = Vector2(296, -1)
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_vse7m")
 script = ExtResource("1_m0soo")
 stars_node = NodePath("MainLayout/Margin/Column/Margin2/Stars")
@@ -147,7 +150,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
 theme_override_fonts/font = ExtResource("1_r0n7x")
 theme_override_font_sizes/font_size = 8
-text = "BRICKS CLEARED"
+text = "LEVEL PROGRESS"
 
 [node name="Spacer" type="Control" parent="MainLayout/Margin/Column/ProgressInfoRow" unique_id=2092115923]
 layout_mode = 2

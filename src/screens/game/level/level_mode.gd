@@ -13,7 +13,7 @@ extends BaseGame
 
 # Menus nodes
 @export var menus_node: Control
-@export var pause_menu: PauseMenu
+@export var pause_menu: LevelPauseMenu
 @export var end_menu: EndMenu
 @export var background_overlay: ColorRect
 
@@ -137,7 +137,7 @@ func setup_tiles() -> void:
 			total_hits += tile.tile_health
 
 		tile.on_hit.connect(_on_tile_hit)
-	
+
 	hits_left = total_hits
 	if total_hits <= 0:
 		push_error("LevelGame: total_hits evaluated to non positive integer")
@@ -162,7 +162,7 @@ func _reposition() -> void:
 func setup_hud() -> void:
 	var level_text = "Level %03d" % level_no
 	level_label.text = level_text
-	pause_menu.level_node.text = level_text
+	pause_menu.level_value.text = level_text
 
 	_update_heart()
 	update_progress()
@@ -225,13 +225,11 @@ func pause_game() -> void:
 		return
 
 	GameManager.game_state = GameManager.GameState.PAUSED
-	menus_node.show()
 	pause_resume_tab.current_tab = TAB_RESUME
-	pause_menu.progress_node.text = progress_node.text
-	pause_menu.progress_bar.value = progress_bar.value
-	pause_menu.resume_button.grab_focus()
+	pause_menu.update(level_no, progress_bar.value)
 	background_overlay.show()
 	pause_menu.show()
+	menus_node.show()
 
 
 # Resume level if paused
@@ -240,8 +238,8 @@ func resume_game() -> void:
 		return
 
 	GameManager.game_state = GameManager.GameState.PLAYING
-	menus_node.hide()
 	pause_resume_tab.current_tab = TAB_PAUSE
+	menus_node.hide()
 	background_overlay.hide()
 	pause_menu.hide()
 
@@ -270,7 +268,7 @@ func end_game(won: bool) -> void:
 		level_progress = LevelProgress.as_wip(level_no, progress_bar.value)
 
 	background_overlay.show()
-	UserProgress.save(level_progress)
+	UserProgress.save_progress(level_progress)
 
 
 func start_game() -> void:
