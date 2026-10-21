@@ -21,6 +21,6 @@ func _ready() -> void:
 func update(level_no: int, time: String, progress: float) -> void:
 	level_node.text = str(level_no).pad_zeros(3)
 	time_node.text = time
-	progress_node.text = "%02d" % int(progress)
+	progress_node.text = "%02d%%" % int(progress)
 	progress_bar.value = progress
 	play_again_button.grab_focus()

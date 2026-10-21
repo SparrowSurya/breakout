@@ -44,7 +44,7 @@ static func initialise() -> void:
 		var level_def: LevelDef = _parse(line)
 
 		if level_def == null:
-			break
+			continue
 
 		level_count += 1
 		_cache[level_def.level_no] = level_def
@@ -54,6 +54,7 @@ static func initialise() -> void:
 
 # Parses JSON string representing a level
 static func _parse(line: String) -> LevelDef:
+	line = line.strip_edges()
 	if not line.begins_with("{") and not line.ends_with("}"):
 		return null
 

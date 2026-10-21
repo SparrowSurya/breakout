@@ -39,7 +39,7 @@ func save_progress(new_progress: LevelProgress) -> void:
 	# Unlock next level if current is finished and next is locked.
 	var current_best = _levels[level_no]
 	var is_complete = current_best.progress >= 100.0
-	var next_level_no = level_no+1
+	var next_level_no = level_no + 1
 	var next_level_exists = next_level_no <= LevelDef.level_count
 
 	if is_complete and next_level_exists:
@@ -67,19 +67,17 @@ func get_level(level_no: int) -> LevelProgress:
 ## Returns the total stars collected
 func stars_collected() -> int:
 	var count = 0
-	for key in _levels.keys():
-		count += _levels[key].stars
+	for level in _levels.values():
+		count += level.stars
 	return count
 
 
 ## Returns the level_no which after which all are locked
 func highest_unlocked_level() -> int:
-	var level_no: int = 0
-	for key in _levels.keys():
-		var value = _levels[key]
-		var unlocked = value.status == LevelProgress.LevelStatus.UNLOCKED
-		if unlocked and value.level_no > level_no:
-			level_no = value.level_no
+	var level_no: int = 1
+	for level in _levels.values():
+		if level.status == LevelProgress.LevelStatus.UNLOCKED and level.level_no > level_no:
+			level_no = level.level_no
 	return level_no
 
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://byq4rg4tli7fv"]
 
-[ext_resource type="Script" uid="uid://dwh16g2erp1p" path="res://src/ui/level_card/level_label.gd" id="1_hxxa8"]
+[ext_resource type="Script" uid="uid://dwh16g2erp1p" path="res://src/ui/level_card/level_card.gd" id="1_hxxa8"]
 [ext_resource type="Texture2D" uid="uid://d3ck42bnxtyuk" path="res://assets/textures/icons/lock.png" id="2_18tj1"]
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_52x5h"]
 [ext_resource type="Texture2D" uid="uid://yxj7oo20cy1i" path="res://assets/textures/icons/star.png" id="3_g8lj1"]
@@ -23,7 +23,7 @@ grow_begin = 0.0
 grow_end = 0.0
 thickness = 5
 
-[node name="LevelLabel" type="PanelContainer" unique_id=208522672 node_paths=PackedStringArray("border_node", "margin_node", "overlay_node", "highlight_node", "indicator_node", "lock_icon_node", "level_node", "tab_locked_status_node", "progress_tab_node", "stars_node", "progress_node")]
+[node name="LevelCard" type="PanelContainer" unique_id=208522672 node_paths=PackedStringArray("border_node", "margin_node", "overlay_node", "highlight_node", "indicator_node", "lock_icon_node", "level_node", "tab_locked_status_node", "progress_tab_node", "stars_node", "progress_node")]
 custom_minimum_size = Vector2(64, 68)
 custom_maximum_size = Vector2(64, 68)
 offset_right = 40.0

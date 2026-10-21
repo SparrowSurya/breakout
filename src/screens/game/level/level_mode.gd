@@ -147,11 +147,11 @@ func _reposition() -> void:
 	var paddle_height = paddle.sprite.texture.get_height()
 	var ball_size = ball.sprite.texture.get_size()
 
-	paddle.position.x = (window_size.x - paddle_height) / 2
+	paddle.position.x = window_size.x / 2.0
 	paddle.position.y = window_size.y - PADDLE_Y_OFFSET
 	paddle.z_index = 1
 
-	ball.position.x = (window_size.x - ball_size.x) / 2
+	ball.position.x = window_size.x / 2.0
 	ball.position.y = window_size.y - paddle_height - BALL_Y_OFFSET
 	ball.z_index = 1
 	
@@ -306,6 +306,6 @@ func exit_level() -> void:
 
 # Exit to new level
 func play_next_level() -> void:
-	var next_level = level_no+1
+	var next_level = level_no + 1
 	if GameManager.level_exists(next_level):
-		GameManager.enter_level(next_level)
+		GameManager.play_level(next_level)

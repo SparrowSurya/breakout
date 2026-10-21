@@ -124,7 +124,7 @@ func _update_grid() -> void:
 	var formation := TileFormation.create(rows, cols)
 	
 	grid_data = formation.grid_data
-	grid_rows= formation.grid_rows
+	grid_rows = formation.grid_rows
 	grid_cols = formation.grid_cols
 	
 
@@ -135,6 +135,8 @@ func setup_tiles() -> void:
 		tile.queue_free()
 	
 	total_hits = 0
+	tiles_left = 0
+
 	var total_width: float = grid_cols * Constants.DEFAULT_TILE_WIDTH + (grid_cols - 1) * Constants.DEFAULT_COL_GAP
 	var start_x: float = (window_size.x - total_width) / 2.0
 
@@ -169,11 +171,11 @@ func _reposition() -> void:
 	var paddle_height = paddle.sprite.texture.get_height()
 	var ball_size = ball.sprite.texture.get_size()
 
-	paddle.position.x = (window_size.x - paddle_height) / 2
+	paddle.position.x = window_size.x / 2.0
 	paddle.position.y = window_size.y - PADDLE_Y_OFFSET
 	paddle.z_index = 1
 
-	ball.position.x = (window_size.x - ball_size.x) / 2
+	ball.position.x = window_size.x / 2.0
 	ball.position.y = window_size.y - paddle_height - BALL_Y_OFFSET
 	ball.z_index = 1
 

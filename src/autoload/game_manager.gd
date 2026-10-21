@@ -16,7 +16,7 @@ enum GameState {
 enum Screen {
 	
 	# Normal screens
-	MAIM_MENU,
+	MAIN_MENU,
 	SELECT_LEVEL,
 	
 	# Gameplay screens
@@ -25,7 +25,7 @@ enum Screen {
 }
 
 
-var current_screen: Screen = Screen.MAIM_MENU
+var current_screen: Screen = Screen.MAIN_MENU
 var level_data: LevelDef = null
 var game_state: GameState = GameState.NONE
 
@@ -36,7 +36,7 @@ func _ready() -> void:
 
 ## Enter main menu scene.
 func navigate_to_mainmenu() -> void:
-	current_screen = Screen.MAIM_MENU
+	current_screen = Screen.MAIN_MENU
 	get_tree().change_scene_to_file(Constants.SCENE.MainMenu)
 	
 
@@ -51,7 +51,7 @@ func play_level(level: int) -> void:
 	current_screen = Screen.LEVEL_MODE
 	level_data = LevelDef.load_level(level)
 	if level_data == null:
-		push_warning("GameManager: enter level failed beacause level_data is null")
+		push_warning("GameManager: enter level failed because level_data is null")
 		return
 
 	get_tree().change_scene_to_file(Constants.SCENE.LevelMode)

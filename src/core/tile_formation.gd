@@ -252,7 +252,7 @@ static func _create_grid(rows: int, cols: int, value: int = 0) -> Array[int]:
 static func _create_wall(rows: int, cols: int, value: int = 0) -> Array[int]:
 	var grid: Array[int] = []
 	for r in range(rows):
-		for c in range(cols - (r&1)):
+		for c in range(cols - (r & 1)):
 			grid.append(value)
 	return grid
 
@@ -261,7 +261,7 @@ static func _create_wall(rows: int, cols: int, value: int = 0) -> Array[int]:
 static func _fill(rows: int, cols: int, value: int, grid: Array[int], mask: Array[int], wall: bool) -> void:
 	var index: int = 0
 	for r in range(rows):
-		var delta = (r&1) if wall else 0
+		var delta = (r & 1) if wall else 0
 		for c in range(cols - delta):
 			if mask.is_empty() or mask[index] != 0:
 				grid[index] = value
@@ -273,7 +273,7 @@ static func _fill(rows: int, cols: int, value: int, grid: Array[int], mask: Arra
 static func _mask_random(rows: int, cols: int, mask_chance: float, wall: bool) -> Array[int]:
 	var grid: Array[int] = []
 	for r in range(rows):
-		var delta = (r&1) if wall else 0
+		var delta = (r & 1) if wall else 0
 		for c in range(cols - delta):
 			var value: int = 0 if randf() < mask_chance else 1
 			grid.append(value)

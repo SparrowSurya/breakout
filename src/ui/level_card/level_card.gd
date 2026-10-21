@@ -1,4 +1,4 @@
-class_name LevelLabel
+class_name LevelCard
 extends PanelContainer
 
 @export var border_node: ColorRect

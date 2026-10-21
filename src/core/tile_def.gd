@@ -35,6 +35,8 @@ var color: Color
 var particle_texture: ImageTexture
 
 static var table: Array[TileDef] = []
+static var _by_health: Dictionary[int, TileDef] = {}
+static var _by_type: Dictionary[TileType, TileDef] = {}
 
 
 func _init(
@@ -74,12 +76,15 @@ static func _build_table() -> void:
 		TileDef.new(6, false, TILE.Red, TileType.RED, Palette.RED),
 	]
 
+	for entry in table:
+		_by_health[entry.health] = entry
+		_by_type[entry.type] = entry
+
 
 static func from_health(p_health: int) -> TileDef:
 	_build_table()
-	for entry in table:
-		if entry.health == p_health:
-			return entry
+	if _by_health.has(p_health):
+		return _by_health[p_health]
 	
 	push_warning("TileDef: no entry for health %d, falling back to metal" % p_health)
 	return table[0]
@@ -87,9 +92,8 @@ static func from_health(p_health: int) -> TileDef:
 
 static func from_type(p_type: TileType) -> TileDef:
 	_build_table()
-	for entry in table:
-		if entry.type == p_type:
-			return entry
+	if _by_type.has(p_type):
+		return _by_type[p_type]
 	
 	push_warning("TileDef: no entry for type %d, falling back to metal" % p_type)
 	return table[0]

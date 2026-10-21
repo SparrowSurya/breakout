@@ -37,7 +37,7 @@ func _ready() -> void:
 func _update() -> void:
 	_update_buttons()
 	_update_indicators()
-	emit_signal("page_update", total_pages, current_page)
+	page_update.emit(total_pages, current_page)
 
 
 func _update_buttons() -> void:

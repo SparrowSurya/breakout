@@ -11,7 +11,7 @@ const GRID_CAP: int = 16
 
 var level_page: int = 1
 var page_count: int = 1
-var level_label_scene: PackedScene = preload(Constants.SCENE.LevelLabel)
+var level_card_scene: PackedScene = preload(Constants.SCENE.LevelCard)
 
 
 func _ready() -> void:
@@ -40,22 +40,22 @@ func _fill_levels() -> void:
 	var level_end = min(level_begin + GRID_CAP, LevelDef.level_count)
 	
 	for level in range(level_begin+1, level_end+1): # Index=0 equals Level-1
-		var level_label: LevelLabel = level_label_scene.instantiate()
+		var level_card: LevelCard = level_card_scene.instantiate()
 		var level_progress = UserProgress.get_level(level)
 		var level_data = LevelDef.load_level(level)
 
-		level_label.level_no = level_progress.level_no
-		level_label.locked = level_progress.status == LevelProgress.LevelStatus.LOCKED
-		level_label.progress = level_progress.progress
-		level_label.stars = level_progress.stars
+		level_card.level_no = level_progress.level_no
+		level_card.locked = level_progress.status == LevelProgress.LevelStatus.LOCKED
+		level_card.progress = level_progress.progress
+		level_card.stars = level_progress.stars
 
 		if level_data != null:
-			level_label.difficulty = level_data.difficulty
+			level_card.difficulty = level_data.difficulty
 
-		levels_grid_node.add_child(level_label)
+		levels_grid_node.add_child(level_card)
 
 		if level == focus_level:
-			level_label.grab_focus()
+			level_card.grab_focus()
 
 
 func _update_page_footer(total_pages: int, current_page: int) -> void:
@@ -63,7 +63,9 @@ func _update_page_footer(total_pages: int, current_page: int) -> void:
 
 
 func _on_page_update(total_pages: int, current_page: int) -> void:
+	level_page = current_page
 	_update_page_footer(total_pages, current_page)
+	_fill_levels()
 
 
 func _on_back_button_clicked() -> void:

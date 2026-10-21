@@ -36,7 +36,7 @@ const SCENE: Dictionary = {
 	
 	# Other screens
 	"Ball": "res://src/game/ball/ball.tscn",
-	"LevelLabel": "res://src/ui/level_card/level_label.tscn",
+	"LevelCard": "res://src/ui/level_card/level_card.tscn",
 	"Paddle": "res://src/game/paddle/paddle.tscn",
 	"Particles": "res://src/game/particles/hit_particles.tscn",
 	"Tile": "res://src/game/tile/tile.tscn",
