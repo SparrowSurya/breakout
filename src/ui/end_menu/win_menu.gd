@@ -22,7 +22,7 @@ func apply(level_no: int, time: String, lives: int) -> void:
 		if star_node is TextureRect:
 			star_node.modulate = Palette.YELLOW if i < lives else Palette.SURFACE2
 	
-	if GameManager.has_level(level_no+1):
+	if GameManager.level_exists(level_no+1):
 		play_next_button.grab_focus()
 	else:
 		play_next_button.hide()

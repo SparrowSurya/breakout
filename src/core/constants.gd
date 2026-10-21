@@ -2,8 +2,10 @@ class_name Constants
 extends Resource
 
 
-# Souds in the game.
+## Mapping from sound name to sound asset filepath.
 const SOUND: Dictionary = {
+
+	# Sounds inside game mode
 	"BallHitPaddle": preload("res://assets/sounds/Ball-Hit-Paddle.wav"),
 	"BallHitTile": preload("res://assets/sounds/Ball-Hit-Tile.wav"),
 	"BallHitMetalTile": preload("res://assets/sounds/Ball-Hit-Metal-Tile.wav"),
@@ -16,19 +18,20 @@ const SOUND: Dictionary = {
 	"GameLost": preload("res://assets/sounds/Game-Lost.wav"),
 }
 
-# Instanciable scenes
+
+## Mapping from scene name to its filepath.
 const SCENE: Dictionary = {
+	
+	# Screens
+	"MainMenu": "res://src/screens/main_menu/main_menu.tscn",
+	"SelectLevel": "res://src/screens/select_level/select_level.tscn",
+	"LevelMode": "res://src/screens/game/level/level_mode.tscn",
+	"SurvivalMode": "res://src/screens/game/survival/survival_mode.tscn",
+	
+	# Other screens
+	"Ball": "res://src/game/ball/ball.tscn",
 	"LevelLabel": "res://src/ui/level_card/level_label.tscn",
 	"Paddle": "res://src/game/paddle/paddle.tscn",
 	"Particles": "res://src/game/particles/hit_particles.tscn",
 	"Tile": "res://src/game/tile/tile.tscn",
-	"Ball": "res://src/game/ball/ball.tscn",
-	"MainMenu": "res://src/screens/main_menu/main_menu.tscn",
-	"Levels": "res://src/screens/level_select/level_select.tscn",
-	"Gameplay": "res://src/screens/gameplay/gameplay.tscn",
 }
-
-
-# ProgressBar defaults throughtout the project.
-const PROGRESS_MIN: float = 0.0
-const PROGRESS_MAX: float = 100.0

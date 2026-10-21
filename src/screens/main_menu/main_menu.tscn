@@ -15,10 +15,11 @@
 [ext_resource type="Texture2D" uid="uid://bfnpsmxs5swjd" path="res://assets/textures/ball.png" id="11_gw5y6"]
 [ext_resource type="Texture2D" uid="uid://clgcs176514mb" path="res://assets/textures/paddle.png" id="12_svtp6"]
 
-[node name="MainMenu" type="CanvasLayer" unique_id=839816198 node_paths=PackedStringArray("levels_button", "initial_focus")]
+[node name="MainMenu" type="CanvasLayer" unique_id=839816198 node_paths=PackedStringArray("initial_focus", "levels_button", "survival_button")]
 script = ExtResource("1_bqqt6")
-levels_button = NodePath("Control/VBoxContainer/LevelsButton")
 initial_focus = NodePath("Control/VBoxContainer/QuickPlayButton")
+levels_button = NodePath("Control/VBoxContainer/LevelsButton")
+survival_button = NodePath("Control/VBoxContainer/SurvivalButton")
 
 [node name="Control" type="Control" parent="." unique_id=684109782]
 layout_mode = 3

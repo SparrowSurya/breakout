@@ -12,9 +12,6 @@ extends PanelContainer
 
 
 func _ready() -> void:
-	progress_bar.min_value = Constants.PROGRESS_MIN
-	progress_bar.max_value = Constants.PROGRESS_MAX
-
 	for star_node in stars_node.get_children():
 		if star_node is TextureRect:
 			star_node.modulate = Palette.SURFACE2

@@ -8,13 +8,3 @@ extends Control
 @export var resume_button: CustomButton
 @export var restart_button: CustomButton
 @export var exit_button: CustomButton
-
-
-func _ready() -> void:
-	progress_bar.min_value = Constants.PROGRESS_MIN
-	progress_bar.max_value = Constants.PROGRESS_MAX
-
-
-## Performs reusable reset type actions.
-func setup() -> void:
-	pass

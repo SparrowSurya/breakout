@@ -12,14 +12,18 @@ signal on_hit(tile: Tile, effective_damage: int, destroyed: bool)
 var is_immune: bool = false
 var tile_health: int = 0
 
-var shake_duration = 0.2 
-var shake_intensity = 3.0
-var shake_steps = 6
+var shake_duration: float = 0.2
+var shake_intensity: float = 3.0
+var shake_steps: int = 6
 
 var particles_scene: PackedScene = preload(Constants.SCENE.Particles)
 
+var _rest_pos: Vector2
+var _shake_tween: Tween
+
 
 func _ready() -> void:
+	_rest_pos = sprite.position
 	_apply(TileDef.from_type(tile_type))
 
 
@@ -70,16 +74,20 @@ func spawn_particles(pos: Vector2) -> void:
 
 
 func shake() -> void:
-	var original_pos = sprite.position
-	var tween = create_tween()
-	
+	if _shake_tween and _shake_tween.is_valid():
+		_shake_tween.kill()
+	sprite.position = _rest_pos
+
+	_shake_tween = create_tween()
+	var step_time: float = shake_duration / shake_steps
 	for i in range(shake_steps):
-		var random_offset = Vector2(
-			randf_range(-shake_intensity, shake_intensity), 
+		var falloff: float = 1.0 - float(i) / shake_steps
+		var offset := Vector2(
+			randf_range(-shake_intensity, shake_intensity),
 			randf_range(-shake_intensity, shake_intensity)
-		)
-		tween.tween_property(sprite, "position", original_pos + random_offset, shake_duration / shake_steps)
-	tween.tween_property(sprite, "position", original_pos, shake_duration / shake_steps)
+		) * falloff
+		_shake_tween.tween_property(sprite, "position", _rest_pos + offset, step_time)
+	_shake_tween.tween_property(sprite, "position", _rest_pos, step_time)
 
 
 func play_sound(stream: AudioStream) -> void:

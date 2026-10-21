@@ -1,11 +1,4 @@
-extends Node2D
-
-# Game nodes
-@export var tiles_node: Node2D
-@export var dead_zone: Area2D
-@export var countdown_label: Label
-@export var wall_top_node: CollisionShape2D
-@export var audio: AudioStreamPlayer2D
+extends BaseGame
 
 # HUD nodes
 @export var pause_resume_tab: TabContainer
@@ -16,8 +9,10 @@ extends Node2D
 @export var time_node: Label
 @export var progress_node: Label
 @export var progress_bar: ProgressBar
+@export var wall_top_node: CollisionShape2D
 
 # Menus nodes
+@export var menus_node: Control
 @export var pause_menu: PauseMenu
 @export var end_menu: EndMenu
 @export var background_overlay: ColorRect
@@ -44,35 +39,12 @@ var ball: Ball        ## Ball scene (manually added to tree).
 var paddle: Paddle    ## Paddle scene (manually added to tree).
 
 var level_no: int = 0 ## Level number being played.
-var total_hits: int   ## Total number of hits to break all breakable tiles.
-var hits_left: int    ## Hits left to break all leftover breakable tiles.
-var tiles_left: int   ## Number of breakable tiles left.
 var lives: int        ## Lives count (default: read from the health_node child count)
-var time: float       ## Stores the stopwatch time data.
 
 
-func _ready() -> void:
-	_init_variables()
-	_connect_signals()
-	setup()
-	progress_bar.show()
-	call_deferred("start_level")
+func initialise() -> void:
+	super.initialise()
 
-
-func _process(delta: float) -> void:
-	if GameManager.game_state == GameManager.GameState.PLAYING:
-		time += delta
-		_update_time_value()
-	
-	if Input.is_action_just_pressed("continue"):
-		if GameManager.game_state == GameManager.GameState.PLAYING:
-			pause_level()
-		elif GameManager.game_state == GameManager.GameState.PAUSED:
-			resume_level()
-
-
-# Initialises all the variables the needs to be initialised.
-func _init_variables() -> void:
 	if GameManager.level_data == null:
 		level_no = 1
 		push_warning("LevelGame: no level_data set in GameManager, selecting level 1")
@@ -86,34 +58,37 @@ func _init_variables() -> void:
 		+ wall_top_node.shape.get_rect().size.y / 2.0
 	)
 
-	progress_bar.min_value = Constants.PROGRESS_MIN
-	progress_bar.max_value = Constants.PROGRESS_MAX
+	pause_button.pressed.connect(pause_game)
+	resume_button.pressed.connect(resume_game)
 
-
-# Attaches signals listeners to the signals.;
-func _connect_signals() -> void:
-	dead_zone.body_entered.connect(_on_dead_zone_body_entered)
-	pause_button.pressed.connect(pause_level)
-	resume_button.pressed.connect(resume_level)
-
-	pause_menu.resume_button.pressed.connect(resume_level)
-	pause_menu.restart_button.pressed.connect(restart_level)
+	pause_menu.resume_button.pressed.connect(resume_game)
+	pause_menu.restart_button.pressed.connect(restart_game)
 	pause_menu.exit_button.pressed.connect(exit_level)
 
 	end_menu.win_menu.play_next_button.pressed.connect(play_next_level)
-	end_menu.win_menu.play_again_button.pressed.connect(restart_level)
+	end_menu.win_menu.play_again_button.pressed.connect(restart_game)
 	end_menu.win_menu.exit_button.pressed.connect(exit_level)
 
-	end_menu.lose_menu.play_again_button.pressed.connect(restart_level)
+	end_menu.lose_menu.play_again_button.pressed.connect(restart_game)
 	end_menu.lose_menu.exit_button.pressed.connect(exit_level)
+	
+	if ball != null:
+		ball.queue_free()
+
+	ball = ball_scene.instantiate()
+	add_child(ball)
+
+	if paddle != null:
+		paddle.queue_free()
+
+	paddle = paddle_scene.instantiate()
+	add_child(paddle)
 
 
-# Setup perfomrs the game setup based on the level selected.
 func setup() -> void:
-	pause_resume_tab.current_tab = TAB_PAUSE
-
 	lives = health_node.get_children().filter(func(node): return node is TextureRect).size()
-	time = 0
+
+	pause_resume_tab.current_tab = TAB_PAUSE
 
 	pause_button.disabled = true
 	resume_button.disabled = true
@@ -123,18 +98,19 @@ func setup() -> void:
 	pause_menu.hide()
 	end_menu.hide()
 
-	_setup_tiles()
-	_setup_paddle()
-	_setup_ball()
-	_setup_hud()
+	elapsed_ms = 0
+	progress_bar.value = 0.0
+
+	_reposition()
+	_update_heart()
+	tick(0)
+
+	super.setup()
 
 
-# Instantiate and setup tiles as per the level
-func _setup_tiles() -> void:
+func setup_tiles() -> void:
 	var data = GameManager.level_data
-	tiles_left = 0
-	total_hits = 0
-	
+
 	for tile in tiles_node.get_children():
 		tile.queue_free()
 
@@ -160,54 +136,36 @@ func _setup_tiles() -> void:
 			tiles_left += 1
 			total_hits += tile.tile_health
 
-		tile.on_hit.connect(tile_destroyed)
+		tile.on_hit.connect(_on_tile_hit)
 	
 	hits_left = total_hits
 	if total_hits <= 0:
 		push_error("LevelGame: total_hits evaluated to non positive integer")
 
 
-# Instantiate and setup ball
-func _setup_ball() -> void:
-	if ball != null:
-		ball.queue_free()
-
-	ball = ball_scene.instantiate()
-
+func _reposition() -> void:
+	var paddle_height = paddle.sprite.texture.get_height()
 	var ball_size = ball.sprite.texture.get_size()
-	var paddle_height = paddle.sprite.texture.get_height()
 
-	ball.position.x = (window_size.x - ball_size.x) / 2
-	ball.position.y = window_size.y - paddle_height - BALL_Y_OFFSET
-	ball.z_index = 1
-
-	add_child(ball)
-
-
-# Instantiate and setup ball
-func _setup_paddle() -> void:
-	if paddle != null:
-		paddle.queue_free()
-
-	paddle = paddle_scene.instantiate()
-
-	var paddle_height = paddle.sprite.texture.get_height()
 	paddle.position.x = (window_size.x - paddle_height) / 2
 	paddle.position.y = window_size.y - PADDLE_Y_OFFSET
 	paddle.z_index = 1
 
-	add_child(paddle)
+	ball.position.x = (window_size.x - ball_size.x) / 2
+	ball.position.y = window_size.y - paddle_height - BALL_Y_OFFSET
+	ball.z_index = 1
+	
+	ball.setup()
 
 
 # Sets the information in HUD
-func _setup_hud() -> void:
+func setup_hud() -> void:
 	var level_text = "Level %03d" % level_no
 	level_label.text = level_text
 	pause_menu.level_node.text = level_text
 
 	_update_heart()
-	_update_time_value()
-	_update_progress()
+	update_progress()
 
 
 # Updates the heart (lives) count in HUD
@@ -221,13 +179,13 @@ func _update_heart() -> void:
 		hearts[i].modulate = Palette.RED if i < lives else Palette.SURFACE1
 
 
-# Updates the time in HUD
-func _update_time_value() -> void:
-	time_node.text = format_time(time)
+func tick(delta: float) -> void:
+	super.tick(delta)
+	time_node.text = format_time(elapsed_ms)
 
 
 # Updates the progress bar and value in HUD
-func _update_progress() -> void:
+func update_progress() -> void:
 	var percent: float = 100.0
 	if total_hits > 0:
 		percent = ((total_hits - hits_left) * 100.0) / total_hits
@@ -241,13 +199,6 @@ func _update_progress() -> void:
 	tween.tween_property(progress_bar, "value", percent, 0.25)
 
 
-# Stats the level game
-func start_level() -> void:
-	ball.setup()
-	_countdown()
-	time = 0.0
-
-
 # Countdown before ball starts moving
 func _countdown() -> void:
 	GameManager.game_state = GameManager.GameState.COUNTDOWN
@@ -255,11 +206,11 @@ func _countdown() -> void:
 
 	for i in range(3, 0, -1):
 		countdown_label.text = str(i)
-		play_sound(Constants.SOUND.Countdown)
+		SoundManager.play_sfx(Constants.SOUND.Countdown)
 		await get_tree().create_timer(1.0).timeout
 
 	countdown_label.text = "GO!"
-	play_sound(Constants.SOUND.CountdownGo)
+	SoundManager.play_sfx(Constants.SOUND.CountdownGo)
 	await get_tree().create_timer(0.5).timeout
 
 	countdown_label.hide()
@@ -269,115 +220,94 @@ func _countdown() -> void:
 
 
 # Pause level if playing
-func pause_level() -> void:
-	if GameManager.game_state == GameManager.GameState.PLAYING:
-		GameManager.game_state = GameManager.GameState.PAUSED
-		pause_resume_tab.current_tab = TAB_RESUME
-		pause_menu.progress_node.text = progress_node.text
-		pause_menu.progress_bar.value = progress_bar.value
-		pause_menu.resume_button.grab_focus()
-		background_overlay.show()
-		pause_menu.show()
+func pause_game() -> void:
+	if GameManager.game_state != GameManager.GameState.PLAYING:
+		return
+
+	GameManager.game_state = GameManager.GameState.PAUSED
+	menus_node.show()
+	pause_resume_tab.current_tab = TAB_RESUME
+	pause_menu.progress_node.text = progress_node.text
+	pause_menu.progress_bar.value = progress_bar.value
+	pause_menu.resume_button.grab_focus()
+	background_overlay.show()
+	pause_menu.show()
 
 
 # Resume level if paused
-func resume_level() -> void:
-	if GameManager.game_state == GameManager.GameState.PAUSED:
-		GameManager.game_state = GameManager.GameState.PLAYING
-		pause_resume_tab.current_tab = TAB_PAUSE
-		background_overlay.hide()
-		pause_menu.hide()
+func resume_game() -> void:
+	if GameManager.game_state != GameManager.GameState.PAUSED:
+		return
+
+	GameManager.game_state = GameManager.GameState.PLAYING
+	menus_node.hide()
+	pause_resume_tab.current_tab = TAB_PAUSE
+	background_overlay.hide()
+	pause_menu.hide()
 
 
 # Ends the level.
-func end_level(won: bool) -> void:
+func end_game(won: bool) -> void:
 	if GameManager.game_state != GameManager.GameState.PLAYING:
 		return
 
 	GameManager.game_state = GameManager.GameState.END
+	menus_node.show()
 
 	pause_button.disabled = true
 	resume_button.disabled = true
 
 	var sound = Constants.SOUND.GameWon if won else Constants.SOUND.GameLost
-	play_sound(sound)
+	SoundManager.play_sfx(sound)
 	await get_tree().create_timer(0.5).timeout
 	
 	var level_progress: LevelProgress
 	if won:
-		end_menu.show_win(level_no, format_time(time), lives)
+		end_menu.show_win(level_no, format_time(elapsed_ms), lives)
 		level_progress = LevelProgress.as_done(level_no, lives)
 	else:
-		end_menu.show_lose(level_no, format_time(time), progress_bar.value)
+		end_menu.show_lose(level_no, format_time(elapsed_ms), progress_bar.value)
 		level_progress = LevelProgress.as_wip(level_no, progress_bar.value)
 
 	background_overlay.show()
 	UserProgress.save(level_progress)
 
 
+func start_game() -> void:
+	menus_node.hide()
+	_countdown()
+
+
 # Play again same level
-func restart_level() -> void:
+func restart_game() -> void:
 	setup()
-	call_deferred("start_level")
+	call_deferred("start_game")
 
 
-# CHance given to player based on their leftover lives.
-func next_attempt() -> void:
+func ball_lost() -> void:
 	lives -= 1
 	_update_heart()
 	if lives <= 0:
-		end_level(false)
+		end_game(false)
 	else:
 		GameManager.game_state = GameManager.GameState.WAITING
-		play_sound(Constants.SOUND.LifeLost)
+		SoundManager.play_sfx(Constants.SOUND.LifeLost)
 		await get_tree().create_timer(2.0).timeout
-		_setup_ball()
-		_setup_paddle()
+		_reposition()
 		_countdown()
+
+
+func tiles_finished() -> void:
+	end_game(true)
 
 
 # Exit to levels scene
 func exit_level() -> void:
-	GameManager.enter_levels()
+	GameManager.exit_level()
 
 
 # Exit to new level
 func play_next_level() -> void:
 	var next_level = level_no+1
-	if GameManager.has_level(next_level):
+	if GameManager.level_exists(next_level):
 		GameManager.enter_level(next_level)
-
-
-# Evaluates the stars from the score.
-func evaluate_stars(_score: int) -> int:
-	return lives
-
-# Updates the tiles counter and triggers end game if no tiles left to destroy.
-func tile_destroyed(_tile: Tile, effective_damage: int, destroyed: bool) -> void:
-	hits_left -= effective_damage
-	_update_progress()
-
-	if destroyed:
-		tiles_left -= 1
-
-	if tiles_left <= 0:
-		end_level(true)
-
-
-func play_sound(stream: AudioStream) -> void:
-	audio.stream = stream
-	audio.play()
-
-
-func _on_dead_zone_body_entered(body: Node2D) -> void:
-	if body is Ball:
-		next_attempt()
-
-
-func format_time(p_time: float) -> String:
-	var minutes: int = int(p_time / 60.0)
-	var seconds: int = int(p_time) % 60
-	# Isolate the decimal portion and convert to 2-digit centiseconds
-	#var centiseconds: int = int((time - int(time)) * 100)
-	
-	return "%02d:%02d" % [minutes, seconds]

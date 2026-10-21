@@ -46,9 +46,6 @@ func _ready() -> void:
 	lock_icon_node.modulate = Palette.OVERLAY1
 	level_node.text = str(level_no)
 	
-	progress_node.min_value = Constants.PROGRESS_MIN
-	progress_node.max_value = Constants.PROGRESS_MAX
-	
 	var level_progress: LevelProgress = UserProgress.get_level(level_no)
 	var stars_node_list: Array[TextureRect] = []
 	for node in stars_node.get_children():
@@ -89,7 +86,7 @@ func apply() -> void:
 		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		indicator_node.color = _get_difficulty_color(difficulty)
 		tab_locked_status_node.current_tab = UNLOCKED_TAB
-		progress_node.value = clamp(progress, Constants.PROGRESS_MIN, Constants.PROGRESS_MAX)
+		progress_node.value = progress
 		
 		if progress == 100.0:
 			progress_tab_node.current_tab = FINISHED_TAB
@@ -108,13 +105,13 @@ func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
 			_on_button_down()
-			GameManager.enter_level(level_no)
+			GameManager.play_level(level_no)
 		elif event.is_released():
 			_on_button_up()
 
 	if has_focus() and event.is_action_pressed("continue"):
 		accept_event()
-		GameManager.enter_level(level_no)
+		GameManager.play_level(level_no)
 
 
 func _get_difficulty_color(p_difficulty: LevelDef.LevelDifficulty) -> Color:
