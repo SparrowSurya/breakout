@@ -7,7 +7,6 @@ const BALL_SPEED: float = 420.0
 const MAX_ANGLE_RAD: float = deg_to_rad(60.0)
 
 @export var sprite: Sprite2D
-@export var audio: AudioStreamPlayer2D
 
 var damage: int = 1
 var window_size: Vector2
@@ -64,7 +63,7 @@ func bounce_from_paddle(paddle: Paddle) -> void:
 
 func _on_paddle_hit(paddle: Paddle, collision: KinematicCollision2D) -> void:
 	bounce_from_paddle(paddle)
-	play_sound(Constants.SOUND.BallHitPaddle)
+	SoundManager.play_sfx(Constants.SOUND.BallHitPaddle)
 
 	# Nudge out of any overlap, then ignore the paddle until the ball is clear
 	global_position += collision.get_normal() * (collision.get_depth() + 1.0)
@@ -80,8 +79,3 @@ func _release_paddle_if_clear() -> void:
 	if global_position.y < _ignored_paddle.global_position.y - ball_size.y * 1.5:
 		remove_collision_exception_with(_ignored_paddle)
 		_ignored_paddle = null
-
-
-func play_sound(stream: AudioStream) -> void:
-	audio.stream = stream
-	audio.play()
