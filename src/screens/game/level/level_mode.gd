@@ -145,7 +145,6 @@ func setup_tiles() -> void:
 
 func _reposition() -> void:
 	var paddle_height = paddle.sprite.texture.get_height()
-	var ball_size = ball.sprite.texture.get_size()
 
 	paddle.position.x = window_size.x / 2.0
 	paddle.position.y = window_size.y - PADDLE_Y_OFFSET
