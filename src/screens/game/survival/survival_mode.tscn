@@ -31,7 +31,7 @@ grow_begin = 0.0
 grow_end = 0.0
 thickness = 6
 
-[node name="SurvivalMode" type="Node2D" unique_id=723584759 node_paths=PackedStringArray("wall_top_collider", "pause_resume_tab", "pause_button", "resume_button", "hearts_node", "score_value", "stage_value", "progress_bar", "best_value", "progress_value", "menus_node", "background_overlay", "pause_menu", "gameover_menu", "tiles_node", "dead_zone", "countdown_label")]
+[node name="SurvivalMode" type="Node2D" unique_id=723584759 node_paths=PackedStringArray("wall_top_collider", "pause_resume_tab", "pause_button", "resume_button", "hearts_node", "score_value", "stage_value", "progress_bar", "best_value", "progress_value", "countdown_label", "menus_node", "background_overlay", "pause_menu", "gameover_menu", "tiles_node", "dead_zone")]
 script = ExtResource("1_rpxn3")
 wall_top_collider = NodePath("Wall/Top/CollisionShape2D")
 pause_resume_tab = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab")
@@ -43,39 +43,35 @@ stage_value = NodePath("UI/Hud/Content/Heading/Column/Row2/StageValue")
 progress_bar = NodePath("UI/Hud/Content/Heading/Column/ProgressBar")
 best_value = NodePath("UI/Hud/Content/Heading/Column/Row4/BestValue")
 progress_value = NodePath("UI/Hud/Content/Heading/Column/Row4/ProgressValue")
+countdown_label = NodePath("UI/Hud/Content/Expanded/CountdownLabel")
 menus_node = NodePath("UI/Menus")
 background_overlay = NodePath("UI/Menus/BackgroundOverlay")
 pause_menu = NodePath("UI/Menus/Center/PauseMenu")
 gameover_menu = NodePath("UI/Menus/Center/GameoverMenu")
 tiles_node = NodePath("tiles")
 dead_zone = NodePath("DeadZone")
-countdown_label = NodePath("UI/Hud/Content/Expanded/CountdownValue")
 
 [node name="Wall" type="Node" parent="." unique_id=1235125441]
 
 [node name="Left" type="StaticBody2D" parent="Wall" unique_id=1689895058]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Left" unique_id=381080428]
 position = Vector2(-10.25, 319.22656)
 shape = SubResource("RectangleShape2D_5wcew")
 
 [node name="Right" type="StaticBody2D" parent="Wall" unique_id=1065485685]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Right" unique_id=1707148290]
 position = Vector2(370, 319.88672)
 shape = SubResource("RectangleShape2D_5wcew")
 
 [node name="Top" type="StaticBody2D" parent="Wall" unique_id=1637031241]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Top" unique_id=155789150]
 position = Vector2(180.25, 59.5)
 shape = SubResource("RectangleShape2D_4lu6s")
 
 [node name="DeadZone" type="Area2D" parent="." unique_id=1240073152]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeadZone" unique_id=1507970924]
 position = Vector2(180.5, 697)
@@ -257,7 +253,7 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="CountdownValue" type="Label" parent="UI/Hud/Content/Expanded" unique_id=1332112821]
+[node name="CountdownLabel" type="Label" parent="UI/Hud/Content/Expanded" unique_id=1332112821]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

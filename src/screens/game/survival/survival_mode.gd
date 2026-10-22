@@ -13,6 +13,7 @@ extends BaseGame
 @export var progress_bar: ProgressBar
 @export var best_value: Label
 @export var progress_value: Label
+@export var countdown_label: Label
 
 # Menu related nodes.
 @export var menus_node: Control
@@ -169,7 +170,6 @@ func setup_tiles() -> void:
 
 func _reposition() -> void:
 	var paddle_height = paddle.sprite.texture.get_height()
-	var ball_size = ball.sprite.texture.get_size()
 
 	paddle.position.x = window_size.x / 2.0
 	paddle.position.y = window_size.y - PADDLE_Y_OFFSET
@@ -199,10 +199,6 @@ func _update_heart() -> void:
 
 	for i in range(hearts.size()):
 		hearts[i].modulate = Palette.RED if i < lives else Palette.SURFACE1
-
-
-func tick(delta: float) -> void:
-	super.tick(delta)
 
 
 # Countdown before ball starts moving
@@ -340,7 +336,7 @@ func exit_game() -> void:
 	GameManager.navigate_to_mainmenu()
 
 
-func _on_ball_hit_paddle(p_ball: Ball, p_paddle: Paddle) -> void:
+func _on_ball_hit_paddle(_p_ball: Ball, _p_paddle: Paddle) -> void:
 	combo = 1
 
 

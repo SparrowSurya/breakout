@@ -1,0 +1,279 @@
+[gd_scene format=3 uid="uid://dyllv2hhks6pk"]
+
+[ext_resource type="Script" uid="uid://cou5dr1a1qku5" path="res://src/screens/game/quick/quick_mode.gd" id="1_s058p"]
+[ext_resource type="PackedScene" uid="uid://flgqh3dlwr0a" path="res://src/ui/button/custom_icon_button.tscn" id="2_pk85u"]
+[ext_resource type="Texture2D" uid="uid://dgcsee1bbpsaa" path="res://assets/textures/backgrounds/skyline.png" id="2_ts2sw"]
+[ext_resource type="Texture2D" uid="uid://b7mwsiamuf3i6" path="res://assets/textures/icons/pause.png" id="3_fitvw"]
+[ext_resource type="Texture2D" uid="uid://dg20l0c0blct6" path="res://assets/textures/icons/triangle-right.png" id="4_3efp8"]
+[ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="5_ts2sw"]
+[ext_resource type="Texture2D" uid="uid://ct0l3mhdv2bdy" path="res://assets/textures/icons/heart.png" id="6_coric"]
+[ext_resource type="PackedScene" uid="uid://8l2uhre8h1o0" path="res://src/ui/pause_menu/quick_pause_menu.tscn" id="7_3efp8"]
+[ext_resource type="PackedScene" uid="uid://mdwah5lur7ak" path="res://src/ui/quick_end_menu/quick_end_menu.tscn" id="8_ts2sw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qk88f"]
+size = Vector2(20.5, 640.22656)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wusci"]
+size = Vector2(416.5, 126.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_42ox3"]
+size = Vector2(533, 114)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_o4fes"]
+color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_j4pxi"]
+color = Color(0.6509804, 0.8901961, 0.6313726, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 6
+
+[node name="QuickMode" type="Node2D" unique_id=874209024 node_paths=PackedStringArray("wall_top_collider", "pause_resume_tab", "pause_button", "resume_button", "hearts_node", "time_value", "progress_value", "progress_bar", "countdown_label", "menus_node", "background_overlay", "pause_menu", "end_menu", "tiles_node", "dead_zone")]
+script = ExtResource("1_s058p")
+wall_top_collider = NodePath("Wall/Top/CollisionShape2D")
+pause_resume_tab = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab")
+pause_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/PauseButton")
+resume_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/ResumeButton")
+hearts_node = NodePath("UI/Hud/Content/Heading/Column/Row1/HeartsNode")
+time_value = NodePath("UI/Hud/Content/Heading/Column/Row2/TimeValue")
+progress_value = NodePath("UI/Hud/Content/Heading/Column/Row2/ProgressValue")
+progress_bar = NodePath("UI/Hud/Content/Heading/Column/ProgressBar")
+countdown_label = NodePath("UI/Hud/Content/Expanded/CountdownLabel")
+menus_node = NodePath("UI/Menus")
+background_overlay = NodePath("UI/Menus/BackgroundOverlay")
+pause_menu = NodePath("UI/Menus/Center/QuickPauseMenu")
+end_menu = NodePath("UI/Menus/Center/QuickEndMenu")
+tiles_node = NodePath("tiles")
+dead_zone = NodePath("DeadZone")
+
+[node name="Wall" type="Node" parent="." unique_id=27434841]
+
+[node name="Left" type="StaticBody2D" parent="Wall" unique_id=900094010]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Left" unique_id=1884260159]
+position = Vector2(-10.25, 319.22656)
+shape = SubResource("RectangleShape2D_qk88f")
+
+[node name="Right" type="StaticBody2D" parent="Wall" unique_id=531231310]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Right" unique_id=946686350]
+position = Vector2(370, 319.88672)
+shape = SubResource("RectangleShape2D_qk88f")
+
+[node name="Top" type="StaticBody2D" parent="Wall" unique_id=869681348]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/Top" unique_id=529890695]
+position = Vector2(180.25, 57.25)
+shape = SubResource("RectangleShape2D_wusci")
+
+[node name="DeadZone" type="Area2D" parent="." unique_id=71182131]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeadZone" unique_id=1608667993]
+position = Vector2(180.5, 697)
+shape = SubResource("RectangleShape2D_42ox3")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=146119731]
+position = Vector2(180, 320.00003)
+scale = Vector2(0.99999994, 1)
+texture = ExtResource("2_ts2sw")
+
+[node name="tiles" type="Node2D" parent="." unique_id=2012417025]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=215661435]
+
+[node name="Hud" type="Control" parent="UI" unique_id=553485024]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Content" type="VBoxContainer" parent="UI/Hud" unique_id=2003045731]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Heading" type="MarginContainer" parent="UI/Hud/Content" unique_id=439690016]
+custom_minimum_size = Vector2(360, 0)
+custom_maximum_size = Vector2(360, -1)
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+
+[node name="Column" type="VBoxContainer" parent="UI/Hud/Content/Heading" unique_id=711254943]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Row1" type="HBoxContainer" parent="UI/Hud/Content/Heading/Column" unique_id=787401289]
+layout_mode = 2
+
+[node name="PauseResumeTab" type="TabContainer" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=487307290]
+layout_mode = 2
+current_tab = 0
+tabs_visible = false
+
+[node name="PauseButton" parent="UI/Hud/Content/Heading/Column/Row1/PauseResumeTab" unique_id=354671964 instance=ExtResource("2_pk85u")]
+layout_mode = 2
+icon = ExtResource("3_fitvw")
+metadata/_tab_index = 0
+
+[node name="ResumeButton" parent="UI/Hud/Content/Heading/Column/Row1/PauseResumeTab" unique_id=2090007235 instance=ExtResource("2_pk85u")]
+visible = false
+layout_mode = 2
+icon = ExtResource("4_3efp8")
+metadata/_tab_index = 1
+
+[node name="Spacer1" type="Control" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=1441023081]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=268952368]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
+theme_override_fonts/font = ExtResource("5_ts2sw")
+theme_override_font_sizes/font_size = 16
+text = "Quick Play"
+
+[node name="Spacer2" type="Control" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=536790522]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HeartsNode" type="HBoxContainer" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=746138415]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Heart1" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/HeartsNode" unique_id=647440043]
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("6_coric")
+
+[node name="Heart2" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/HeartsNode" unique_id=452173640]
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("6_coric")
+
+[node name="Heart3" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/HeartsNode" unique_id=2137701417]
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("6_coric")
+
+[node name="Row2" type="HBoxContainer" parent="UI/Hud/Content/Heading/Column" unique_id=301104135]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TimeLabel" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=1896789422]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("5_ts2sw")
+theme_override_font_sizes/font_size = 8
+text = "TIME"
+
+[node name="TimeValue" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=943053590]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("5_ts2sw")
+theme_override_font_sizes/font_size = 8
+text = "00:00"
+
+[node name="Spacer1" type="Control" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=1435271344]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ProgressValue" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=1794394857]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("5_ts2sw")
+theme_override_font_sizes/font_size = 8
+text = "0%"
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/Hud/Content/Heading/Column" unique_id=907093024]
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxLine_o4fes")
+theme_override_styles/fill = SubResource("StyleBoxLine_j4pxi")
+rounded = true
+show_percentage = false
+
+[node name="Expanded" type="Control" parent="UI/Hud/Content" unique_id=1844592492]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="CountdownLabel" type="Label" parent="UI/Hud/Content/Expanded" unique_id=641985703]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -320.0
+offset_right = 180.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("5_ts2sw")
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menus" type="Control" parent="UI" unique_id=579873225]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="BackgroundOverlay" type="ColorRect" parent="UI/Menus" unique_id=525218670]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.09411765, 0.09411765, 0.14509805, 0.78431374)
+
+[node name="Center" type="CenterContainer" parent="UI/Menus" unique_id=1560392484]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="QuickPauseMenu" parent="UI/Menus/Center" unique_id=933271589 instance=ExtResource("7_3efp8")]
+visible = false
+layout_mode = 2
+
+[node name="QuickEndMenu" parent="UI/Menus/Center" unique_id=1774828620 instance=ExtResource("8_ts2sw")]
+layout_mode = 2
+current_tab = 0
+
+[node name="QuickWinMenu" parent="UI/Menus/Center/QuickEndMenu" index="1" unique_id=517087513]
+visible = true
+
+[node name="QuickLoseMenu" parent="UI/Menus/Center/QuickEndMenu" index="2" unique_id=1626180265]
+visible = false
+
+[editable path="UI/Menus/Center/QuickEndMenu"]

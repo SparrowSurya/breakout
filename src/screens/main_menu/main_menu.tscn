@@ -15,11 +15,11 @@
 [ext_resource type="Texture2D" uid="uid://bfnpsmxs5swjd" path="res://assets/textures/ball.png" id="11_gw5y6"]
 [ext_resource type="Texture2D" uid="uid://clgcs176514mb" path="res://assets/textures/paddle.png" id="12_svtp6"]
 
-[node name="MainMenu" type="CanvasLayer" unique_id=839816198 node_paths=PackedStringArray("initial_focus", "levels_button", "survival_button", "highscore_value", "version_value")]
+[node name="MainMenu" type="CanvasLayer" unique_id=839816198 node_paths=PackedStringArray("quick_play_button", "levels_button", "survival_button", "highscore_value", "version_value")]
 script = ExtResource("1_bqqt6")
-initial_focus = NodePath("Control/VBoxContainer/QuickPlayButton")
-levels_button = NodePath("Control/VBoxContainer/LevelsButton")
-survival_button = NodePath("Control/VBoxContainer/SurvivalButton")
+quick_play_button = NodePath("Control/Buttons/QuickPlayButton")
+levels_button = NodePath("Control/Buttons/LevelsButton")
+survival_button = NodePath("Control/Buttons/SurvivalButton")
 highscore_value = NodePath("Control/HighscoreContainer/HighscoreValue")
 version_value = NodePath("Control/VersionValue")
 
@@ -190,7 +190,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_svtp6")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=2007065840]
+[node name="Buttons" type="VBoxContainer" parent="Control" unique_id=2007065840]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -206,15 +206,15 @@ grow_vertical = 0
 focus_mode = 2
 theme_override_constants/separation = 16
 
-[node name="QuickPlayButton" parent="Control/VBoxContainer" unique_id=1882703824 instance=ExtResource("5_oa1go")]
+[node name="QuickPlayButton" parent="Control/Buttons" unique_id=1882703824 instance=ExtResource("5_oa1go")]
 layout_mode = 2
 text = "Quick Play"
 
-[node name="LevelsButton" parent="Control/VBoxContainer" unique_id=1285585382 instance=ExtResource("5_oa1go")]
+[node name="LevelsButton" parent="Control/Buttons" unique_id=1285585382 instance=ExtResource("5_oa1go")]
 layout_mode = 2
 text = "Levels"
 
-[node name="SurvivalButton" parent="Control/VBoxContainer" unique_id=173495888 instance=ExtResource("5_oa1go")]
+[node name="SurvivalButton" parent="Control/Buttons" unique_id=173495888 instance=ExtResource("5_oa1go")]
 layout_mode = 2
 text = "Survival"
 

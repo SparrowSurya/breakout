@@ -1,5 +1,5 @@
 class_name LevelPauseMenu
-extends Control
+extends PanelContainer
 
 # Nodes
 @export var level_value: Label

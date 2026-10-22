@@ -1,5 +1,5 @@
 class_name SurvivalPauseMenu
-extends Control
+extends PanelContainer
 
 # Nodes
 @export var stage_value: Label

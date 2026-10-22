@@ -1,4 +1,4 @@
-class_name WinMenu
+class_name LevelWinMenu
 extends PanelContainer
 
 # Nodes

@@ -10,11 +10,12 @@ extends BaseGame
 @export var progress_node: Label
 @export var progress_bar: ProgressBar
 @export var wall_top_node: CollisionShape2D
+@export var countdown_label: Label
 
 # Menus nodes
 @export var menus_node: Control
 @export var pause_menu: LevelPauseMenu
-@export var end_menu: EndMenu
+@export var end_menu: LevelEndMenu
 @export var background_overlay: ColorRect
 
 
@@ -63,14 +64,14 @@ func initialise() -> void:
 
 	pause_menu.resume_button.pressed.connect(resume_game)
 	pause_menu.restart_button.pressed.connect(restart_game)
-	pause_menu.exit_button.pressed.connect(exit_level)
+	pause_menu.exit_button.pressed.connect(exit_game)
 
 	end_menu.win_menu.play_next_button.pressed.connect(play_next_level)
 	end_menu.win_menu.play_again_button.pressed.connect(restart_game)
-	end_menu.win_menu.exit_button.pressed.connect(exit_level)
+	end_menu.win_menu.exit_button.pressed.connect(exit_game)
 
 	end_menu.lose_menu.play_again_button.pressed.connect(restart_game)
-	end_menu.lose_menu.exit_button.pressed.connect(exit_level)
+	end_menu.lose_menu.exit_button.pressed.connect(exit_game)
 	
 	if ball != null:
 		ball.queue_free()
@@ -299,7 +300,7 @@ func tiles_finished() -> void:
 
 
 # Exit to levels scene
-func exit_level() -> void:
+func exit_game() -> void:
 	GameManager.exit_level()
 
 

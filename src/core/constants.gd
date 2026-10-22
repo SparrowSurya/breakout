@@ -31,6 +31,9 @@ const SCENE: Dictionary = {
 	# Screens
 	"MainMenu": "res://src/screens/main_menu/main_menu.tscn",
 	"SelectLevel": "res://src/screens/select_level/select_level.tscn",
+	
+	# Game screens
+	"QuickPlayMode": "res://src/screens/game/quick/quick_mode.tscn",
 	"LevelMode": "res://src/screens/game/level/level_mode.tscn",
 	"SurvivalMode": "res://src/screens/game/survival/survival_mode.tscn",
 	
@@ -47,4 +50,3 @@ const DEFAULT_TILE_WIDTH: float = 30.0
 const DEFAULT_TILE_HEIGHT: float = 12.0
 const DEFAULT_ROW_GAP: float = 4.0
 const DEFAULT_COL_GAP: float = 8.0
-#

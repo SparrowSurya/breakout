@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://y4qqygcyuk1y"]
 
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="1_3p1fr"]
-[ext_resource type="Script" uid="uid://ded0b547b6hpb" path="res://src/ui/end_menu/win_menu.gd" id="1_krx1n"]
+[ext_resource type="Script" uid="uid://ded0b547b6hpb" path="res://src/ui/level_end_menu/level_win_menu.gd" id="1_krx1n"]
 [ext_resource type="Texture2D" uid="uid://yxj7oo20cy1i" path="res://assets/textures/icons/star.png" id="2_krx1n"]
 [ext_resource type="PackedScene" uid="uid://dy1xomrq02t83" path="res://src/ui/button/custom_button.tscn" id="3_yd7cv"]
 
@@ -16,7 +16,7 @@ border_color = Color(0.27058825, 0.2784314, 0.34901962, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g5116"]
 bg_color = Color(0.6509804, 0.8901961, 0.6313726, 1)
 
-[node name="WinMenu" type="PanelContainer" unique_id=517087513 node_paths=PackedStringArray("stars_node", "level_node", "time_node", "lives_node", "play_next_button", "play_again_button", "exit_button")]
+[node name="LevelWinMenu" type="PanelContainer" unique_id=517087513 node_paths=PackedStringArray("stars_node", "level_node", "time_node", "lives_node", "play_next_button", "play_again_button", "exit_button")]
 custom_minimum_size = Vector2(296, 0)
 custom_maximum_size = Vector2(296, -1)
 mouse_filter = 1

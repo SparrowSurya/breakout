@@ -1,4 +1,4 @@
-class_name LoseMenu
+class_name LevelLoseMenu
 extends PanelContainer
 
 # Nodes

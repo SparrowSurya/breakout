@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://mdwah5lur7ak"]
+
+[ext_resource type="PackedScene" uid="uid://cfjkpljlpdxtp" path="res://src/ui/quick_end_menu/quick_win_menu.tscn" id="1_n24q1"]
+[ext_resource type="Script" uid="uid://q67fpq3ppx15" path="res://src/ui/quick_end_menu/quick_end_menu.gd" id="1_tv1es"]
+[ext_resource type="PackedScene" uid="uid://b75rylwi12a20" path="res://src/ui/quick_end_menu/quick_lose_menu.tscn" id="2_tv1es"]
+
+[node name="QuickEndMenu" type="TabContainer" unique_id=1774828620 node_paths=PackedStringArray("win_menu", "lose_menu")]
+offset_right = 8.0
+offset_bottom = 40.0
+current_tab = 1
+tabs_visible = false
+script = ExtResource("1_tv1es")
+win_menu = NodePath("QuickWinMenu")
+lose_menu = NodePath("QuickLoseMenu")
+
+[node name="QuickWinMenu" parent="." unique_id=517087513 instance=ExtResource("1_n24q1")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="QuickLoseMenu" parent="." unique_id=1626180265 instance=ExtResource("2_tv1es")]
+layout_mode = 2
+metadata/_tab_index = 1

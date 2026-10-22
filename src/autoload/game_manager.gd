@@ -20,6 +20,7 @@ enum Screen {
 	SELECT_LEVEL,
 	
 	# Gameplay screens
+	QUICK_PLAY,
 	LEVEL_MODE,
 	SURVIVAL_MODE,
 }
@@ -45,6 +46,12 @@ func navigate_to_select_level() -> void:
 	current_screen = Screen.SELECT_LEVEL
 	get_tree().change_scene_to_file(Constants.SCENE.SelectLevel)
 
+
+## Quick play a random formation.
+func quick_play() -> void:
+	current_screen = Screen.QUICK_PLAY
+	get_tree().change_scene_to_file(Constants.SCENE.QuickPlayMode)
+	
 
 ## Play specific level mode.
 func play_level(level: int) -> void:

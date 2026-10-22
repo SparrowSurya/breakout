@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://dfq8a462g8n60"]
+
+[ext_resource type="Script" uid="uid://bambbqh0dtpag" path="res://src/ui/level_end_menu/level_end_menu.gd" id="1_xx5ur"]
+[ext_resource type="PackedScene" uid="uid://y4qqygcyuk1y" path="res://src/ui/level_end_menu/level_win_menu.tscn" id="2_jty44"]
+[ext_resource type="PackedScene" uid="uid://btpimlc3dgaww" path="res://src/ui/level_end_menu/level_lose_menu.tscn" id="3_5qvlv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5qvlv"]
+
+[node name="LevelEndMenu" type="TabContainer" unique_id=1290878506 node_paths=PackedStringArray("win_menu", "lose_menu")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -172.0
+offset_right = 152.0
+offset_bottom = 172.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5qvlv")
+current_tab = 0
+tabs_visible = false
+script = ExtResource("1_xx5ur")
+win_menu = NodePath("LevelWinMenu")
+lose_menu = NodePath("LevelLoseMenu")
+
+[node name="LevelWinMenu" parent="." unique_id=517087513 instance=ExtResource("2_jty44")]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="LevelLoseMenu" parent="." unique_id=1626180265 instance=ExtResource("3_5qvlv")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1

@@ -5,7 +5,6 @@ extends Node2D
 # Common game related nodes.
 @export var tiles_node: Node2D               ## Contains instance tiles
 @export var dead_zone: Area2D                ## Deadzone area
-@export var countdown_label: Label           ## Countdown label
 
 # Time related 
 var elapsed_ms: float = 0.0  ## Elapsed milliseconds during the gameplay
