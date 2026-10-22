@@ -6,7 +6,6 @@ signal on_hit(tile: Tile, effective_damage: int, destroyed: bool)
 
 @export var tile_type: TileDef.TileType = TileDef.TileType.GREEN
 @export var sprite: Sprite2D
-@export var audio: AudioStreamPlayer2D
 @export var collision_shape: CollisionShape2D
 
 var is_immune: bool = false
@@ -29,7 +28,7 @@ func _ready() -> void:
 
 func hit(damage: int = 1) -> void:
 	if is_immune:
-		play_sound(Constants.SOUND.BallHitMetalTile)
+		SoundManager.play_sfx(Constants.SOUND.BallHitMetalTile)
 		shake()
 		return
 	
@@ -38,13 +37,13 @@ func hit(damage: int = 1) -> void:
 	spawn_particles(position)
 	tile_health -= damage
 	if tile_health <= 0:
-		play_sound(Constants.SOUND.TileDestroy)
+		SoundManager.play_sfx(Constants.SOUND.TileDestroy)
 		on_hit.emit(self, effective_damage, true)
 		destroy()
 		return
 	
 	on_hit.emit(self, effective_damage, false)
-	play_sound(Constants.SOUND.BallHitTile)
+	SoundManager.play_sfx(Constants.SOUND.BallHitTile)
 	_apply(TileDef.from_health(tile_health))
 
 
@@ -59,10 +58,6 @@ func _apply(data: TileDef) -> void:
 func destroy() -> void:
 	hide()
 	collision_shape.set_deferred("disabled", true)
-
-	if audio.playing:
-		await audio.finished
-	
 	queue_free()
 
 
@@ -88,8 +83,3 @@ func shake() -> void:
 		) * falloff
 		_shake_tween.tween_property(sprite, "position", _rest_pos + offset, step_time)
 	_shake_tween.tween_property(sprite, "position", _rest_pos, step_time)
-
-
-func play_sound(stream: AudioStream) -> void:
-	audio.stream = stream
-	audio.play()
