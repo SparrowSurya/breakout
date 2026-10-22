@@ -3,7 +3,6 @@
 
 # Imported/generated files
 .import/
-*.import
 
 # Exported builds
 build/
