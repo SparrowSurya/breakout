@@ -31,7 +31,7 @@ static func as_locked(p_level_no: int) -> LevelProgress:
 
 
 # Instantiate as level in progress
-static func as_wip(p_level_no: int, p_progress: float) -> LevelProgress:
+static func as_wip(p_level_no: int, p_progress: float = 0.0) -> LevelProgress:
 	return LevelProgress.new(p_level_no, LevelStatus.UNLOCKED, p_progress, 0)
 
 

@@ -27,8 +27,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if GameManager.game_state == GameManager.GameState.PLAYING:
 		tick(delta)
-	
-	if Input.is_action_just_pressed("continue"):
+
+	if Input.is_action_just_pressed("pause"):
 		if GameManager.game_state == GameManager.GameState.PLAYING:
 			pause_game()
 		elif GameManager.game_state == GameManager.GameState.PAUSED:
