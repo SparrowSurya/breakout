@@ -44,7 +44,6 @@ var ball: Ball        ## Ball scene (manually added to tree).
 var paddle: Paddle    ## Paddle scene (manually added to tree).
 
 var lives: int        ## Lives count (default: read from the health_node child count)
-var score: int = 0    ## Score value
 
 var grid_data: Array[int] ## Tile formation grid data
 var grid_rows: int        ## Grid rows count

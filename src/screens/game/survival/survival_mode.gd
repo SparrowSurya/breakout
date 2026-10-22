@@ -107,11 +107,14 @@ func setup() -> void:
 	gameover_menu.hide()
 
 	elapsed_ms = 0
+	combo = 1
+	stage_no = 1
 	score = 0
 	progress_bar.value = 0.0
 	best_value.text = "%06d" % UserProgress.highscore
 
 	_reposition()
+	_update_score()
 	_update_heart()
 	tick(0)
 
@@ -289,6 +292,8 @@ func _update_score() -> void:
 	score_value.text = "%06d" % score
 	if score > UserProgress.highscore:
 		score_value.modulate = Palette.YELLOW
+	else:
+		score_value.modulate = Palette.TEXT
 
 
 func start_game() -> void:

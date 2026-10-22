@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.bounce(collision.get_normal())
 		else: # Wall
 			velocity = velocity.bounce(collision.get_normal())
-			play_sound(Constants.SOUND.BallHitWall)
+			SoundManager.play_sfx(Constants.SOUND.BallHitWall)
 
 
 func setup() -> void:

@@ -34,7 +34,7 @@ func hit(damage: int = 1) -> void:
 	
 	var effective_damage = tile_health if damage > tile_health else damage
 
-	spawn_particles(position)
+	spawn_particles(global_position)
 	tile_health -= damage
 	if tile_health <= 0:
 		SoundManager.play_sfx(Constants.SOUND.TileDestroy)

@@ -45,6 +45,7 @@ func setup() -> void:
 	elapsed_ms = 0.0
 	total_hits = 0
 	hits_left = 0
+	tiles_left = 0
 
 	setup_tiles()
 	setup_hud()
