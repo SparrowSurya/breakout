@@ -5,6 +5,8 @@ const VOLUME_MIN: float = 0.0   ## Silent.
 const VOLUME_MAX: float = 10.0  ## Full volume (0 dB, never boosted).
 const SILENT_DB: float = -80.0
 
+const MUSIC_FADE_IN_SEC: float = 3
+
 const BUS_MUSIC: StringName = &"Music"
 const BUS_SOUND: StringName = &"Sound"
 const BUS_SFX: StringName = &"SFX"
@@ -13,6 +15,7 @@ var music_player: AudioStreamPlayer ## Plays background music.
 var sound_player: AudioStreamPlayer ## Plays ui sounds.
 var sfx_player: AudioStreamPlayer   ## Plays in-game sfx.
 
+var _music_tween: Tween
 var _music_stream: AudioStream      ## Last playing music stream.
 var _levels: Dictionary = {
 	BUS_MUSIC: VOLUME_MAX,
@@ -37,7 +40,8 @@ func _ready() -> void:
 
 
 ## Plays background music (looping). Does nothing if it is already playing.
-func play_music(stream: AudioStream, restart: bool = false) -> void:
+## fade_in is in seconds; pass 0.0 to start at full volume immediately.
+func play_music(stream: AudioStream, restart: bool = false, fade_in: float = MUSIC_FADE_IN_SEC) -> void:
 	if stream == null:
 		push_warning("SoundManager.play_music: stream is null")
 		return
@@ -46,27 +50,49 @@ func play_music(stream: AudioStream, restart: bool = false) -> void:
 
 	_enable_loop(stream)
 	_music_stream = stream
+	_kill_music_tween()
+
 	music_player.stream = stream
+	music_player.volume_db = SILENT_DB if fade_in > 0.0 else 0.0
 	music_player.play()
+
+	if fade_in > 0.0:
+		_music_tween = create_tween()
+		_music_tween.tween_method(_set_music_fade, 0.0, 1.0, fade_in)
 
 
 func stop_music() -> void:
 	_music_stream = null
+	_kill_music_tween()
 	music_player.stop()
+	music_player.volume_db = 0.0
+
+
+## Applies a 0..1 fade amount to the music player (not the bus).
+func _set_music_fade(amount: float) -> void:
+	music_player.volume_db = linear_to_db(amount) if amount > 0.0 else SILENT_DB
+
+
+func _kill_music_tween() -> void:
+	if _music_tween and _music_tween.is_valid():
+		_music_tween.kill()
 
 
 ## Plays ui related sounds (buttons, menus).
-func play_sound(stream: AudioStream) -> void:
+func play_sound(stream: AudioStream) -> AudioStreamPlayer:
 	_play(sound_player, stream)
+	return sound_player
 
 
 ## Plays in-game sfx. pitch_variation (e.g. 0.05) randomises pitch slightly.
-func play_sfx(stream: AudioStream, pitch_variation: float = 0.0) -> void:
+func play_sfx(stream: AudioStream, pitch_variation: float = 0.0) -> AudioStreamPlayer:
 	_play(sfx_player, stream, pitch_variation)
+	return sfx_player
 
 
 func set_music_volume(level: float) -> void:
 	_set_bus_level(BUS_MUSIC, level)
+
 
 func set_sound_volume(level: float) -> void:
 	_set_bus_level(BUS_SOUND, level)

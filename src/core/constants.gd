@@ -10,18 +10,25 @@ const VERSION_PATCH: int = 0
 ## Mapping from sound name to sound asset filepath.
 const SOUND: Dictionary = {
 
-	# Sounds inside game mode
-	"BallHitPaddle": preload("res://assets/sounds/Ball-Hit-Paddle.wav"),
-	"BallHitTile": preload("res://assets/sounds/Ball-Hit-Tile.wav"),
-	"BallHitMetalTile": preload("res://assets/sounds/Ball-Hit-Metal-Tile.wav"),
-	"BallHitWall": preload("res://assets/sounds/Ball-Hit-Wall.wav"),
-	"TileDestroy": preload("res://assets/sounds/Tile-Destroy.wav"),
-	"Countdown": preload("res://assets/sounds/Countdown.wav"),
-	"CountdownGo": preload("res://assets/sounds/Countdown-Go.wav"),
-	"LifeLost": preload("res://assets/sounds/Life-Lost.wav"),
-	"GameWon": preload("res://assets/sounds/Game-Won.wav"),
-	"GameLost": preload("res://assets/sounds/Game-Lost.wav"),
-	"StageFinished": preload("res://assets/sounds/Stage-Finished.wav"),
+	# Background music
+	"LavenderChillwave": preload("res://assets/sounds/music/lavender_chillwave.wav"),
+
+	# Ui sounds
+	"Click": preload("res://assets/sounds/ui/click.wav"),
+	"Disabled": preload("res://assets/sounds/ui/disabled.wav"),
+
+	# Game sounds
+	"BallHitPaddle": preload("res://assets/sounds/sfx/Ball-Hit-Paddle.wav"),
+	"BallHitTile": preload("res://assets/sounds/sfx/Ball-Hit-Tile.wav"),
+	"BallHitMetalTile": preload("res://assets/sounds/sfx/Ball-Hit-Metal-Tile.wav"),
+	"BallHitWall": preload("res://assets/sounds/sfx/Ball-Hit-Wall.wav"),
+	"TileDestroy": preload("res://assets/sounds/sfx/Tile-Destroy.wav"),
+	"Countdown": preload("res://assets/sounds/sfx/Countdown.wav"),
+	"CountdownGo": preload("res://assets/sounds/sfx/Countdown-Go.wav"),
+	"LifeLost": preload("res://assets/sounds/sfx/Life-Lost.wav"),
+	"GameWon": preload("res://assets/sounds/sfx/Game-Won.wav"),
+	"GameLost": preload("res://assets/sounds/sfx/Game-Lost.wav"),
+	"StageFinished": preload("res://assets/sounds/sfx/Stage-Finished.wav"),
 }
 
 

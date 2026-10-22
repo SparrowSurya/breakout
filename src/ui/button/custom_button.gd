@@ -39,10 +39,17 @@ func _ready() -> void:
 	mouse_exited.connect(_on_mouse_exited)
 	button_down.connect(_on_button_down)
 	button_up.connect(_on_button_up)
-	
+
 	_last_disabled = disabled
-	
+
 	_apply_disable_setting()
+
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton \
+	and event.button_index == MOUSE_BUTTON_LEFT \
+	and event.pressed:
+		_on_button_pressed()
 
 
 func _notification(what: int) -> void:
@@ -79,7 +86,7 @@ func animate_graphic_and_text_shift(target_offset: float) -> void:
 			active_tween.tween_property(style, "content_margin_bottom", base_margin_bottom + target_offset, 0.1)\
 				.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
-
+ 
 func _on_mouse_entered() -> void:
 	animate_graphic_and_text_shift(HOVER_Y_DELTA)
 
@@ -95,3 +102,8 @@ func _on_button_down() -> void:
 func _on_button_up() -> void:
 	var offset = HOVER_Y_DELTA if is_hovered() else 0.0
 	animate_graphic_and_text_shift(offset)
+
+
+func _on_button_pressed() -> void:
+	var sound := Constants.SOUND.Disabled if disabled else Constants.SOUND.Click
+	SoundManager.play_sound(sound)

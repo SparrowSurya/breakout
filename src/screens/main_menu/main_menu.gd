@@ -17,6 +17,8 @@ func _ready() -> void:
 	version_value.text = "v%d.%d.%d" % [Constants.VERSION_MAJOR, Constants.VERSION_MINOR, Constants.VERSION_PATCH]
 
 	quick_play_button.grab_focus()
+	
+	SoundManager.play_music(Constants.SOUND.LavenderChillwave)
 
 
 func _on_quick_play_button_pressed() -> void:

@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://dgdamu6lj6dfg"
-path="res://.godot/imported/Game-Lost.wav-1a96410de601458184f436c0acda2d3d.sample"
+uid="uid://eagro575se4p"
+path="res://.godot/imported/click.wav-28ee3df76d3360d57d5c22e99a3cae3d.sample"
 
 [deps]
 
-source_file="res://assets/sounds/Game-Lost.wav"
-dest_files=["res://.godot/imported/Game-Lost.wav-1a96410de601458184f436c0acda2d3d.sample"]
+source_file="res://assets/sounds/ui/click.wav"
+dest_files=["res://.godot/imported/click.wav-28ee3df76d3360d57d5c22e99a3cae3d.sample"]
 
 [params]
 

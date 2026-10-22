@@ -288,11 +288,17 @@ func ball_lost() -> void:
 	if lives <= 0:
 		end_game(false)
 	else:
-		GameManager.game_state = GameManager.GameState.WAITING
-		SoundManager.play_sfx(Constants.SOUND.LifeLost)
-		await get_tree().create_timer(2.0).timeout
-		_reposition()
-		_countdown()
+		another_chance()
+
+
+func another_chance() -> void:
+	GameManager.game_state = GameManager.GameState.WAITING
+	pause_button.disabled = true
+	resume_button.disabled = true
+	SoundManager.play_sfx(Constants.SOUND.LifeLost)
+	await get_tree().create_timer(2.0).timeout
+	_reposition()
+	_countdown()
 
 
 func tiles_finished() -> void:
