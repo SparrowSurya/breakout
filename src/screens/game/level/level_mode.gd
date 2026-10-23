@@ -149,7 +149,6 @@ func end_game(won: bool) -> void:
 		return
 
 	GameManager.game_state = GameManager.GameState.END
-	menus_node.show()
 
 	pause_button.disabled = true
 	resume_button.disabled = true
@@ -176,6 +175,7 @@ func end_game(won: bool) -> void:
 		end_menu.lose_menu.play_again_button.grab_focus()
 		level_progress = LevelProgress.as_wip(level_no, progress_bar.value)
 
+	menus_node.show()
 	UserProgress.save_progress(level_progress)
 
 

@@ -135,7 +135,6 @@ func end_game(won: bool) -> void:
 		return
 
 	GameManager.game_state = GameManager.GameState.END
-	menus_node.show()
 
 	pause_button.disabled = true
 	resume_button.disabled = true
@@ -153,6 +152,8 @@ func end_game(won: bool) -> void:
 		end_menu.lose_menu.update(Utils.format_time(elapsed_ms), progress_bar.value)
 		end_menu.lose_menu.replay_button.grab_focus()
 		end_menu.show_lose()
+	
+	menus_node.show()
 
 
 func ball_lost(_ball: Ball) -> void:
