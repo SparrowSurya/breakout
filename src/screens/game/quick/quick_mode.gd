@@ -184,4 +184,4 @@ func tiles_finished() -> void:
 
 ## Exit to levels screen.
 func exit_game() -> void:
-	GameManager.exit_level()
+	GameManager.navigate_to_mainmenu()

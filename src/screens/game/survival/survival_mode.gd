@@ -225,7 +225,7 @@ func _next_stage() -> void:
 
 ## Exit to levels screen.
 func exit_game() -> void:
-	GameManager.exit_level()
+	GameManager.navigate_to_mainmenu()
 
 
 ## Handler which resets the combo since ball hits the paddle.
