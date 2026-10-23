@@ -144,7 +144,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
 theme_override_fonts/font = ExtResource("5_alm8m")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 12
 text = "Level 0"
 
 [node name="Spacer2" type="Control" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=1453146481]

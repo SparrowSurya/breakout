@@ -141,7 +141,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
 theme_override_fonts/font = ExtResource("5_rpxn3")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 12
 text = "Survival"
 
 [node name="Spacer2" type="Control" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=2134242013]
@@ -177,6 +177,7 @@ layout_mode = 2
 
 [node name="Row2" type="HBoxContainer" parent="UI/Hud/Content/Heading/Column" unique_id=1363263086]
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_constants/separation = 8
 
 [node name="ScoreLabel" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=800941400]
@@ -190,7 +191,7 @@ text = "SCORE"
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
 theme_override_fonts/font = ExtResource("5_rpxn3")
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 10
 text = "000000"
 
 [node name="Spacer" type="Control" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=695498677]
@@ -208,7 +209,7 @@ text = "STAGE"
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
 theme_override_fonts/font = ExtResource("5_rpxn3")
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 10
 text = "00"
 
 [node name="ProgressBar" type="ProgressBar" parent="UI/Hud/Content/Heading/Column" unique_id=1604820938]
