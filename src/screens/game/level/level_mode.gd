@@ -77,7 +77,7 @@ func setup_tiles() -> void:
 
 
 # Sets the information in HUD
-func setup_hud() -> void:
+func update_hud() -> void:
 	title_label.text = "Level %d" % level_no
 	pause_menu.level_value.text = "Level %03d" % level_no
 
@@ -103,7 +103,7 @@ func tick(delta: float) -> void:
 
 
 func _update_time() -> void:
-	time_value.text = format_time(elapsed_ms)
+	time_value.text = Utils.format_time(elapsed_ms)
 
 
 func update_progress() -> void:
@@ -156,14 +156,14 @@ func end_game(won: bool) -> void:
 
 	var sound = Constants.SOUND.GameWon if won else Constants.SOUND.GameLost
 	SoundManager.play_sfx(sound)
-	await get_tree().create_timer(0.5).timeout
+	await Utils.wait(1.5)
 
 	var level_progress: LevelProgress
 	var level_text := "%03d" % level_no
 	
 	if won:
 		var has_next_level := GameManager.level_exists(level_no + 1)
-		end_menu.win_menu.update(level_text, format_time(elapsed_ms), hearts, has_next_level)
+		end_menu.win_menu.update(level_text, Utils.format_time(elapsed_ms), hearts, has_next_level)
 		
 		if has_next_level:
 			end_menu.win_menu.play_next_button.grab_focus()
@@ -172,7 +172,7 @@ func end_game(won: bool) -> void:
 
 		level_progress = LevelProgress.as_done(level_no, hearts)
 	else:
-		end_menu.lose_menu.update(level_text, format_time(elapsed_ms), progress_bar.value)
+		end_menu.lose_menu.update(level_text, Utils.format_time(elapsed_ms), progress_bar.value)
 		end_menu.lose_menu.play_again_button.grab_focus()
 		level_progress = LevelProgress.as_wip(level_no, progress_bar.value)
 
@@ -181,8 +181,7 @@ func end_game(won: bool) -> void:
 
 func start_game() -> void:
 	menus_node.hide()
-	countdown()
-	super.start_game()
+	await super.start_game()
 
 	pause_button.disabled = false
 	resume_button.disabled = false
@@ -205,6 +204,7 @@ func _another_chance() -> void:
 	
 	var player := SoundManager.play_sfx(Constants.SOUND.LifeLost)
 	await player.finished
+	await Utils.wait(1.0)
 
 	reposition()
 	start_game()

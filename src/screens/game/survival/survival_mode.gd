@@ -76,7 +76,7 @@ func setup_tiles() -> void:
 
 
 # Sets the information in HUD
-func setup_hud() -> void:
+func update_hud() -> void:
 	stage_value.text = "%03d" % stage_no
 	
 	_update_score()
@@ -128,7 +128,7 @@ func pause_game() -> void:
 	pause_resume_tab.current_tab = TAB_RESUME
 	
 	var stage_text := "%03d" % stage_no
-	pause_menu.update(stage_text, progress_bar.value, format_time(elapsed_ms))
+	pause_menu.update(stage_text, progress_bar.value, Utils.format_time(elapsed_ms))
 	pause_menu.resume_button.grab_focus()
 	pause_menu.show()
 	menus_node.show()
@@ -158,12 +158,12 @@ func end_game(won: bool) -> void:
 
 	var sound = Constants.SOUND.GameWon if won else Constants.SOUND.GameLost
 	SoundManager.play_sfx(sound)
-	await get_tree().create_timer(0.5).timeout
+	await Utils.wait(1.5)
 	
 	var best := score > UserProgress.highscore
 	var stage_text := "%03d" % stage_no
 	var score_text := "%06d" % score
-	gameover_menu.update(stage_text, score_text, progress_bar.value, format_time(elapsed_ms), best)
+	gameover_menu.update(stage_text, score_text, progress_bar.value, Utils.format_time(elapsed_ms), best)
 	gameover_menu.play_again_button.grab_focus()
 	gameover_menu.show()
 	menus_node.show()
@@ -173,8 +173,7 @@ func end_game(won: bool) -> void:
 
 func start_game() -> void:
 	menus_node.hide()
-	countdown()
-	super.start_game()
+	await super.start_game()
 
 	pause_button.disabled = false
 	resume_button.disabled = false
@@ -197,6 +196,7 @@ func _another_chance() -> void:
 	
 	var player := SoundManager.play_sfx(Constants.SOUND.LifeLost)
 	await player.finished
+	await Utils.wait(1.0)
 
 	reposition()
 	start_game()
@@ -212,13 +212,14 @@ func _next_stage() -> void:
 
 	var player := SoundManager.play_sfx(Constants.SOUND.StageFinished)
 	await player.finished
+	await Utils.wait(1.0)
 
 	stage_no += 1
 	progress_bar.value = 0.0
 	
 	reposition()
 	setup_tiles()
-	setup_hud()
+	update_hud()
 	start_game()
 
 

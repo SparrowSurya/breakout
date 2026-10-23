@@ -68,7 +68,7 @@ func setup_tiles() -> void:
 	super.setup_tiles()
 
 
-func setup_hud() -> void:
+func update_hud() -> void:
 	_update_heart()
 	update_progress()
 
@@ -105,7 +105,7 @@ func tick(delta: float) -> void:
 
 
 func _update_time() -> void:
-	time_value.text = format_time(elapsed_ms)
+	time_value.text = Utils.format_time(elapsed_ms)
 
 
 func pause_game() -> void:
@@ -114,7 +114,7 @@ func pause_game() -> void:
 
 	GameManager.game_state = GameManager.GameState.PAUSED
 	pause_resume_tab.current_tab = TAB_RESUME
-	pause_menu.update(format_time(elapsed_ms), progress_bar.value)
+	pause_menu.update(Utils.format_time(elapsed_ms), progress_bar.value)
 	pause_menu.resume_button.grab_focus()
 	pause_menu.show()
 	menus_node.show()
@@ -143,13 +143,14 @@ func end_game(won: bool) -> void:
 	var sound = Constants.SOUND.GameWon if won else Constants.SOUND.GameLost
 	var player := SoundManager.play_sfx(sound)
 	await player.finished
+	await Utils.wait(1.5)
 
 	if won:
-		end_menu.win_menu.update(format_time(elapsed_ms), hearts)
+		end_menu.win_menu.update(Utils.format_time(elapsed_ms), hearts)
 		end_menu.win_menu.replay_button.grab_focus()
 		end_menu.show_win()
 	else:
-		end_menu.lose_menu.update(format_time(elapsed_ms), progress_bar.value)
+		end_menu.lose_menu.update(Utils.format_time(elapsed_ms), progress_bar.value)
 		end_menu.lose_menu.replay_button.grab_focus()
 		end_menu.show_lose()
 
@@ -171,6 +172,7 @@ func _another_chance() -> void:
 	
 	var player := SoundManager.play_sfx(Constants.SOUND.LifeLost)
 	await player.finished
+	await Utils.wait(1.0)
 
 	reposition()
 	start_game()

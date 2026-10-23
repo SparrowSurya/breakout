@@ -54,11 +54,11 @@ func _process(delta: float) -> void:
 	if GameManager.game_state == GameManager.GameState.PLAYING:
 		tick(delta)
 
-		if Input.is_action_just_pressed("pause"):
-			if GameManager.game_state == GameManager.GameState.PLAYING:
-				pause_game()
-			elif GameManager.game_state == GameManager.GameState.PAUSED:
-				resume_game()
+	if Input.is_action_just_pressed("pause"):
+		if GameManager.game_state == GameManager.GameState.PLAYING:
+			pause_game()
+		elif GameManager.game_state == GameManager.GameState.PAUSED:
+			resume_game()
 
 
 ## Performs first time setup that should only done once at beginning.
@@ -175,13 +175,14 @@ func countdown() -> void:
 	countdown_label.text = "GO!"
 	var player := SoundManager.play_sfx(Constants.SOUND.CountdownGo)
 	await player.finished
+	await Utils.wait(0.5)
 
 	countdown_label.hide()
 
 
 ## Starts the game. Child should always call this before doing something.
 func start_game() -> void:
-	countdown()
+	await countdown()
 	GameManager.game_state = GameManager.GameState.PLAYING
 
 
@@ -249,13 +250,3 @@ func _on_tile_hit(_tile: Tile, effective_damage: int, destroyed: bool) -> void:
 
 	if tiles_left <= 0:
 		tiles_finished()
-
-
-## Formats the time as mm:ss
-func format_time(p_time: float) -> String:
-	var minutes: int = int(p_time / 60.0)
-	var seconds: int = int(p_time) % 60
-	# Isolate the decimal portion and convert to 2-digit centiseconds
-	#var centiseconds: int = int((time - int(time)) * 100)
-	
-	return "%02d:%02d" % [minutes, seconds]
