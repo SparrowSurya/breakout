@@ -31,24 +31,23 @@ grow_begin = 0.0
 grow_end = 0.0
 thickness = 6
 
-[node name="LevelMode" type="Node2D" unique_id=98931036 node_paths=PackedStringArray("pause_resume_tab", "pause_button", "resume_button", "level_label", "health_node", "time_node", "progress_node", "progress_bar", "wall_top_node", "countdown_label", "menus_node", "pause_menu", "end_menu", "background_overlay", "tiles_node", "dead_zone")]
+[node name="LevelMode" type="Node2D" unique_id=98931036 node_paths=PackedStringArray("pause_resume_tab", "pause_button", "resume_button", "title_label", "hearts_node", "time_value", "progress_value", "progress_bar", "menus_node", "pause_menu", "end_menu", "tiles_node", "dead_zone", "top_wall", "countdown_label")]
 script = ExtResource("1_0mpae")
 pause_resume_tab = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab")
 pause_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/PauseButton")
 resume_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/ResumeButton")
-level_label = NodePath("UI/Hud/Content/Heading/Column/Row1/LevelLabel")
-health_node = NodePath("UI/Hud/Content/Heading/Column/Row1/Health")
-time_node = NodePath("UI/Hud/Content/Heading/Column/Row2/TimeValue")
-progress_node = NodePath("UI/Hud/Content/Heading/Column/Row2/Progress")
+title_label = NodePath("UI/Hud/Content/Heading/Column/Row1/Title")
+hearts_node = NodePath("UI/Hud/Content/Heading/Column/Row1/Hearts")
+time_value = NodePath("UI/Hud/Content/Heading/Column/Row2/TimeValue")
+progress_value = NodePath("UI/Hud/Content/Heading/Column/Row2/ProgressValue")
 progress_bar = NodePath("UI/Hud/Content/Heading/Column/ProgressBar")
-wall_top_node = NodePath("Wall/Top/CollisionShape2D")
-countdown_label = NodePath("UI/Hud/Content/Expanded/CountdownLabel")
 menus_node = NodePath("UI/Menus")
 pause_menu = NodePath("UI/Menus/Center/PauseMenu")
 end_menu = NodePath("UI/Menus/Center/EndMenu")
-background_overlay = NodePath("UI/Menus/BackgroundOverlay")
 tiles_node = NodePath("tiles")
 dead_zone = NodePath("DeadZone")
+top_wall = NodePath("Wall/Top/CollisionShape2D")
+countdown_label = NodePath("UI/Hud/Content/Expanded/CountdownLabel")
 
 [node name="Wall" type="Node" parent="." unique_id=1472982827]
 
@@ -141,7 +140,7 @@ metadata/_tab_index = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LevelLabel" type="Label" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=1506463392]
+[node name="Title" type="Label" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=1506463392]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
 theme_override_fonts/font = ExtResource("5_alm8m")
@@ -152,25 +151,25 @@ text = "Level 0"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Health" type="HBoxContainer" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=1277822008]
+[node name="Hearts" type="HBoxContainer" parent="UI/Hud/Content/Heading/Column/Row1" unique_id=1277822008]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Heart1" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/Health" unique_id=1614565912]
+[node name="Heart1" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/Hearts" unique_id=1614565912]
 custom_minimum_size = Vector2(16, 16)
 custom_maximum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("6_sjl88")
 
-[node name="Heart2" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/Health" unique_id=1557742614]
+[node name="Heart2" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/Hearts" unique_id=1557742614]
 custom_minimum_size = Vector2(16, 16)
 custom_maximum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("6_sjl88")
 
-[node name="Heart3" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/Health" unique_id=1563600819]
+[node name="Heart3" type="TextureRect" parent="UI/Hud/Content/Heading/Column/Row1/Hearts" unique_id=1563600819]
 custom_minimum_size = Vector2(16, 16)
 custom_maximum_size = Vector2(16, 16)
 layout_mode = 2
@@ -198,7 +197,7 @@ text = "00:00"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Progress" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=1654282267]
+[node name="ProgressValue" type="Label" parent="UI/Hud/Content/Heading/Column/Row2" unique_id=1654282267]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
 theme_override_fonts/font = ExtResource("5_alm8m")

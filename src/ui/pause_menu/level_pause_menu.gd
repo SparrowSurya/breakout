@@ -11,8 +11,7 @@ extends PanelContainer
 
 
 ## Updates the values in the nodes.
-func update(level: int, progress: float) -> void:
-	level_value.text = "%03d" % level
+func update(level: String, progress: float) -> void:
+	level_value.text = level
 	progress_value.text = "%02d%%" % int(progress)
 	progress_bar.value = progress
-	resume_button.grab_focus()

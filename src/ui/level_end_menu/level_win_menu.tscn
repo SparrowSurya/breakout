@@ -16,16 +16,16 @@ border_color = Color(0.27058825, 0.2784314, 0.34901962, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g5116"]
 bg_color = Color(0.6509804, 0.8901961, 0.6313726, 1)
 
-[node name="LevelWinMenu" type="PanelContainer" unique_id=517087513 node_paths=PackedStringArray("stars_node", "level_node", "time_node", "lives_node", "play_next_button", "play_again_button", "exit_button")]
+[node name="LevelWinMenu" type="PanelContainer" unique_id=517087513 node_paths=PackedStringArray("stars_node", "level_value", "time_value", "lives_value", "play_next_button", "play_again_button", "exit_button")]
 custom_minimum_size = Vector2(296, 0)
 custom_maximum_size = Vector2(296, -1)
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_vse7m")
 script = ExtResource("1_krx1n")
 stars_node = NodePath("MainLayout/Margin/Column/Margin2/Stars")
-level_node = NodePath("MainLayout/Margin/Column/LevelInfoRow/LevelNo")
-time_node = NodePath("MainLayout/Margin/Column/TimeInfoRow/Time")
-lives_node = NodePath("MainLayout/Margin/Column/LivesInfoRow/Lives")
+level_value = NodePath("MainLayout/Margin/Column/LevelInfoRow/LevelValue")
+time_value = NodePath("MainLayout/Margin/Column/TimeInfoRow/TimeValue")
+lives_value = NodePath("MainLayout/Margin/Column/LivesInfoRow/LivesValue")
 play_next_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/PlayNextButton")
 play_again_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/PlayAgainButton")
 exit_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/ExitButton")
@@ -102,7 +102,7 @@ text = "LEVEL"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LevelNo" type="Label" parent="MainLayout/Margin/Column/LevelInfoRow" unique_id=2092929220]
+[node name="LevelValue" type="Label" parent="MainLayout/Margin/Column/LevelInfoRow" unique_id=2092929220]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
 theme_override_fonts/font = ExtResource("1_3p1fr")
@@ -123,7 +123,7 @@ text = "TIME TAKEN"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Time" type="Label" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=363623929]
+[node name="TimeValue" type="Label" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=363623929]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
 theme_override_fonts/font = ExtResource("1_3p1fr")
@@ -144,7 +144,7 @@ text = "LIVES LEFT"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Lives" type="Label" parent="MainLayout/Margin/Column/LivesInfoRow" unique_id=748594601]
+[node name="LivesValue" type="Label" parent="MainLayout/Margin/Column/LivesInfoRow" unique_id=748594601]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
 theme_override_fonts/font = ExtResource("1_3p1fr")

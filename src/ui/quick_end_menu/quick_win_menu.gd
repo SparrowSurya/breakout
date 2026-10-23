@@ -12,4 +12,3 @@ extends PanelContainer
 func update(time: String, lives: int) -> void:
 	time_value.text = time
 	lives_value.text = str(lives)
-	replay_button.grab_focus()

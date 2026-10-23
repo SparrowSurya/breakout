@@ -52,8 +52,14 @@ const SCENE: Dictionary = {
 	"Tile": "res://src/game/tile/tile.tscn",
 }
 
-
 const DEFAULT_TILE_WIDTH: float = 30.0
 const DEFAULT_TILE_HEIGHT: float = 12.0
 const DEFAULT_ROW_GAP: float = 4.0
 const DEFAULT_COL_GAP: float = 8.0
+
+
+# Minimum and maximum rows and colums count when generating formation.
+const ROWS_MIN: int = 3
+const COLS_MIN: int = 5
+const ROWS_MAX: int = 8
+const COLS_MAX: int = 8

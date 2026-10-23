@@ -13,14 +13,12 @@ func _ready() -> void:
 
 
 ## Shows win menu.
-func show_win(level_no: int, time: String, lives: int) -> void:
-	win_menu.update(level_no, time, lives)
+func show_win() -> void:
 	current_tab = TAB_WIN
 	show()
 
 
 ## Shows lose menu.
-func show_lose(level_no: int, time: String, progress: float) -> void:
-	lose_menu.update(level_no, time, progress)
+func show_lose() -> void:
 	current_tab = TAB_LOSE
 	show()

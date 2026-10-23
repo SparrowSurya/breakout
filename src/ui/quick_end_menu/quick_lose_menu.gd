@@ -13,4 +13,3 @@ func update(time: String, progress: float) -> void:
 	time_value.text = time
 	progress_value.text = "%02d%%" % int(progress)
 	progress_bar.value = progress
-	replay_button.grab_focus()

@@ -12,9 +12,8 @@ extends PanelContainer
 
 
 ## Updates the values in the nodes.
-func update(stage: int, progress: float, time: String) -> void:
-	stage_value.text = "%03d" % stage
+func update(stage: String, progress: float, time: String) -> void:
+	stage_value.text = stage
 	time_value.text = time
 	progress_value.text = "%02d%%" % int(progress)
 	progress_bar.value = progress
-	restart_button.grab_focus()

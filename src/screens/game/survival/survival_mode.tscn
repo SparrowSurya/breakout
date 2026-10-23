@@ -31,9 +31,8 @@ grow_begin = 0.0
 grow_end = 0.0
 thickness = 6
 
-[node name="SurvivalMode" type="Node2D" unique_id=723584759 node_paths=PackedStringArray("wall_top_collider", "pause_resume_tab", "pause_button", "resume_button", "hearts_node", "score_value", "stage_value", "progress_bar", "best_value", "progress_value", "countdown_label", "menus_node", "background_overlay", "pause_menu", "gameover_menu", "tiles_node", "dead_zone")]
+[node name="SurvivalMode" type="Node2D" unique_id=723584759 node_paths=PackedStringArray("pause_resume_tab", "pause_button", "resume_button", "hearts_node", "score_value", "stage_value", "progress_bar", "best_value", "progress_value", "menus_node", "pause_menu", "gameover_menu", "tiles_node", "dead_zone", "top_wall", "countdown_label")]
 script = ExtResource("1_rpxn3")
-wall_top_collider = NodePath("Wall/Top/CollisionShape2D")
 pause_resume_tab = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab")
 pause_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/PauseButton")
 resume_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/ResumeButton")
@@ -43,13 +42,13 @@ stage_value = NodePath("UI/Hud/Content/Heading/Column/Row2/StageValue")
 progress_bar = NodePath("UI/Hud/Content/Heading/Column/ProgressBar")
 best_value = NodePath("UI/Hud/Content/Heading/Column/Row4/BestValue")
 progress_value = NodePath("UI/Hud/Content/Heading/Column/Row4/ProgressValue")
-countdown_label = NodePath("UI/Hud/Content/Expanded/CountdownLabel")
 menus_node = NodePath("UI/Menus")
-background_overlay = NodePath("UI/Menus/BackgroundOverlay")
 pause_menu = NodePath("UI/Menus/Center/PauseMenu")
 gameover_menu = NodePath("UI/Menus/Center/GameoverMenu")
 tiles_node = NodePath("tiles")
 dead_zone = NodePath("DeadZone")
+top_wall = NodePath("Wall/Top/CollisionShape2D")
+countdown_label = NodePath("UI/Hud/Content/Expanded/CountdownLabel")
 
 [node name="Wall" type="Node" parent="." unique_id=1235125441]
 
