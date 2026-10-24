@@ -14,7 +14,7 @@ func _ready() -> void:
 	var raw_data = _load_levels()
 	_levels = _parse_levels(raw_data)
 	highscore = _load_highscore()
-
+	
 
 ## Saves the level progress. It save the best of current or existing. Additionally unlocks the next level
 ## if current level is completed.
@@ -196,3 +196,11 @@ func _parse_levels(data: Dictionary[int, Dictionary]) -> Dictionary[int, LevelPr
 		first_level.status = LevelProgress.LevelStatus.UNLOCKED
 	
 	return parsed
+
+
+##NOTE: This is onyl for testing purposes.
+func _unlock_all_levels() -> void:
+	for i in range(LevelDef.level_count+1):
+		if not _levels.has(i) or _levels[i].status == LevelProgress.LevelStatus.LOCKED:
+			_levels[i] = LevelProgress.as_wip(i)
+	_save_levels()

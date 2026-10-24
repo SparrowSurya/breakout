@@ -7,6 +7,7 @@ enum LevelDifficulty {
 	EASY,
 	MEDIUM,
 	HARD,
+	SPECIAL,
 }
 
 # Levels data file
@@ -88,10 +89,12 @@ static func load_level(level: int) -> LevelDef:
 
 static func _parse_difficulty(p_difficulty: String) -> LevelDifficulty:
 	match p_difficulty.to_lower():
-		"medium":
-			return LevelDifficulty.MEDIUM
+		"special":
+			return LevelDifficulty.SPECIAL
 		"hard":
 			return LevelDifficulty.HARD
+		"medium":
+			return LevelDifficulty.MEDIUM
 		"easy":
 			return LevelDifficulty.EASY
 	return LevelDifficulty.EASY

@@ -123,6 +123,8 @@ func _get_difficulty_color(p_difficulty: LevelDef.LevelDifficulty) -> Color:
 			color = Palette.YELLOW
 		LevelDef.LevelDifficulty.HARD:
 			color = Palette.RED
+		LevelDef.LevelDifficulty.SPECIAL:
+			color = Palette.MAUVE
 	return color
 
 
