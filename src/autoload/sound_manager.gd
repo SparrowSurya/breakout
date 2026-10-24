@@ -5,6 +5,10 @@ const VOLUME_MIN: float = 0.0   ## Silent.
 const VOLUME_MAX: float = 10.0  ## Full volume (0 dB, never boosted).
 const SILENT_DB: float = -80.0
 
+const DEFAULT_MUSIC_VOLUME: float = 1.0
+const DEFAULT_SOUND_VOLUME: float = 3.0
+const DEFAULT_SFX_VOLUME: float = 5.0
+
 const MUSIC_FADE_IN_SEC: float = 3
 
 const BUS_MUSIC: StringName = &"Music"
@@ -37,6 +41,10 @@ func _ready() -> void:
 
 	for bus in _levels.keys():
 		_set_bus_level(bus, _levels[bus])
+	
+	set_music_volume(DEFAULT_MUSIC_VOLUME)
+	set_sound_volume(DEFAULT_SOUND_VOLUME)
+	set_sfx_volume(DEFAULT_SFX_VOLUME)
 
 
 ## Plays background music (looping). Does nothing if it is already playing.
@@ -59,6 +67,8 @@ func play_music(stream: AudioStream, restart: bool = false, fade_in: float = MUS
 	if fade_in > 0.0:
 		_music_tween = create_tween()
 		_music_tween.tween_method(_set_music_fade, 0.0, 1.0, fade_in)
+	
+	print("Music Volume: ", get_music_volume())
 
 
 func stop_music() -> void:
