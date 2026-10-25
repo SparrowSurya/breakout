@@ -169,7 +169,7 @@ func end_game(won: bool) -> void:
 		else:
 			end_menu.win_menu.exit_button.grab_focus()
 
-		level_progress = LevelProgress.as_done(level_no, hearts)
+		level_progress = LevelProgress.as_done(level_no, hearts, elapsed_ms)
 		end_menu.show_win()
 	else:
 		end_menu.lose_menu.update(level_text, Utils.format_time(elapsed_ms), progress_bar.value)

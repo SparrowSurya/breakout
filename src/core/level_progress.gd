@@ -11,6 +11,7 @@ var level_no: int = 1
 var status: LevelStatus = LevelStatus.LOCKED
 var progress: float = 0.0
 var stars: int = 0
+var time: float = 0.0
 
 
 func _init(
@@ -18,11 +19,13 @@ func _init(
 	p_status: LevelStatus,
 	p_progress: float = 0.0,
 	p_stars: int = 0,
+	p_time: float = 0.0,
 ) -> void:
 	level_no = p_level_no
 	status = p_status
 	progress = p_progress
 	stars = p_stars
+	time = p_time
 
 
 # Instantiate as locked level
@@ -36,5 +39,5 @@ static func as_wip(p_level_no: int, p_progress: float = 0.0) -> LevelProgress:
 
 
 # Instantiate as level completed
-static func as_done(p_level_no: int, p_stars: int) -> LevelProgress:
-	return LevelProgress.new(p_level_no, LevelStatus.UNLOCKED, 100.0, p_stars)
+static func as_done(p_level_no: int, p_stars: int, p_time: float) -> LevelProgress:
+	return LevelProgress.new(p_level_no, LevelStatus.UNLOCKED, 100.0, p_stars, p_time)

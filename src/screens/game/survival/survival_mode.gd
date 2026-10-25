@@ -24,6 +24,9 @@ var stage_no: int = 0 ## Stage number being played.
 var score: int = 0    ## Score value
 var combo: int = 1    ## Combo as hit multiplier
 
+var total_damage: int = 0    ## Total damage given
+var tiles_cleared: int = 0   ## Total tiles cleared.
+
 
 func initialise() -> void:
 	super.initialise()
@@ -47,6 +50,8 @@ func setup() -> void:
 	combo = 1
 	stage_no = 1
 	score = 0
+	total_damage = 0
+	tiles_cleared = 0
 	progress_bar.value = 0.0
 	best_value.text = "%06d" % UserProgress.highscore
 	pause_resume_tab.current_tab = TAB_PAUSE
@@ -164,7 +169,7 @@ func end_game(won: bool) -> void:
 	gameover_menu.show()
 	menus_node.show()
 
-	UserProgress.save_highscore(score)
+	UserProgress.save_highscore(score, elapsed_ms, total_damage, tiles_cleared)
 
 
 func start_game() -> void:
@@ -233,6 +238,10 @@ func _on_ball_hit_paddle(_p_ball: Ball, _p_paddle: Paddle) -> void:
 func _on_tile_hit(_tile: Tile, effective_damage: int, destroyed: bool) -> void:
 	super._on_tile_hit(_tile, effective_damage, destroyed)
 
+	total_damage += effective_damage
+	if destroyed:
+		tiles_cleared += 1
+	
 	score += effective_damage * combo
 	combo += 1
 	_update_score()

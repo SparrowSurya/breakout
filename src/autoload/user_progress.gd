@@ -7,14 +7,19 @@ const USER_HIGHSCORE_PATH := "user://highscore.txt"
 ## A copy of the actual data in file.
 var _levels: Dictionary[int, LevelProgress] = {}
 
-var highscore: int = 0 ## Best score in survival mode
+var highscore: int = 0       ## Best score in survival mode
+var time_taken: float = 0.0   ## Time taken for the highscore
+var total_hits: int = 0      ## Total hits done
+var tiles_cleared: int = 0   ## Total tiles cleared
 
 
 func _ready() -> void:
 	var raw_data = _load_levels()
 	_levels = _parse_levels(raw_data)
-	highscore = _load_highscore()
-	
+
+	raw_data = _load_survival_data()
+	_set_survival_data(raw_data)
+
 
 ## Saves the level progress. It save the best of current or existing. Additionally unlocks the next level
 ## if current level is completed.
@@ -50,9 +55,12 @@ func save_progress(new_progress: LevelProgress) -> void:
 	_save_levels()
 
 
-func save_highscore(score: int) -> void:
+func save_highscore(score: int, p_time_taken: float, p_total_hits: int, p_tiles_cleared: int) -> void:
 	if score > highscore:
 		highscore = score
+		time_taken = p_time_taken
+		total_hits = p_total_hits
+		tiles_cleared = p_tiles_cleared
 		_save_highscore()
 
 
@@ -91,6 +99,7 @@ func _levels_to_dict() -> Dictionary[int, Dictionary]:
 			"status": _status_to_string(value.status),
 			"progress": value.progress,
 			"stars": value.stars,
+			"time": value.time,
 		}
 	return data
 
@@ -124,9 +133,14 @@ func _save_levels() -> void:
 		push_error("UserProgress: failed to save level progress")
 
 
-## Saves highscore to file.
+## Saves survival data to file if best.
 func _save_highscore() -> void:
-	var data = str(highscore)
+	var data = JSON.stringify({
+		"highscore": highscore,
+		"time_taken": time_taken,
+		"total_hits": total_hits,
+		"tiles_cleared": tiles_cleared,
+	})
 	var file = FileAccess.open(USER_HIGHSCORE_PATH, FileAccess.WRITE)
 	if file:
 		file.store_string(data)
@@ -161,19 +175,23 @@ func _load_levels() -> Dictionary[int, Dictionary]:
 	return {}
 
 
-## Loads the highscore from file.
-func _load_highscore() -> int:
+## Loads the survival user data from file.
+func _load_survival_data() -> Dictionary:
 	if not FileAccess.file_exists(USER_HIGHSCORE_PATH):
-		return 0
+		return {}
 
 	var file = FileAccess.open(USER_HIGHSCORE_PATH, FileAccess.READ)
 	if not file:
-		return 0
+		return {}
 
 	var content = file.get_as_text()
 	file.close()
 	
-	return int(content.strip_edges())
+	var data = JSON.parse_string(content)
+	if data is Dictionary:
+		return data
+	
+	return {}
 
 
 ## Parses the raw data into suitable format. Additionally makes first level unlocked.
@@ -186,6 +204,7 @@ func _parse_levels(data: Dictionary[int, Dictionary]) -> Dictionary[int, LevelPr
 			_string_to_status(value.get("status", "locked")),
 			value.get("progress", 0.0),
 			value.get("stars", 0),
+			value.get("time", 0.0),
 		)
 	
 	# Make sure that first level is unlocked
@@ -198,8 +217,18 @@ func _parse_levels(data: Dictionary[int, Dictionary]) -> Dictionary[int, LevelPr
 	return parsed
 
 
+## Sets the variables related to survival mode.
+func _set_survival_data(data: Dictionary) -> void:
+	highscore = data.get("highscore", 0)
+	time_taken = data.get("time_taken", 0.0)
+	total_hits = data.get("total_hits", 0)
+	tiles_cleared = data.get("tiles_cleared", 0)
+
+
+## ------------------------------------------------------------------------------------------testing
+
 ##NOTE: This is onyl for testing purposes.
-func _unlock_all_levels() -> void:
+func dbg_unlock_all_levels() -> void:
 	for i in range(LevelDef.level_count+1):
 		if not _levels.has(i) or _levels[i].status == LevelProgress.LevelStatus.LOCKED:
 			_levels[i] = LevelProgress.as_wip(i)
