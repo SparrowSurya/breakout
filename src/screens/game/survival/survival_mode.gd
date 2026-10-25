@@ -63,10 +63,7 @@ func player_attempts_count() -> int:
 
 
 func setup_tiles() -> void:
-	var rows := randi_range(Constants.ROWS_MIN, Constants.ROWS_MAX)
-	var cols := randi_range(Constants.COLS_MIN, Constants.COLS_MAX)
-
-	var formation := TileFormation.create(rows, cols)
+	var formation := TileFormation.create_for_stage(stage_no)
 	
 	grid_data = formation.grid_data
 	grid_rows = formation.grid_rows
