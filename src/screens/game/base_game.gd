@@ -79,7 +79,9 @@ func initialise() -> void:
 	add_child(paddle)
 
 
-## Performs setup which is called after initialise or during fresh start.
+## Performs setup which is called after initialise or during fresh start. Before
+## calling this method (parent) from child class make sure that variables are 
+## reset so that changes apply and shows correct state in the screen.
 func setup() -> void:
 	elapsed_ms = 0.0
 	hearts = player_attempts_count()

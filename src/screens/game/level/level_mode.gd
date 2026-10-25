@@ -49,12 +49,12 @@ func initialise() -> void:
 
 
 func setup() -> void:
-	super.setup()
-
 	pause_resume_tab.current_tab = TAB_PAUSE
 	progress_bar.value = 0.0
 	pause_button.disabled = true
 	resume_button.disabled = true
+
+	super.setup()
 
 	countdown_label.hide()
 	menus_node.hide()

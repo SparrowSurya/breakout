@@ -45,7 +45,6 @@ func initialise() -> void:
 
 
 func setup() -> void:
-	super.setup()
 
 	combo = 1
 	stage_no = 1
@@ -57,6 +56,8 @@ func setup() -> void:
 	pause_resume_tab.current_tab = TAB_PAUSE
 	pause_button.disabled = true
 	resume_button.disabled = true
+
+	super.setup()
 
 	countdown_label.hide()
 	pause_menu.hide()
