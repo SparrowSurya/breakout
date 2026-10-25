@@ -62,7 +62,7 @@ static func _select_archetype() -> int:
 
 ## Create TileFormation instance of randomly selected strategic tile formation pattern.
 static func create(rows: int, cols: int) -> TileFormation:
-	var wall: bool = randi_range(0, 1) == 1
+	var wall: bool = false # Removed for now. randi_range(0, 1) == 1
 	var grid: Array[int] = _create(rows, cols, wall)
 	return TileFormation.new(rows, cols, grid, wall)
 

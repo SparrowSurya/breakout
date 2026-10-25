@@ -51,7 +51,7 @@ func navigate_to_select_level() -> void:
 func quick_play() -> void:
 	current_screen = Screen.QUICK_PLAY
 	get_tree().change_scene_to_file(Constants.SCENE.QuickPlayMode)
-	
+
 
 ## Play specific level mode.
 func play_level(level: int) -> void:

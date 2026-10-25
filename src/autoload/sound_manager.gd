@@ -67,8 +67,6 @@ func play_music(stream: AudioStream, restart: bool = false, fade_in: float = MUS
 	if fade_in > 0.0:
 		_music_tween = create_tween()
 		_music_tween.tween_method(_set_music_fade, 0.0, 1.0, fade_in)
-	
-	print("Music Volume: ", get_music_volume())
 
 
 func stop_music() -> void:
