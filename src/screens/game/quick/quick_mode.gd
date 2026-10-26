@@ -108,6 +108,14 @@ func _update_time() -> void:
 	time_value.text = Utils.format_time(elapsed_ms)
 
 
+func start_game() -> void:
+	menus_node.hide()
+	await super.start_game()
+
+	pause_button.disabled = false
+	resume_button.disabled = false
+
+
 func pause_game() -> void:
 	if GameManager.game_state != GameManager.GameState.PLAYING:
 		return

@@ -15,6 +15,8 @@ enum GameState {
 ## Screen in the viewport.
 enum Screen {
 	
+	SPLASH,
+	
 	# Normal screens
 	MAIN_MENU,
 	SELECT_LEVEL,
@@ -26,7 +28,7 @@ enum Screen {
 }
 
 
-var current_screen: Screen = Screen.MAIN_MENU
+var current_screen: Screen = Screen.SPLASH
 var level_data: LevelDef = null
 var game_state: GameState = GameState.NONE
 

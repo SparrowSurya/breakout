@@ -14,10 +14,14 @@ func _ready() -> void:
 	survival_button.pressed.connect(_on_survival_button_pressed)
 
 	highscore_value.text = "%06d" % UserProgress.highscore
-	version_value.text = "v%d.%d.%d" % [Constants.VERSION_MAJOR, Constants.VERSION_MINOR, Constants.VERSION_PATCH]
+	version_value.text = "v%s" % Constants.VERSION_STRING
 
 	quick_play_button.grab_focus()
 	
+	call_deferred("_start_music")
+
+
+func _start_music() -> void:
 	SoundManager.play_music(Constants.SOUND.LavenderChillwave)
 
 
