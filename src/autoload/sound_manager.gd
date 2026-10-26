@@ -7,7 +7,7 @@ const SILENT_DB: float = -80.0
 
 const DEFAULT_MUSIC_VOLUME: float = 1.0
 const DEFAULT_SOUND_VOLUME: float = 3.0
-const DEFAULT_SFX_VOLUME: float = 5.0
+const DEFAULT_SFX_VOLUME: float = 3.0
 
 const MUSIC_FADE_IN_SEC: float = 3
 
