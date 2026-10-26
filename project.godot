@@ -21,7 +21,7 @@ config/windows_native_icon.web=""
 
 [audio]
 
-buses/default_bus_layout="uid://c0wo1mgdy5di4"
+buses/default_bus_layout="uid://d2a0v6bnm5fe0"
 
 [autoload]
 
