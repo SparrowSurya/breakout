@@ -166,6 +166,8 @@ func _ensure_bus(bus: StringName) -> void:
 func _enable_loop(stream: AudioStream) -> void:
 	if "loop" in stream:
 		stream.loop = true
+	elif "loop_mode" in stream:
+		stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
 
 
 ## Fallback for streams without a loop flag (e.g. WAV).
