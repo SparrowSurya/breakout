@@ -5,7 +5,7 @@ const VOLUME_MIN: float = 0.0   ## Silent.
 const VOLUME_MAX: float = 10.0  ## Full volume (0 dB, never boosted).
 const SILENT_DB: float = -80.0
 
-const DEFAULT_MUSIC_VOLUME: float = 1.0
+const DEFAULT_MUSIC_VOLUME: float = 3.0
 const DEFAULT_SOUND_VOLUME: float = 3.0
 const DEFAULT_SFX_VOLUME: float = 3.0
 

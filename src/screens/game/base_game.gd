@@ -78,6 +78,9 @@ func initialise() -> void:
 	add_child(ball)
 	add_child(paddle)
 
+	paddle.touch_y_min = tile_y_begin
+	paddle.touch_y_max = window_size.y
+
 
 ## Performs setup which is called after initialise or during fresh start. Before
 ## calling this method (parent) from child class make sure that variables are 

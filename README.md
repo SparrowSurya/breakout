@@ -51,11 +51,10 @@ A modern, pastel-infused 2D arcade brick-breaker built with **Godot Engine 4**. 
 
 | Action | Primary Input | Alternate / Mouse |
 | :--- | :--- | :--- |
-| **Move Paddle** | `A` / `D` | `Left` / `Right` Arrow keys, Mouse Drag |
-| **Launch Ball** | `Space` | `Enter`, Left Click, Screen Tap |
-| **Pause / Resume** | `Esc` | `P` |
+| **Move Paddle** | `A` / `D` | `Left` / `Right` Arrow keys, Mouse |
+| **Pause / Resume** | `Space` | UI Button |
 | **Menu Navigation** | Arrow Keys / `Tab` | Mouse Hover & Click |
-| **Confirm Selection** | `Space` / `Enter` | Left Click |
+| **Confirm Selection** | `Enter` | Left Click |
 
 ---
 

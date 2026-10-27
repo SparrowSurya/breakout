@@ -9,6 +9,9 @@ const SPEED: float = 480
 var window_size: Vector2
 var paddle_size: Vector2
 
+var touch_y_min: float = 0.0
+var touch_y_max: float = 0.0
+
 
 func _ready() -> void:
 	window_size = get_viewport().get_visible_rect().size
@@ -20,17 +23,26 @@ func _physics_process(delta: float) -> void:
 		return
 
 	if Input.is_action_pressed("move_left"):
-		_move_left(SPEED * delta)
+		move_left(SPEED * delta)
 	elif Input.is_action_pressed("move_right"):
-		_move_right(SPEED * delta)
+		move_right(SPEED * delta)
+	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		var pos: Vector2 = get_viewport().get_mouse_position()
+		var mid_x = window_size.x / 2.0
+
+		if touch_y_min <= pos.y and touch_y_max <= touch_y_max:
+			if pos.x < mid_x:
+				move_left(SPEED * delta)
+			else:
+				move_right(SPEED * delta)
 
 
-func _move_left(amount: float) -> void:
+func move_left(amount: float) -> void:
 	var half_width = paddle_size.x / 2
 	position.x = clampf(position.x - amount, half_width, window_size.x - half_width)
 
 
-func _move_right(amount: float) -> void:
+func move_right(amount: float) -> void:
 	var half_width = paddle_size.x / 2
 	position.x = clampf(position.x + amount, half_width, window_size.x - half_width)
 

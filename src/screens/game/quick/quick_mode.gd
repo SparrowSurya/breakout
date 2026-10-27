@@ -49,8 +49,6 @@ func setup() -> void:
 	pause_menu.hide()
 	end_menu.hide()
 
-
-
 func player_attempts_count() -> int:
 	return hearts_node.get_children().filter(func(node): return node is TextureRect).size()
 
