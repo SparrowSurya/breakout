@@ -17,7 +17,7 @@ func _ready() -> void:
 	version_value.text = "v%s" % Constants.VERSION_STRING
 
 	quick_play_button.grab_focus()
-	
+
 	call_deferred("_start_music")
 
 
