@@ -40,7 +40,7 @@ gdscript/warnings/integer_division=0
 
 window/size/viewport_width=360
 window/size/viewport_height=640
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 
 [input]
 
