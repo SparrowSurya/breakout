@@ -11,13 +11,15 @@ config_version=5
 [application]
 
 config/name="breakout"
+config/description="A modern, pastel-infused 2D arcade brick-breaker built with godot4 engine."
+config/version="0.1.0"
 run/main_scene="uid://3xj2vkc1hsm"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/bg_color=Color(0.08235294, 0.08235294, 0.11764706, 1)
 config/icon="uid://2k1ju01fj4hk"
 config/macos_native_icon="uid://2k1ju01fj4hk"
 config/windows_native_icon="uid://2k1ju01fj4hk"
-config/windows_native_icon.web=""
+config/windows_native_icon.web="uid://2k1ju01fj4hk"
 
 [audio]
 
@@ -29,6 +31,10 @@ GameManager="*uid://hxkqgdcppukg"
 UserProgress="*uid://b0bs8pveg1f41"
 SoundManager="*uid://bip2xx8v4br5g"
 Utils="*uid://cn1qjmg2tsfam"
+
+[debug]
+
+gdscript/warnings/integer_division=0
 
 [display]
 
@@ -69,3 +75,5 @@ pause={
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
