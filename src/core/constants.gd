@@ -13,7 +13,7 @@ const VERSION_STRING: String = "%d.%d.%d" % [Constants.VERSION_MAJOR, Constants.
 const SOUND: Dictionary = {
 
 	# Background music
-	"LavenderChillwave": preload("res://assets/sounds/music/lavender_chillwave.wav"),
+	"LavenderChillwave": preload("res://assets/sounds/music/lavender_chillwave.ogg"),
 
 	# Ui sounds
 	"Click": preload("res://assets/sounds/ui/click.wav"),
