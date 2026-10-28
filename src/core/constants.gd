@@ -4,7 +4,7 @@ extends Resource
 
 const VERSION_MAJOR: int = 0
 const VERSION_MINOR: int = 1
-const VERSION_PATCH: int = 0
+const VERSION_PATCH: int = 1
 
 const VERSION_STRING: String = "%d.%d.%d" % [Constants.VERSION_MAJOR, Constants.VERSION_MINOR, Constants.VERSION_PATCH]
 

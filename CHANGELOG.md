@@ -1,6 +1,7 @@
 # Changelog
 
-## Development (unreleased)
+## Version 0.1.1 - (28 Oct, 2026)
+Optimisations to enhance performance in mobile web.
 
 ### Modified - (28 Oct, 2026)
 Scene `HitParticles.tscn` now extends from `CPUParticles2D`. Reducing GPU setup overhead just for duration less than a second.
@@ -15,4 +16,3 @@ Modified project settings and export settings.
 
 ## Version 0.1.0 - 27 Oct, 2026
 Initial release.
-

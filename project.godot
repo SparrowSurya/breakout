@@ -12,7 +12,7 @@ config_version=5
 
 config/name="breakout"
 config/description="A modern, pastel-infused 2D arcade brick-breaker built with godot4 engine."
-config/version="0.1.0"
+config/version="0.1.1"
 run/main_scene="uid://3xj2vkc1hsm"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/bg_color=Color(0.08235294, 0.08235294, 0.11764706, 1)
