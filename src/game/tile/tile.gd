@@ -63,9 +63,9 @@ func destroy() -> void:
 
 func spawn_particles(pos: Vector2) -> void:
 	var particles: HitParticles = particles_scene.instantiate()
-	get_tree().current_scene.add_child(particles)
 	particles.global_position = pos
 	particles.texture = TileDef.from_health(tile_health).particle_texture
+	get_tree().current_scene.add_child(particles)
 
 
 func shake() -> void:
