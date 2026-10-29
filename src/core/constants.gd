@@ -65,3 +65,9 @@ const ROWS_MIN: int = 3
 const COLS_MIN: int = 5
 const ROWS_MAX: int = 8
 const COLS_MAX: int = 8
+
+
+## Mapping from transition name to transition scene.
+const TRANSITION: Dictionary = {
+	"Fade": preload("res://src/transitions/fade/fade_transition.tscn"),
+}

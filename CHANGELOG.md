@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added transitions - (29 Oct, 2026)
+* Added fade transition and integrated with existing navigation.
+
 ### Fixes - (29 Oct, 2026)
 * Fixed issues in game during testing inside test environment.
 

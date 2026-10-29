@@ -69,4 +69,4 @@ func _on_page_update(total_pages: int, current_page: int) -> void:
 
 
 func _on_back_button_clicked() -> void:
-	get_tree().change_scene_to_file(Constants.SCENE.MainMenu)
+	GameManager.navigate_to_mainmenu()
