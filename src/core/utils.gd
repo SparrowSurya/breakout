@@ -11,6 +11,6 @@ func format_time(p_time: float) -> String:
 	return "%02d:%02d" % [minutes, seconds]
 
 
-## Waits for given secods.
-func wait(secs: float) -> void:
-	await get_tree().create_timer(secs).timeout
+## Waits for given seconds.
+func wait(secs: float, process_always: bool = false) -> void:
+	await get_tree().create_timer(secs, process_always).timeout

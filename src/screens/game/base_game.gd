@@ -179,12 +179,13 @@ func countdown() -> void:
 	for i in range(3, 0, -1):
 		countdown_label.text = str(i)
 		SoundManager.play_sfx(Constants.SOUND.Countdown)
-		await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(1.0, false).timeout
 
 	countdown_label.text = "GO!"
 	var player := SoundManager.play_sfx(Constants.SOUND.CountdownGo)
-	await player.finished
-	await Utils.wait(0.5)
+	if player != null:
+		await player.finished
+	await get_tree().create_timer(0.5, false).timeout
 
 	countdown_label.hide()
 
