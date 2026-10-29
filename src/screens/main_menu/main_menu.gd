@@ -19,6 +19,9 @@ func _ready() -> void:
 	quick_play_button.grab_focus()
 
 	call_deferred("_start_music")
+	
+	if YTPlayableSdk.in_playables_env():
+		UserProgress.progress_loaded.connect(_progress_update)
 
 
 func _start_music() -> void:
@@ -35,3 +38,7 @@ func _on_levels_button_pressed() -> void:
 
 func _on_survival_button_pressed() -> void:
 	GameManager.play_survival()
+
+
+func _progress_update() -> void:
+	highscore_value.text = "%06d" % UserProgress.highscore

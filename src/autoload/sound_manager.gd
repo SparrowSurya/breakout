@@ -11,6 +11,7 @@ const DEFAULT_SFX_VOLUME: float = 3.0
 
 const MUSIC_FADE_IN_SEC: float = 3
 
+const BUS_MASTER: StringName = &"Master"
 const BUS_MUSIC: StringName = &"Music"
 const BUS_SOUND: StringName = &"Sound"
 const BUS_SFX: StringName = &"SFX"
@@ -45,6 +46,10 @@ func _ready() -> void:
 	set_music_volume(DEFAULT_MUSIC_VOLUME)
 	set_sound_volume(DEFAULT_SOUND_VOLUME)
 	set_sfx_volume(DEFAULT_SFX_VOLUME)
+
+	if YTPlayableSdk.in_playables_env():
+		YTPlayableSdk.audio_enabled_changed.connect(_on_yt_playable_audio_enable_changed)
+		_on_yt_playable_audio_enable_changed(YTPlayableSdk.is_audio_enabled())
 
 
 ## Plays background music (looping). Does nothing if it is already playing.
@@ -156,6 +161,7 @@ func _make_player(bus: StringName, player_name: String) -> AudioStreamPlayer:
 func _ensure_bus(bus: StringName) -> void:
 	if AudioServer.get_bus_index(bus) != -1:
 		return
+
 	AudioServer.add_bus()
 	var idx: int = AudioServer.bus_count - 1
 	AudioServer.set_bus_name(idx, bus)
@@ -172,3 +178,10 @@ func _enable_loop(stream: AudioStream) -> void:
 func _on_music_finished() -> void:
 	if _music_stream != null:
 		music_player.play()
+
+
+## Turns on/off the audio.
+func _on_yt_playable_audio_enable_changed(enabled: bool) -> void:
+	var master_idx = AudioServer.get_bus_index(BUS_MASTER)
+	if master_idx != -1:
+		AudioServer.set_bus_mute(master_idx, not enabled)

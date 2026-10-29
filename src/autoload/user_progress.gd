@@ -1,24 +1,38 @@
 extends Node
 
-# User data file
+## Signal emitted when progress is loaded.
+signal progress_loaded
+
+
+# User data file.
 const USER_PROGRESS_PATH := "user://progress.json"
 const USER_HIGHSCORE_PATH := "user://highscore.txt"
 
 ## A copy of the actual data in file.
-var _levels: Dictionary[int, LevelProgress] = {}
+var _levels: Dictionary[int, LevelProgress] = {
+	1: LevelProgress.as_wip(1), # FIrst level always unlocked
+}
 
-var highscore: int = 0       ## Best score in survival mode
+var highscore: int = 0        ## Best score in survival mode
 var time_taken: float = 0.0   ## Time taken for the highscore
-var total_hits: int = 0      ## Total hits done
-var tiles_cleared: int = 0   ## Total tiles cleared
+var total_hits: int = 0       ## Total hits done
+var tiles_cleared: int = 0    ## Total tiles cleared
 
 
 func _ready() -> void:
-	var raw_data = _load_levels()
-	_levels = _parse_levels(raw_data)
+	if not YTPlayableSdk.in_playables_env():
+		var raw_data = _load_levels()
+		_levels = _parse_levels(raw_data)
 
-	raw_data = _load_survival_data()
-	_set_survival_data(raw_data)
+		raw_data = _load_survival_data()
+		_set_survival_data(raw_data)
+		
+		progress_loaded.emit()
+	else:
+		YTPlayableSdk.load_data_received.connect(_on_yt_playable_load_data)
+		YTPlayableSdk.save_data_success.connect(_on_yt_playable_save_data_success)
+		YTPlayableSdk.save_data_failed.connect(_on_yt_playable_save_data_failed)
+		YTPlayableSdk.load_data()
 
 
 ## Saves the level progress. It save the best of current or existing. Additionally unlocks the next level
@@ -89,6 +103,16 @@ func highest_unlocked_level() -> int:
 	return level_no
 
 
+## Returns survival data as Dictionary.
+func _survival_data() -> Dictionary:
+	return {
+		"highscore": highscore,
+		"time_taken": time_taken,
+		"total_hits": total_hits,
+		"tiles_cleared": tiles_cleared,
+	}
+
+
 ## Parses the intenral cache to dictionary
 func _levels_to_dict() -> Dictionary[int, Dictionary]:
 	var data: Dictionary[int, Dictionary] = {}
@@ -122,33 +146,6 @@ func _string_to_status(value: String) -> LevelProgress.LevelStatus:
 			return LevelProgress.LevelStatus.LOCKED
 
 
-## Saves levels data to file
-func _save_levels() -> void:
-	var data = _levels_to_dict()
-	var file = FileAccess.open(USER_PROGRESS_PATH, FileAccess.WRITE)
-	if file:
-		file.store_string(JSON.stringify(data))
-		file.close()
-	else:
-		push_error("UserProgress: failed to save level progress")
-
-
-## Saves survival data to file if best.
-func _save_highscore() -> void:
-	var data = JSON.stringify({
-		"highscore": highscore,
-		"time_taken": time_taken,
-		"total_hits": total_hits,
-		"tiles_cleared": tiles_cleared,
-	})
-	var file = FileAccess.open(USER_HIGHSCORE_PATH, FileAccess.WRITE)
-	if file:
-		file.store_string(data)
-		file.close()
-	else:
-		push_error("UserProgress: failed to save highscore")
-
-
 ## Loads data from file. Additionally, converts string key to int key.
 func _load_levels() -> Dictionary[int, Dictionary]:
 	if not FileAccess.file_exists(USER_PROGRESS_PATH):
@@ -164,14 +161,7 @@ func _load_levels() -> Dictionary[int, Dictionary]:
 	var data = JSON.parse_string(content)
 
 	if data is Dictionary:
-		var result: Dictionary[int, Dictionary] = {}
-		for key in data:
-			if not key.is_valid_int():
-				push_warning("Invalid level key: %s" % key)
-				continue
-			result[int(key)] = data[key]
-		return result
-
+		return _convert_string_key_to_int(data)
 	return {}
 
 
@@ -223,6 +213,82 @@ func _set_survival_data(data: Dictionary) -> void:
 	time_taken = data.get("time_taken", 0.0)
 	total_hits = data.get("total_hits", 0)
 	tiles_cleared = data.get("tiles_cleared", 0)
+
+
+## Converts the string key of dictionary as int.
+func _convert_string_key_to_int(data: Dictionary) -> Dictionary[int, Dictionary]:
+	var result: Dictionary[int, Dictionary] = {}
+	for key in data:
+		if not key.is_valid_int():
+			push_warning("Invalid level key: %s" % key)
+			continue
+		result[int(key)] = data[key]
+	return result
+
+
+## Saves levels data.
+func _save_levels() -> void:
+	if YTPlayableSdk.in_playables_env():
+		_save_yt_playable_user_data()
+		return
+
+	var data = _levels_to_dict()
+	var file = FileAccess.open(USER_PROGRESS_PATH, FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.stringify(data))
+		file.close()
+	else:
+		push_error("UserProgress: failed to save level progress")
+
+
+## Saves survival data.
+func _save_highscore() -> void:
+	if YTPlayableSdk.in_playables_env():
+		_save_yt_playable_user_data()
+		YTPlayableSdk.send_score(highscore)
+		return
+
+	var data = JSON.stringify(_survival_data())
+	var file = FileAccess.open(USER_HIGHSCORE_PATH, FileAccess.WRITE)
+	if file:
+		file.store_string(data)
+		file.close()
+	else:
+		push_error("UserProgress: failed to save highscore")
+
+
+## --------------------------------------------------------------------------------youtube-playables
+
+## Sets the user data from yt playebles received data.
+func _on_yt_playable_load_data(data: String) -> void:
+	var content = JSON.parse_string(data)
+	if content is not Dictionary:
+		return
+
+	var survival_data = content.get("survival", {})
+	var levels_data = content.get("levels", {})
+
+	_set_survival_data(survival_data)
+	_levels = _parse_levels(_convert_string_key_to_int(levels_data))
+	progress_loaded.emit()
+
+
+## Saves the user progress data to yt playables.
+func _save_yt_playable_user_data() -> void:
+	var data = JSON.stringify({
+		"survival": _survival_data(),
+		"levels": _levels_to_dict(),
+	})
+	YTPlayableSdk.save_data(data)
+
+
+func _on_yt_playable_save_data_success() -> void:
+	print("UserProgress.YTPlayable: user data saved.")
+
+
+func _on_yt_playable_save_data_failed(error_message: String) -> void:
+	print("UserProgress.YTPlayable: user data failed to save.\n%s" % error_message)
+	push_error(error_message)
 
 
 ## ------------------------------------------------------------------------------------------testing

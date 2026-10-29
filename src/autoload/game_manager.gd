@@ -14,13 +14,13 @@ enum GameState {
 
 ## Screen in the viewport.
 enum Screen {
-	
+
 	SPLASH,
-	
+
 	# Normal screens
 	MAIN_MENU,
 	SELECT_LEVEL,
-	
+
 	# Gameplay screens
 	QUICK_PLAY,
 	LEVEL_MODE,

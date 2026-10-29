@@ -17,6 +17,10 @@ func _ready() -> void:
 	if DisplayServer.is_touchscreen_available():
 		press_key_to_start.hide()
 	_blink()
+	
+	if YTPlayableSdk.in_playables_env():
+		YTPlayableSdk.first_frame_ready()
+		YTPlayableSdk.game_ready()
 
 
 func _input(event: InputEvent) -> void:

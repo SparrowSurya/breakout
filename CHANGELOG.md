@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+### Added support for youtube playables - (29 Oct, 2026)
+* Added new export preset for youttube playables (web).
+* Added `yt_game_sdk.js` and `vendor/youtube` wrapper script.
+* Integrated signals - `audio_enabled_changed`,`game_paused`,`game_resumed`,`save_data_success`,`save_data_failed`,`load_data_received`.
+* Added Makefile. Also, an additional file needs to be copied directly which is included in `.pck` file if added ad resource.
+* Added script for gzip based web server (for test_suite)
+
 ## Version 0.1.1 - (28 Oct, 2026)
 Optimisations to enhance performance in mobile web.
 
