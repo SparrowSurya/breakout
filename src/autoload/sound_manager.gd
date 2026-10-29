@@ -167,7 +167,7 @@ func _ensure_bus(bus: StringName) -> void:
 	AudioServer.add_bus()
 	var idx: int = AudioServer.bus_count - 1
 	AudioServer.set_bus_name(idx, bus)
-	AudioServer.set_bus_send(idx, &"Master")
+	AudioServer.set_bus_send(idx, BUS_MASTER)
 
 
 ## Uses the stream's own loop flag when it has one (no gap at the loop point).

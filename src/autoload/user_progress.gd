@@ -283,11 +283,10 @@ func _save_yt_playable_user_data() -> void:
 
 
 func _on_yt_playable_save_data_success() -> void:
-	print("UserProgress.YTPlayable: user data saved.")
+	pass
 
 
 func _on_yt_playable_save_data_failed(error_message: String) -> void:
-	print("UserProgress.YTPlayable: user data failed to save.\n%s" % error_message)
 	push_error(error_message)
 
 

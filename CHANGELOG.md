@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Fixes - (29 Oct, 2026)
+* Fixed issues in game during testing inside test environment.
+
 ### Added support for youtube playables - (29 Oct, 2026)
 * Added new export preset for youttube playables (web).
 * Added `yt_game_sdk.js` and `vendor/youtube` wrapper script.

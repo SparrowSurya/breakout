@@ -60,19 +60,39 @@ A modern, pastel-infused 2D arcade brick-breaker built with **Godot Engine 4**. 
 
 ## 🛠️ Development & Export
 
-The project includes a `Makefile` to streamline web builds and local testing:
+The project supports multi-platform Web exports (**Itch.io** and **YouTube Playables**) and includes a `Makefile` to streamline builds, packaging, and local testing:
 
 ```bash
-# Export the game to Web (HTML5/WebAssembly) in build/web/
-make export-web
+# Build and package both platforms (Itch.io & YouTube Playables)
+make build-all
 
-# Export to Web and bundle into a versioned zip (e.g. build/Breakout-Web-v1.0.0.zip)
-make build-web
+# --- Itch.io Targets ---
+# Export Web build to build/itch/
+make export-itch
 
-# Launch a local HTTP server to play and test the web build in your browser
-make server-web
+# Export and package into versioned zip (build/Breakout-Itch-vX.Y.Z.zip)
+make build-itch
 
-# Clean build artifacts
-make clean-web
-make clean-build
+# Run local HTTP server for Itch build (http://localhost:8000)
+make server-itch
+
+# --- YouTube Playables Targets ---
+# Export Web build with YouTube SDK connector to build/youtube/
+make export-yt
+
+# Export and package for YouTube Playables (build/Breakout-YouTube-vX.Y.Z.zip)
+make build-yt
+
+# Run local gzip-compressed HTTP server for YouTube Playables Test Suite
+make server-yt
+
+# --- Cleanup ---
+make clean
 ```
+
+### 📺 YouTube Playables Integration
+- **SDK Bridge**: Fully integrated with the official YouTube Playables SDK (`vendor/youtube/yt_playable_sdk.gd` and `yt_game_sdk.js`).
+- **Platform Lifecycle**: Automatically handles platform `onPause`, `onResume`, and `onAudioEnabledChange` events.
+- **Whole-Game Pausing**: Freezes gameplay, physics, and countdown animations during YouTube pauses.
+- **Cloud Progress**: Automatically syncs level unlocks, star ratings, and survival high scores via YouTube cloud storage (`saveData` / `loadData`).
+- **GZIP Compression**: Built-in development server (`scripts/server.py`) with GZIP compression to meet YouTube's < 30 MiB initial bundle size requirement.

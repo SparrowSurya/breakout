@@ -65,10 +65,6 @@ func _process(delta: float) -> void:
 func initialise() -> void:
 	dead_zone.body_entered.connect(_on_dead_zone_body_entered)
 
-	if YTPlayableSdk.in_playables_env():
-		YTPlayableSdk.game_paused.connect(pause_game)
-		YTPlayableSdk.game_resumed.connect(resume_game)
-
 	window_size = get_viewport().get_visible_rect().size
 	tile_y_begin = (
 		TILE_TOP_GAP
