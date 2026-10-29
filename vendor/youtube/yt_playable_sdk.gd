@@ -21,37 +21,74 @@ signal ad_request_failed(error_message: String)
 
 const YT_GAME_SDK_JS_WINDOW_OBJECT = "window.YTGameSDK_Godot"
 
+# Retain references to JavaScriptObject callbacks to prevent garbage collection
+var _cb_audio_changed: JavaScriptObject
+var _cb_game_paused: JavaScriptObject
+var _cb_game_resumed: JavaScriptObject
+var _cb_load_data: JavaScriptObject
+var _cb_save_success: JavaScriptObject
+var _cb_save_failed: JavaScriptObject
+var _cb_ad_success: JavaScriptObject
+var _cb_ad_failed: JavaScriptObject
+
+
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 	# This script should be an Autoload/Singleton.
 	if OS.has_feature("web"):
-		# Create a global object for JS to hold callback functions
-		JavaScriptBridge.eval("""
-			window.GodotYTCallbacks = {
-				onAudioEnabledChanged: (isEnabled) => {},
-				onGamePaused: () => {},
-				onGameResumed: () => {},
-				onLoadDataReceived: (data) => {},
-				onSaveSuccess: () => {},
-				onSaveFailed: (error) => {},
-				onAdSuccess: () => {},
-				onAdFailed: (error) => {}
-			};
-		""")
-		
-		# Create Godot-side callbacks and assign them to the JS object
-		var godot_callbacks = JavaScriptBridge.get_interface("GodotYTCallbacks")
-		godot_callbacks.set("onAudioEnabledChanged", Callable(self, "_on_audio_enabled_changed"))
-		godot_callbacks.set("onGamePaused", Callable(self, "_on_game_paused"))
-		godot_callbacks.set("onGameResumed", Callable(self, "_on_game_resumed"))
-		godot_callbacks.set("onLoadDataReceived", Callable(self, "_on_load_data_received"))
-		godot_callbacks.set("onSaveSuccess", Callable(self, "_on_save_success"))
-		godot_callbacks.set("onSaveFailed", Callable(self, "_on_save_failed"))
-		godot_callbacks.set("onAdSuccess", Callable(self, "_on_ad_success"))
-		godot_callbacks.set("onAdFailed", Callable(self, "_on_ad_failed"))
+		_cb_audio_changed = JavaScriptBridge.create_callback(_js_cb_audio_changed)
+		_cb_game_paused = JavaScriptBridge.create_callback(_js_cb_game_paused)
+		_cb_game_resumed = JavaScriptBridge.create_callback(_js_cb_game_resumed)
+		_cb_load_data = JavaScriptBridge.create_callback(_js_cb_load_data)
+		_cb_save_success = JavaScriptBridge.create_callback(_js_cb_save_success)
+		_cb_save_failed = JavaScriptBridge.create_callback(_js_cb_save_failed)
+		_cb_ad_success = JavaScriptBridge.create_callback(_js_cb_ad_success)
+		_cb_ad_failed = JavaScriptBridge.create_callback(_js_cb_ad_failed)
+
+		var window = JavaScriptBridge.get_interface("window")
+		if window:
+			window.setGodotCallback("onAudioEnabledChanged", _cb_audio_changed)
+			window.setGodotCallback("onGamePaused", _cb_game_paused)
+			window.setGodotCallback("onGameResumed", _cb_game_resumed)
+			window.setGodotCallback("onLoadDataReceived", _cb_load_data)
+			window.setGodotCallback("onSaveSuccess", _cb_save_success)
+			window.setGodotCallback("onSaveFailed", _cb_save_failed)
+			window.setGodotCallback("onAdSuccess", _cb_ad_success)
+			window.setGodotCallback("onAdFailed", _cb_ad_failed)
 		
 		# Tell the JS library to set up its own internal callbacks to YouTube
 		var js_code = "%s.setAllCallbacks();" % YT_GAME_SDK_JS_WINDOW_OBJECT
 		JavaScriptBridge.eval(js_code)
+
+
+func _js_cb_audio_changed(args: Array) -> void:
+	var enabled: bool = bool(args[0]) if args.size() > 0 else true
+	_on_audio_enabled_changed(enabled)
+
+func _js_cb_game_paused(_args: Array) -> void:
+	_on_game_paused()
+
+func _js_cb_game_resumed(_args: Array) -> void:
+	_on_game_resumed()
+
+func _js_cb_load_data(args: Array) -> void:
+	var data: String = str(args[0]) if args.size() > 0 else ""
+	_on_load_data_received(data)
+
+func _js_cb_save_success(_args: Array) -> void:
+	_on_save_success()
+
+func _js_cb_save_failed(args: Array) -> void:
+	var err: String = str(args[0]) if args.size() > 0 else ""
+	_on_save_failed(err)
+
+func _js_cb_ad_success(_args: Array) -> void:
+	_on_ad_success()
+
+func _js_cb_ad_failed(args: Array) -> void:
+	var err: String = str(args[0]) if args.size() > 0 else ""
+	_on_ad_failed(err)
 
 # --- Public API ---
 
@@ -125,10 +162,12 @@ func _on_audio_enabled_changed(is_enabled: bool) -> void:
 
 func _on_game_paused() -> void:
 	print_js("Signal emitted: game_paused")
+	get_tree().paused = true
 	game_paused.emit()
 
 func _on_game_resumed() -> void:
 	print_js("Signal emitted: game_resumed")
+	get_tree().paused = false
 	game_resumed.emit()
 
 func _on_load_data_received(data: String) -> void:

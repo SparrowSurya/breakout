@@ -49,6 +49,8 @@ func _ready() -> void:
 
 	if YTPlayableSdk.in_playables_env():
 		YTPlayableSdk.audio_enabled_changed.connect(_on_yt_playable_audio_enable_changed)
+		YTPlayableSdk.game_paused.connect(_on_yt_playable_game_paused)
+		YTPlayableSdk.game_resumed.connect(_on_yt_playable_game_resumed)
 		_on_yt_playable_audio_enable_changed(YTPlayableSdk.is_audio_enabled())
 
 
@@ -185,3 +187,16 @@ func _on_yt_playable_audio_enable_changed(enabled: bool) -> void:
 	var master_idx = AudioServer.get_bus_index(BUS_MASTER)
 	if master_idx != -1:
 		AudioServer.set_bus_mute(master_idx, not enabled)
+
+
+func _on_yt_playable_game_paused() -> void:
+	var master_idx = AudioServer.get_bus_index(BUS_MASTER)
+	if master_idx != -1:
+		AudioServer.set_bus_mute(master_idx, true)
+
+
+func _on_yt_playable_game_resumed() -> void:
+	if YTPlayableSdk.is_audio_enabled():
+		var master_idx = AudioServer.get_bus_index(BUS_MASTER)
+		if master_idx != -1:
+			AudioServer.set_bus_mute(master_idx, false)

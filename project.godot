@@ -27,11 +27,11 @@ buses/default_bus_layout="uid://d2a0v6bnm5fe0"
 
 [autoload]
 
+YTPlayableSdk="*uid://dtr1flc0f2grw"
 GameManager="*uid://hxkqgdcppukg"
 UserProgress="*uid://b0bs8pveg1f41"
 SoundManager="*uid://bip2xx8v4br5g"
 Utils="*uid://cn1qjmg2tsfam"
-YTPlayableSdk="*uid://dtr1flc0f2grw"
 
 [debug]
 

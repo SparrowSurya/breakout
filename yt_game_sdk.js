@@ -14,12 +14,27 @@
  * limitations under the License.
  */
 
+// Global callback holder and registration function for Godot
+window.GodotYTCallbacks = window.GodotYTCallbacks || {};
+
+window.setGodotCallback = function(name, fn) {
+    if (!window.GodotYTCallbacks) {
+        window.GodotYTCallbacks = {};
+    }
+    window.GodotYTCallbacks[name] = fn;
+    console.log("[YTGameSDK.js] Registered Godot callback:", name, "type:", typeof fn);
+};
+
 // This object will be exposed on the window to be called from Godot.
 // It interfaces with the YouTube Playables Game SDK.
 window.YTGameSDK_Godot = {
     // Helper to check if we are in the Playables environment.
     _inEnv: function() {
         return typeof ytgame !== 'undefined' && ytgame.IN_PLAYABLES_ENV;
+    },
+
+    setGodotCallback: function(name, fn) {
+        window.setGodotCallback(name, fn);
     },
 
     getSDKVersion: function() {
@@ -48,22 +63,32 @@ window.YTGameSDK_Godot = {
         if (this._inEnv()) {
             ytgame.game.saveData(playableSaveData).then(() => {
                 // Handle data save success.
-                window.GodotYTCallbacks.onSaveSuccess();
+                if (window.GodotYTCallbacks && typeof window.GodotYTCallbacks.onSaveSuccess === "function") {
+                    window.GodotYTCallbacks.onSaveSuccess();
+                }
             }, (e) => {
                 // Send an error to YouTube
                 ytgame.health.logError();
                 // Handle data save failure.
-                window.GodotYTCallbacks.onSaveFailed(e.toString());
+                if (window.GodotYTCallbacks && typeof window.GodotYTCallbacks.onSaveFailed === "function") {
+                    window.GodotYTCallbacks.onSaveFailed(e ? e.toString() : "Unknown error");
+                }
             });
         } else {
-            window.GodotYTCallbacks.onSaveFailed("Not in Playables Environment.");
+            if (window.GodotYTCallbacks && typeof window.GodotYTCallbacks.onSaveFailed === "function") {
+                window.GodotYTCallbacks.onSaveFailed("Not in Playables Environment.");
+            }
         }
     },
 
     loadData: function() {
         if (this._inEnv()) {
             ytgame.game.loadData().then((data) => {
-                window.GodotYTCallbacks.onLoadDataReceived(data.toString());
+                if (window.GodotYTCallbacks && typeof window.GodotYTCallbacks.onLoadDataReceived === "function") {
+                    window.GodotYTCallbacks.onLoadDataReceived(data ? data.toString() : "");
+                }
+            }).catch((e) => {
+                console.error("[YTGameSDK.js] loadData error:", e);
             });
         }
     },
@@ -108,16 +133,33 @@ window.YTGameSDK_Godot = {
 
     // This function will be called from Godot to set up the listeners.
     setAllCallbacks: function() {
+        console.log("[YTGameSDK.js] setAllCallbacks called. inEnv:", this._inEnv());
         if (this._inEnv()) {
             ytgame.system.onAudioEnabledChange((isAudioEnabled) => {
-                window.GodotYTCallbacks.onAudioEnabledChanged(isAudioEnabled);
+                console.log("[YTGameSDK.js] ytgame.system.onAudioEnabledChange fired:", isAudioEnabled);
+                if (window.GodotYTCallbacks && typeof window.GodotYTCallbacks.onAudioEnabledChanged === "function") {
+                    window.GodotYTCallbacks.onAudioEnabledChanged(isAudioEnabled);
+                } else {
+                    console.error("[YTGameSDK.js] onAudioEnabledChanged callback missing or not a function");
+                }
             });
             ytgame.system.onPause(() => {
-                window.GodotYTCallbacks.onGamePaused();
+                console.log("[YTGameSDK.js] ytgame.system.onPause fired!");
+                if (window.GodotYTCallbacks && typeof window.GodotYTCallbacks.onGamePaused === "function") {
+                    window.GodotYTCallbacks.onGamePaused();
+                } else {
+                    console.error("[YTGameSDK.js] onGamePaused callback missing or not a function");
+                }
             });
             ytgame.system.onResume(() => {
-                window.GodotYTCallbacks.onGameResumed();
+                console.log("[YTGameSDK.js] ytgame.system.onResume fired!");
+                if (window.GodotYTCallbacks && typeof window.GodotYTCallbacks.onGameResumed === "function") {
+                    window.GodotYTCallbacks.onGameResumed();
+                } else {
+                    console.error("[YTGameSDK.js] onGameResumed callback missing or not a function");
+                }
             });
+            console.log("[YTGameSDK.js] All YouTube listeners registered successfully.");
         }
     }
 };
