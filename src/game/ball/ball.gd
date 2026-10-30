@@ -7,8 +7,8 @@ const BALL_SPEED: float = 420.0
 const MAX_ANGLE_RAD: float = deg_to_rad(60.0)
 
 @export var sprite: Sprite2D
+@export var damage: int = 1    ## Damange done by ball to tile.
 
-var damage: int = 1
 var window_size: Vector2
 var ball_size: Vector2
 
@@ -43,8 +43,15 @@ func _physics_process(delta: float) -> void:
 			SoundManager.play_sfx(Constants.SOUND.BallHitWall)
 
 
+## Resets the attributes like velocity.
 func setup() -> void:
 	velocity = Vector2(0, BALL_SPEED)
+
+
+## Sets random velocity of ball.
+func set_random_velocity() -> void:
+	var angle = randf_range(-MAX_ANGLE_RAD, MAX_ANGLE_RAD)
+	velocity = Vector2(sin(angle), -cos(angle)) * BALL_SPEED
 
 
 func bounce_from_paddle(paddle: Paddle) -> void:
@@ -59,6 +66,11 @@ func bounce_from_paddle(paddle: Paddle) -> void:
 	var angle = clamp(base_angle + random_angle, -MAX_ANGLE_RAD, MAX_ANGLE_RAD)
 
 	velocity = Vector2(sin(angle), -cos(angle)) * BALL_SPEED
+
+
+## Removes the ball from scene.
+func destroy() -> void:
+	queue_free()
 
 
 func _on_paddle_hit(paddle: Paddle, collision: KinematicCollision2D) -> void:

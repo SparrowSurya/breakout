@@ -31,7 +31,7 @@ grow_begin = 0.0
 grow_end = 0.0
 thickness = 6
 
-[node name="SurvivalMode" type="Node2D" unique_id=723584759 node_paths=PackedStringArray("pause_resume_tab", "pause_button", "resume_button", "hearts_node", "score_value", "stage_value", "progress_bar", "best_value", "progress_value", "menus_node", "pause_menu", "gameover_menu", "tiles_node", "dead_zone", "top_wall", "countdown_label")]
+[node name="SurvivalMode" type="Node2D" unique_id=723584759 node_paths=PackedStringArray("pause_resume_tab", "pause_button", "resume_button", "hearts_node", "score_value", "stage_value", "progress_bar", "best_value", "progress_value", "menus_node", "pause_menu", "gameover_menu", "tiles_node", "balls_node", "dead_zone", "top_wall", "countdown_label")]
 script = ExtResource("1_rpxn3")
 pause_resume_tab = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab")
 pause_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/PauseButton")
@@ -45,7 +45,8 @@ progress_value = NodePath("UI/Hud/Content/Heading/Column/Row4/ProgressValue")
 menus_node = NodePath("UI/Menus")
 pause_menu = NodePath("UI/Menus/Center/PauseMenu")
 gameover_menu = NodePath("UI/Menus/Center/GameoverMenu")
-tiles_node = NodePath("tiles")
+tiles_node = NodePath("Tiles")
+balls_node = NodePath("Balls")
 dead_zone = NodePath("DeadZone")
 top_wall = NodePath("Wall/Top/CollisionShape2D")
 countdown_label = NodePath("UI/Hud/Content/Expanded/CountdownLabel")
@@ -81,7 +82,9 @@ position = Vector2(180, 320.00003)
 scale = Vector2(0.99999994, 1)
 texture = ExtResource("1_3c3qm")
 
-[node name="tiles" type="Node2D" parent="." unique_id=1195613857]
+[node name="Tiles" type="Node2D" parent="." unique_id=1195613857]
+
+[node name="Balls" type="Node2D" parent="." unique_id=1649319101]
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1043231751]
 

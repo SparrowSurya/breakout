@@ -3,6 +3,7 @@ extends Node2D
 
 # Common game related nodes.
 @export var tiles_node: Node2D           ## Contains instance tiles
+@export var balls_node: Node2D           ## COntains instance balls
 @export var dead_zone: Area2D            ## Deadzone area
 @export var top_wall: CollisionShape2D   ## Top collission wall
 @export var countdown_label: Label       ## Countdown label
@@ -22,7 +23,6 @@ var tile_y_begin: float = 0.0 ## Y coordinate from where tiles begine to appear.
 var window_size: Vector2      ## Viewport size (read during runtime).
 
 # Manually added scenes (entities).
-var ball: Ball        ## Ball scene object.
 var paddle: Paddle    ## Paddle scene object.
 
 # Time state 
@@ -72,14 +72,18 @@ func initialise() -> void:
 		+ top_wall.shape.get_rect().size.y / 2.0
 	)
 
-	ball = ball_scene.instantiate()
-	paddle = paddle_scene.instantiate()
+	var ball = ball_scene.instantiate()
+	balls_node.add_child(ball)
 
-	add_child(ball)
+	paddle = paddle_scene.instantiate()
 	add_child(paddle)
 
 	paddle.touch_y_min = tile_y_begin
 	paddle.touch_y_max = window_size.y
+
+
+func spawn_ball() -> void:
+	pass
 
 
 ## Performs setup which is called after initialise or during fresh start. Before
@@ -222,11 +226,17 @@ func reposition() -> void:
 	paddle.position.y = window_size.y - PADDLE_Y_OFFSET
 	paddle.z_index = 1
 
-	ball.position.x = window_size.x / 2.0
-	ball.position.y = window_size.y - paddle_height - BALL_Y_OFFSET
-	ball.z_index = 1
+	var balls = 0
+	for ball in balls_node.get_children():
+		if ball is Ball:
+			balls += 1
+			ball.position.x = window_size.x / 2.0
+			ball.position.y = window_size.y - paddle_height - BALL_Y_OFFSET
+			ball.z_index = 1
+			ball.setup()
 	
-	ball.setup()
+	if balls != 1:
+		push_warning("Repositioned %d balls" % balls_count)
 
 
 ## Called when ball enters deadzone.
@@ -239,10 +249,19 @@ func tiles_finished() -> void:
 	pass
 
 
+## Provides the balls count in scene.
+func balls_count() -> int:
+	return balls_node.get_children().filter(func(node): return node is Ball).size()
+
+
 ## Signal handler when ball enters dead zone.
 func _on_dead_zone_body_entered(body: Node2D) -> void:
 	if body is Ball:
-		ball_lost(body)
+		var count = balls_count()
+		if count > 1:
+			body.destroy()
+		else:
+			ball_lost(body)
 
 
 ## Signal handler when tiles takes damage. Note that this function must be

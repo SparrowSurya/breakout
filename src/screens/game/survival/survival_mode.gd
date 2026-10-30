@@ -40,8 +40,9 @@ func initialise() -> void:
 
 	gameover_menu.play_again_button.pressed.connect(restart_game)
 	gameover_menu.exit_button.pressed.connect(exit_game)
-	
-	ball.on_hit_paddle.connect(_on_ball_hit_paddle)
+
+	for ball in balls_node.get_children():
+		ball.on_hit_paddle.connect(_on_ball_hit_paddle)
 
 
 func setup() -> void:
