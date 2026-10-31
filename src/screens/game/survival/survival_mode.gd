@@ -213,6 +213,9 @@ func tiles_finished() -> void:
 func _next_stage() -> void:
 	GameManager.game_state = GameManager.GameState.WAITING
 
+	if powerups:
+		powerups.clear_items()
+
 	var player := SoundManager.play_sfx(Constants.SOUND.StageFinished)
 	await player.finished
 	await Utils.wait(1.0)
@@ -228,7 +231,34 @@ func _next_stage() -> void:
 
 ## Exit to levels screen.
 func exit_game() -> void:
+	if powerups:
+		powerups.clear()
 	GameManager.navigate_to_mainmenu()
+
+
+func get_powerup_config() -> PowerupConfig:
+	var c := PowerupConfig.new()
+	c.enabled = true
+	c.drop_chance = 0.08
+	c.pity_tiles = 15
+	c.interval = 25.0
+	c.max_falling = 2
+	c.weights = {
+		PowerupRegistry.PowerType.MULTIBALL: 10,
+		PowerupRegistry.PowerType.EXPANDED: 10,
+		PowerupRegistry.PowerType.REVIVAL: 4,
+		PowerupRegistry.PowerType.GUARDIAN: 6,
+		PowerupRegistry.PowerType.FIREBALL: 6,
+		PowerupRegistry.PowerType.LAZY: 6,
+		PowerupRegistry.PowerType.SHRINKED: 6,
+		PowerupRegistry.PowerType.REFORGED: 5,
+		PowerupRegistry.PowerType.IMMORTAL: 4,
+		PowerupRegistry.PowerType.IMPOSTER: 5,
+		PowerupRegistry.PowerType.OILED: 5,
+		PowerupRegistry.PowerType.PHASE_SHIFTER: 4,
+		PowerupRegistry.PowerType.MYSTERY: 4,
+	}
+	return c
 
 
 ## Handler which resets the combo since ball hits the paddle.

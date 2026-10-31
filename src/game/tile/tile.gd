@@ -9,6 +9,7 @@ signal on_hit(tile: Tile, effective_damage: int, destroyed: bool)
 @export var collision_shape: CollisionShape2D
 
 var is_immune: bool = false
+var immune_override: bool = false
 var tile_health: int = 0
 
 var shake_duration: float = 0.2
@@ -24,19 +25,30 @@ var _shake_tween: Tween
 func _ready() -> void:
 	_rest_pos = sprite.position
 	_apply(TileDef.from_type(tile_type))
+	var game = get_tree().current_scene as BaseGame
+	if game and game.are_tiles_immune:
+		immune_override = true
 
 
-func hit(damage: int = 1) -> void:
-	if is_immune:
+func hit(damage: int = 1, force: bool = false) -> void:
+	if (is_immune or immune_override) and not force:
 		SoundManager.play_sfx(Constants.SOUND.BallHitMetalTile)
 		shake()
 		return
 	
+	if damage <= 0:
+		SoundManager.play_sfx(Constants.SOUND.BallHitTile)
+		shake()
+		return
+
 	var effective_damage = tile_health if damage > tile_health else damage
+	if is_immune and force:
+		effective_damage = 1
 
 	spawn_particles(global_position)
 	tile_health -= damage
-	if tile_health <= 0:
+	if tile_health <= 0 or force:
+		tile_health = 0
 		SoundManager.play_sfx(Constants.SOUND.TileDestroy)
 		on_hit.emit(self, effective_damage, true)
 		destroy()
@@ -45,6 +57,11 @@ func hit(damage: int = 1) -> void:
 	on_hit.emit(self, effective_damage, false)
 	SoundManager.play_sfx(Constants.SOUND.BallHitTile)
 	_apply(TileDef.from_health(tile_health))
+
+
+func set_tile_health(new_health: int) -> void:
+	new_health = clampi(new_health, 1, 6)
+	_apply(TileDef.from_health(new_health))
 
 
 # Apply tile data entry to the tile live data.

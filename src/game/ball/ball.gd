@@ -8,7 +8,9 @@ const MAX_ANGLE_RAD: float = deg_to_rad(60.0)
 
 @export var sprite: Sprite2D
 @export var damage: int = 1    ## Damange done by ball to tile.
+@export var is_fireball: bool = false
 
+var game: BaseGame
 var window_size: Vector2
 var ball_size: Vector2
 
@@ -19,6 +21,10 @@ var _ignored_paddle: Paddle = null
 func _ready() -> void:
 	window_size = get_viewport().get_visible_rect().size
 	ball_size = sprite.get_rect().size
+	if game == null and get_tree().current_scene is BaseGame:
+		game = get_tree().current_scene as BaseGame
+	if is_fireball:
+		set_fireball(true)
 	setup()
 
 
@@ -36,11 +42,27 @@ func _physics_process(delta: float) -> void:
 			_on_paddle_hit(collider, collision)
 			on_hit_paddle.emit(self, collider)
 		elif collider is Tile:
-			collider.hit(damage)
+			if is_fireball:
+				collider.hit(maxi(1, collider.tile_health), true)
+			else:
+				var mult: float = game.get_ball_damage_multiplier() if game else 1.0
+				var effective_damage: int = int(damage * mult)
+				collider.hit(effective_damage)
 			velocity = velocity.bounce(collision.get_normal())
-		else: # Wall
+		elif game and collider == game.shield:
 			velocity = velocity.bounce(collision.get_normal())
 			SoundManager.play_sfx(Constants.SOUND.BallHitWall)
+			if game.powerups:
+				game.powerups.expire(PowerupRegistry.PowerType.GUARDIAN)
+		else: # Wall or Barrier
+			velocity = velocity.bounce(collision.get_normal())
+			SoundManager.play_sfx(Constants.SOUND.BallHitWall)
+
+
+func set_fireball(active: bool) -> void:
+	is_fireball = active
+	if sprite:
+		sprite.modulate = Palette.PEACH if is_fireball else Color.WHITE
 
 
 ## Resets the attributes like velocity.
