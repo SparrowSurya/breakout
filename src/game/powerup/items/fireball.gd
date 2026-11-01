@@ -8,6 +8,7 @@ func _init() -> void:
 
 
 func activate() -> void:
-	var current_balls = game.balls
-	var src: Ball = current_balls.pick_random() if not current_balls.is_empty() else null
-	game.add_ball_from(src, true)
+	var spawn_pos: Vector2 = collect_pos
+	if spawn_pos == Vector2.ZERO and game and game.paddle:
+		spawn_pos = game.paddle.global_position
+	game.add_ball(1, true, spawn_pos)

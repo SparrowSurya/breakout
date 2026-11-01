@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://d07gjgjv7reh3"]
+
+[ext_resource type="Script" uid="uid://b6rvyvm25cjty" path="res://src/game/powerup/props/guardian/guardian_prop.gd" id="1_o2n12"]
+[ext_resource type="Texture2D" uid="uid://co6l7qap40aon" path="res://assets/textures/powerup_props/guardian-shield.png" id="1_x7lv8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vse7m"]
+size = Vector2(64, 8)
+
+[node name="Guardian" type="StaticBody2D" unique_id=1667648652 node_paths=PackedStringArray("sprite", "collision_shape")]
+script = ExtResource("1_o2n12")
+sprite = NodePath("Sprite2D")
+collision_shape = NodePath("CollisionShape2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1006257880]
+texture = ExtResource("1_x7lv8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=602202434]
+shape = SubResource("RectangleShape2D_vse7m")

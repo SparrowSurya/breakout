@@ -1,14 +1,26 @@
 class_name ShrinkedPowerup
 extends BasePowerup
 
+var _mult: float = 0.5
+
 
 func _init() -> void:
 	type = PowerupRegistry.PowerType.SHRINKED
-	duration = 8.0
+	var roll := randf()
+	if roll < 0.60:
+		_mult = 0.5
+		duration = 12.0
+	elif roll < 0.90:
+		_mult = 0.4
+		duration = 16.0
+	else:
+		_mult = 0.6
+		duration = 8.0
+	remaining = duration
 
 
 func activate() -> void:
-	game.paddle.set_width_mod(&"shrinked", 0.5)
+	game.paddle.set_width_mod(&"shrinked", _mult)
 
 
 func deactivate() -> void:

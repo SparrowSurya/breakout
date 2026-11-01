@@ -52,6 +52,7 @@ const SCENE: Dictionary = {
 	"Paddle": "res://src/game/paddle/paddle.tscn",
 	"Particles": "res://src/game/particles/hit_particles.tscn",
 	"Tile": "res://src/game/tile/tile.tscn",
+	"Powerup": "res://src/game/powerup/powerup.tscn",
 }
 
 const DEFAULT_TILE_WIDTH: float = 30.0

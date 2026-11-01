@@ -20,11 +20,12 @@ var particles_scene: PackedScene = preload(Constants.SCENE.Particles)
 
 var _rest_pos: Vector2
 var _shake_tween: Tween
+var _color_tween: Tween
 
 
 func _ready() -> void:
 	_rest_pos = sprite.position
-	_apply(TileDef.from_type(tile_type))
+	_apply(TileDef.from_type(tile_type), false)
 	var game = get_tree().current_scene as BaseGame
 	if game and game.are_tiles_immune:
 		immune_override = true
@@ -56,20 +57,32 @@ func hit(damage: int = 1, force: bool = false) -> void:
 	
 	on_hit.emit(self, effective_damage, false)
 	SoundManager.play_sfx(Constants.SOUND.BallHitTile)
-	_apply(TileDef.from_health(tile_health))
+	_apply(TileDef.from_health(tile_health), true)
 
 
 func set_tile_health(new_health: int) -> void:
 	new_health = clampi(new_health, 1, 6)
-	_apply(TileDef.from_health(new_health))
+	_apply(TileDef.from_health(new_health), true)
 
 
 # Apply tile data entry to the tile live data.
-func _apply(data: TileDef) -> void:
+func _apply(data: TileDef, animated: bool = false) -> void:
 	tile_health = data.health
 	tile_type = data.type
 	is_immune = data.is_immune
-	sprite.texture = data.texture
+
+	if not animated or sprite == null or not is_inside_tree():
+		sprite.texture = data.texture
+		sprite.modulate = Color.WHITE
+		return
+
+	if _color_tween and _color_tween.is_valid():
+		_color_tween.kill()
+
+	_color_tween = create_tween()
+	_color_tween.tween_property(sprite, "modulate", data.color, 0.12)
+	_color_tween.tween_callback(func(): sprite.texture = data.texture)
+	_color_tween.tween_property(sprite, "modulate", Color.WHITE, 0.15)
 
 
 func destroy() -> void:

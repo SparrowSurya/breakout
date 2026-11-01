@@ -61,7 +61,7 @@ const SCRIPTS: Dictionary = {
 }
 
 
-static func create(type: int) -> BasePowerup:
+static func create(type: PowerType) -> BasePowerup:
 	if not SCRIPTS.has(type):
 		return null
 	return SCRIPTS[type].new()

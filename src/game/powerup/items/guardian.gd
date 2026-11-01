@@ -4,7 +4,17 @@ extends BasePowerup
 
 func _init() -> void:
 	type = PowerupRegistry.PowerType.GUARDIAN
-	duration = 60.0
+	if randf() < 0.05:
+		duration = INF
+	else:
+		var roll := randf()
+		if roll < 0.60:
+			duration = 20.0
+		elif roll < 0.90:
+			duration = 40.0
+		else:
+			duration = 60.0
+	remaining = duration
 
 
 func can_spawn(g: BaseGame) -> bool:

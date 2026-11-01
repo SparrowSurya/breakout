@@ -14,6 +14,7 @@ var touch_y_max: float = 0.0
 
 var _width_mods: Dictionary[StringName, float] = {}
 var _speed_mods: Dictionary[StringName, float] = {}
+var _scale_tween: Tween = null
 
 
 func _ready() -> void:
@@ -67,13 +68,26 @@ func clear_width_mod(key: StringName) -> void:
 
 
 func _apply_width() -> void:
-	var m: float = 1.0
+	var target_m: float = 1.0
 	for v in _width_mods.values():
-		m *= v
-	scale.x = m
-	# Clamp position immediately so paddle doesn't poke outside window
-	var half_width = (paddle_size.x * scale.x) / 2.0
-	position.x = clampf(position.x, half_width, window_size.x - half_width)
+		target_m *= v
+
+	if not is_inside_tree():
+		scale.x = target_m
+		var half_width = (paddle_size.x * scale.x) / 2.0
+		position.x = clampf(position.x, half_width, window_size.x - half_width)
+		return
+
+	if _scale_tween and _scale_tween.is_valid():
+		_scale_tween.kill()
+
+	_scale_tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_scale_tween.tween_property(self, "scale:x", target_m, 0.35)
+	_scale_tween.parallel().tween_method(func(_v: float):
+		if window_size.x > 0:
+			var half_width = (paddle_size.x * scale.x) / 2.0
+			position.x = clampf(position.x, half_width, window_size.x - half_width)
+	, scale.x, target_m, 0.35)
 
 
 func set_speed_mod(key: StringName, mult: float) -> void:

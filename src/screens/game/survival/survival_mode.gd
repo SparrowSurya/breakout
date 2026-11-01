@@ -214,7 +214,7 @@ func _next_stage() -> void:
 	GameManager.game_state = GameManager.GameState.WAITING
 
 	if powerups:
-		powerups.clear_items()
+		powerups.clear()
 
 	var player := SoundManager.play_sfx(Constants.SOUND.StageFinished)
 	await player.finished
@@ -244,19 +244,19 @@ func get_powerup_config() -> PowerupConfig:
 	c.interval = 25.0
 	c.max_falling = 2
 	c.weights = {
-		PowerupRegistry.PowerType.MULTIBALL: 10,
-		PowerupRegistry.PowerType.EXPANDED: 10,
+		PowerupRegistry.PowerType.MYSTERY: 20,
+		PowerupRegistry.PowerType.PHASE_SHIFTER: 18,
+		PowerupRegistry.PowerType.OILED: 18,
+		PowerupRegistry.PowerType.REFORGED: 15,
+		PowerupRegistry.PowerType.MULTIBALL: 14,
+		PowerupRegistry.PowerType.EXPANDED: 12,
+		PowerupRegistry.PowerType.SHRINKED: 10,
+		PowerupRegistry.PowerType.FIREBALL: 10,
+		PowerupRegistry.PowerType.LAZY: 8,
+		PowerupRegistry.PowerType.IMMORTAL: 6,
+		PowerupRegistry.PowerType.IMPOSTER: 6,
+		PowerupRegistry.PowerType.GUARDIAN: 5,
 		PowerupRegistry.PowerType.REVIVAL: 4,
-		PowerupRegistry.PowerType.GUARDIAN: 6,
-		PowerupRegistry.PowerType.FIREBALL: 6,
-		PowerupRegistry.PowerType.LAZY: 6,
-		PowerupRegistry.PowerType.SHRINKED: 6,
-		PowerupRegistry.PowerType.REFORGED: 5,
-		PowerupRegistry.PowerType.IMMORTAL: 4,
-		PowerupRegistry.PowerType.IMPOSTER: 5,
-		PowerupRegistry.PowerType.OILED: 5,
-		PowerupRegistry.PowerType.PHASE_SHIFTER: 4,
-		PowerupRegistry.PowerType.MYSTERY: 4,
 	}
 	return c
 

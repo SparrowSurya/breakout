@@ -6,13 +6,29 @@ signal on_hit_paddle(ball: Ball, paddle: Paddle)
 const BALL_SPEED: float = 420.0
 const MAX_ANGLE_RAD: float = deg_to_rad(60.0)
 
-@export var sprite: Sprite2D
-@export var damage: int = 1    ## Damange done by ball to tile.
-@export var is_fireball: bool = false
+## Maps from damage value to sprite color.
+const DAMAGE_COLOR: Dictionary[int, Color] = {
+	1: Palette.ROSEWATER,
+	2: Palette.FLAMINGO,
+	3: Palette.PINK,
+	4: Palette.TEAL,
+	5: Palette.SAPPHIRE,
+}
+const FIREBALL_COLOR: Color = Palette.MAROON  ## Color when ball is fireball
 
-var game: BaseGame
-var window_size: Vector2
-var ball_size: Vector2
+@export var sprite: Sprite2D            ## Ball sprite.
+@export var damage: int = 1:             ## Damange done by ball to tile.
+	set(val):
+		damage = val
+		update_color()
+@export var is_fireball: bool = false:   ## Destroys tile in one hit including immune.
+	set(val):
+		is_fireball = val
+		update_color()
+
+var game: BaseGame         ## Running game scene
+var window_size: Vector2   ## Size of viewport
+var ball_size: Vector2     ## Size of ball sprites
 
 ## Since ball and paddle can overlap we need to ignore paddle.
 var _ignored_paddle: Paddle = null
@@ -23,8 +39,6 @@ func _ready() -> void:
 	ball_size = sprite.get_rect().size
 	if game == null and get_tree().current_scene is BaseGame:
 		game = get_tree().current_scene as BaseGame
-	if is_fireball:
-		set_fireball(true)
 	setup()
 
 
@@ -46,28 +60,33 @@ func _physics_process(delta: float) -> void:
 				collider.hit(maxi(1, collider.tile_health), true)
 			else:
 				var mult: float = game.get_ball_damage_multiplier() if game else 1.0
-				var effective_damage: int = int(damage * mult)
+				var offset: int = game.get_ball_damage_offset() if game else 0
+				var effective_damage: int = maxi(0, int(damage * mult) - offset)
 				collider.hit(effective_damage)
 			velocity = velocity.bounce(collision.get_normal())
-		elif game and collider == game.shield:
+		elif collider is GuardianProp or (game and collider == game.guardian_prop):
 			velocity = velocity.bounce(collision.get_normal())
 			SoundManager.play_sfx(Constants.SOUND.BallHitWall)
-			if game.powerups:
+			if game and game.powerups:
 				game.powerups.expire(PowerupRegistry.PowerType.GUARDIAN)
 		else: # Wall or Barrier
 			velocity = velocity.bounce(collision.get_normal())
 			SoundManager.play_sfx(Constants.SOUND.BallHitWall)
 
 
-func set_fireball(active: bool) -> void:
-	is_fireball = active
-	if sprite:
-		sprite.modulate = Palette.PEACH if is_fireball else Color.WHITE
-
-
-## Resets the attributes like velocity.
+## Resets the attributes like velocity and updates color.
 func setup() -> void:
 	velocity = Vector2(0, BALL_SPEED)
+	update_color()
+
+
+func update_color() -> void:
+	if sprite == null:
+		return
+	if is_fireball:
+		sprite.modulate = FIREBALL_COLOR
+	else:
+		sprite.modulate = DAMAGE_COLOR.get(damage, Palette.TEXT)
 
 
 ## Sets random velocity of ball.

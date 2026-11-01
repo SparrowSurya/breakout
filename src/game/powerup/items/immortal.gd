@@ -4,7 +4,14 @@ extends BasePowerup
 
 func _init() -> void:
 	type = PowerupRegistry.PowerType.IMMORTAL
-	duration = 8.0
+	var roll := randf()
+	if roll < 0.60:
+		duration = 16.0
+	elif roll < 0.90:
+		duration = 12.0
+	else:
+		duration = 8.0
+	remaining = duration
 
 
 func activate() -> void:
