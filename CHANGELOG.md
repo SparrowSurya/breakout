@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added powerups - (31 Oct, 2026)
+* Added powerups related assets.
+* Implemented and integrated powerups to survival mode.
+
 ### Added transitions - (29 Oct, 2026)
 * Added fade transition and integrated with existing navigation.
 
