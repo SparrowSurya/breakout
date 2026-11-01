@@ -74,6 +74,14 @@ func _physics_process(delta: float) -> void:
 			SoundManager.play_sfx(Constants.SOUND.BallHitWall)
 
 
+## Resets ball to default state (regular ball with damage 1).
+func reset() -> void:
+	damage = 1
+	is_fireball = false
+	_ignored_paddle = null
+	setup()
+
+
 ## Resets the attributes like velocity and updates color.
 func setup() -> void:
 	velocity = Vector2(0, BALL_SPEED)

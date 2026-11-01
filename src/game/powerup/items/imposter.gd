@@ -26,6 +26,7 @@ func _init() -> void:
 
 
 func activate() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupImposterBegin)
 	if _mult < 1.0:
 		game.set_ball_damage_mod(&"imposter", _mult)
 	if _offset > 0:
@@ -35,3 +36,7 @@ func activate() -> void:
 func deactivate() -> void:
 	game.clear_ball_damage_mod(&"imposter")
 	game.clear_ball_damage_offset(&"imposter")
+
+
+func on_expire() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupImposterExpire)

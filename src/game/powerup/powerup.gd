@@ -52,5 +52,6 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Paddle:
+		set_deferred("monitoring", false)
 		collected.emit(type, global_position)
 		queue_free()

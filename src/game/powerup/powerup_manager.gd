@@ -49,6 +49,7 @@ func tick(delta: float) -> void:
 		p.remaining -= delta
 		if p.remaining <= 0.0:
 			active.erase(type)
+			p.on_expire()
 			p.deactivate()
 			expired.emit(p)
 
@@ -147,7 +148,7 @@ func spawn_item(pos: Vector2, power_type: Variant = null) -> Powerup:
 	var item: Powerup = POWERUP_SCENE.instantiate()
 	item.type = actual_type
 	item.position = pos
-	item.collected.connect(collect)
+	item.collected.connect(collect, CONNECT_DEFERRED)
 	game.add_child(item)
 	return item
 

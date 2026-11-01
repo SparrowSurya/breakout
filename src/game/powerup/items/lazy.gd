@@ -20,8 +20,13 @@ func _init() -> void:
 
 
 func activate() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupLazyBegin)
 	game.paddle.set_speed_mod(&"lazy", _mult)
 
 
 func deactivate() -> void:
 	game.paddle.clear_speed_mod(&"lazy")
+
+
+func on_expire() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupLazyExpire)

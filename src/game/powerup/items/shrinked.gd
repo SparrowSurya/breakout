@@ -20,8 +20,13 @@ func _init() -> void:
 
 
 func activate() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupShrinkedBegin)
 	game.paddle.set_width_mod(&"shrinked", _mult)
 
 
 func deactivate() -> void:
 	game.paddle.clear_width_mod(&"shrinked")
+
+
+func on_expire() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupShrinkedExpire)

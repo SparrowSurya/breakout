@@ -42,7 +42,8 @@ func initialise() -> void:
 	gameover_menu.exit_button.pressed.connect(exit_game)
 
 	for ball in balls_node.get_children():
-		ball.on_hit_paddle.connect(_on_ball_hit_paddle)
+		if not ball.on_hit_paddle.is_connected(_on_ball_hit_paddle):
+			ball.on_hit_paddle.connect(_on_ball_hit_paddle)
 
 
 func setup() -> void:

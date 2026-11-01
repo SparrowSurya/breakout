@@ -17,8 +17,13 @@ func _init() -> void:
 
 
 func activate() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupOiledBegin)
 	game.paddle.set_speed_mod(&"oiled", _mult)
 
 
 func deactivate() -> void:
 	game.paddle.clear_speed_mod(&"oiled")
+
+
+func on_expire() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupOiledExpire)

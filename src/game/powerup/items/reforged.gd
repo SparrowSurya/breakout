@@ -8,6 +8,7 @@ func _init() -> void:
 
 
 func activate() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupReforged)
 	if game.tiles_node:
 		for tile in game.tiles_node.get_children():
 			if tile is Tile and not tile.is_immune and tile.tile_type != TileDef.TileType.METAL:

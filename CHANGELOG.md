@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Improved powerup - (1 Nov, 2026)
+* Fixed glitches and powerup bugs.
+* Added sounds effects to the powerup collecting adn expire sound.
+
 ### Added powerups - (31 Oct, 2026)
 * Added powerups related assets.
 * Implemented and integrated powerups to survival mode.

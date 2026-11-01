@@ -31,6 +31,25 @@ const SOUND: Dictionary = {
 	"GameWon": preload("res://assets/sounds/sfx/Game-Won.wav"),
 	"GameLost": preload("res://assets/sounds/sfx/Game-Lost.wav"),
 	"StageFinished": preload("res://assets/sounds/sfx/Stage-Finished.wav"),
+	
+	# Powerup sounds
+	"PowerupExpandedBegin": preload("res://assets/sounds/sfx/powerup/expanded_begin.wav"),
+	"PowerupExpandedExpire": preload("res://assets/sounds/sfx/powerup/expanded_expire.wav"),
+	"PowerupGuardianBegin": preload("res://assets/sounds/sfx/powerup/guardian_begin.wav"),
+	"PowerupGuardianExpire": preload("res://assets/sounds/sfx/powerup/guardian_expire.wav"),
+	"PowerupLazyBegin": preload("res://assets/sounds/sfx/powerup/lazy_begin.wav"),
+	"PowerupLazyExpire": preload("res://assets/sounds/sfx/powerup/lazy_expire.wav"),
+	"PowerupShrinkedBegin": preload("res://assets/sounds/sfx/powerup/shrinked_begin.wav"),
+	"PowerupShrinkedExpire": preload("res://assets/sounds/sfx/powerup/shrinked_expire.wav"),
+	"PowerupImmortalBegin": preload("res://assets/sounds/sfx/powerup/immortal_begin.wav"),
+	"PowerupImmortalExpire": preload("res://assets/sounds/sfx/powerup/immortal_expire.wav"),
+	"PowerupImposterBegin": preload("res://assets/sounds/sfx/powerup/imposter_begin.wav"),
+	"PowerupImposterExpire": preload("res://assets/sounds/sfx/powerup/imposter_expire.wav"),
+	"PowerupOiledBegin": preload("res://assets/sounds/sfx/powerup/oiled_begin.wav"),
+	"PowerupOiledExpire": preload("res://assets/sounds/sfx/powerup/oiled_expire.wav"),
+	"PowerupRevival": preload("res://assets/sounds/sfx/powerup/revival.wav"),
+	"PowerupReforged": preload("res://assets/sounds/sfx/powerup/reforged.wav"),
+	"PowerupPhaseShifter": preload("res://assets/sounds/sfx/powerup/phase_shifter.wav"),
 }
 
 

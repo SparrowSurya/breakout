@@ -22,8 +22,13 @@ func can_spawn(g: BaseGame) -> bool:
 
 
 func activate() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupGuardianBegin)
 	game.enable_shield()
 
 
 func deactivate() -> void:
 	game.disable_shield()
+
+
+func on_expire() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupGuardianExpire)

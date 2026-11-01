@@ -92,6 +92,8 @@ texture = ExtResource("1_3c3qm")
 [node name="PowerupProps" type="Node2D" parent="." unique_id=1976893986]
 
 [node name="Guardian" parent="PowerupProps" unique_id=1667648652 instance=ExtResource("3_l1pf8")]
+position = Vector2(180, 632)
+scale = Vector2(5.68, 1)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1043231751]
 

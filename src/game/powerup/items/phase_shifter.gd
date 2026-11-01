@@ -8,6 +8,7 @@ func _init() -> void:
 
 
 func activate() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupPhaseShifter)
 	var target_health := _roll_health()
 	if game.tiles_node:
 		for tile in game.tiles_node.get_children():

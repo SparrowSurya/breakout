@@ -17,8 +17,13 @@ func _init() -> void:
 
 
 func activate() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupExpandedBegin)
 	game.paddle.set_width_mod(&"expanded", _mult)
 
 
 func deactivate() -> void:
 	game.paddle.clear_width_mod(&"expanded")
+
+
+func on_expire() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupExpandedExpire)

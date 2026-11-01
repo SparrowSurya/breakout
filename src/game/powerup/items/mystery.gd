@@ -8,6 +8,6 @@ func _init() -> void:
 
 
 func activate() -> void:
-	var chosen_type: PowerupRegistry.PowerType = game.powerups.pick(type)
-	if chosen_type >= 0:
-		game.powerups.collect(chosen_type, collect_pos)
+	var chosen: int = game.powerups.pick(type)
+	if chosen >= 0:
+		game.powerups.collect(chosen as PowerupRegistry.PowerType, collect_pos)

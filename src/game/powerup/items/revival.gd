@@ -12,4 +12,5 @@ func can_spawn(g: BaseGame) -> bool:
 
 
 func activate() -> void:
+	SoundManager.play_sfx(Constants.SOUND.PowerupRevival)
 	game.add_heart()

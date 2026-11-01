@@ -261,7 +261,7 @@ func reposition() -> void:
 
 	var current_balls: Array[Ball] = []
 	for child in balls_node.get_children():
-		if child is Ball:
+		if child is Ball and not child.is_queued_for_deletion():
 			current_balls.append(child)
 
 	if current_balls.is_empty():
@@ -273,7 +273,7 @@ func reposition() -> void:
 			b.position.x = window_size.x / 2.0
 			b.position.y = window_size.y - paddle_height - BALL_Y_OFFSET
 			b.z_index = 1
-			b.setup()
+			b.reset()
 		else:
 			b.destroy()
 

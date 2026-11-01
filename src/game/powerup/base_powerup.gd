@@ -24,6 +24,11 @@ func deactivate() -> void:
 	pass
 
 
+## Runs when powerup duration expires naturally.
+func on_expire() -> void:
+	pass
+
+
 ## Optional per-frame hook.
 func tick(_delta: float) -> void:
 	pass     
