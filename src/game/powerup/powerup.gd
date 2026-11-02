@@ -7,7 +7,8 @@ signal collected(type: PowerupRegistry.PowerType, pos: Vector2)
 
 @export var sprite: Sprite2D   ## Popwerup sprite
 
-const FALL_SPEED: float = 90.0  ## Falling speed of powerup
+const MIN_FALL_SPEED: float = 75.0   ## Minimum falling speed of powerup
+const MAX_FALL_SPEED: float = 125.0  ## Maximum falling speed of powerup
 
 const HEALTH_COLORS: Array[Color] = [
 	Palette.MAUVE,
@@ -19,11 +20,13 @@ const HEALTH_COLORS: Array[Color] = [
 ]
 
 var type: PowerupRegistry.PowerType  ## Type of the powerup
+var fall_speed: float = 90.0         ## Randomized falling speed
 var _color_tween: Tween = null
 
 
 func _ready() -> void:
 	add_to_group(PowerupManager.GROUP)
+	fall_speed = randf_range(MIN_FALL_SPEED, MAX_FALL_SPEED)
 	if sprite and PowerupRegistry.POWERUP.has(type):
 		sprite.texture = PowerupRegistry.POWERUP[type]
 	body_entered.connect(_on_body_entered)
@@ -45,7 +48,7 @@ func _start_phase_shifter_animation() -> void:
 func _process(delta: float) -> void:
 	if GameManager.game_state != GameManager.GameState.PLAYING:
 		return
-	position.y += FALL_SPEED * delta
+	position.y += fall_speed * delta
 	if global_position.y > get_viewport_rect().size.y + 16.0:
 		queue_free()
 

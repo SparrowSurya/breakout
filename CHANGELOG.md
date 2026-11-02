@@ -2,13 +2,17 @@
 
 ## Unreleased
 
-### Bugfixe - (2 Nov, 2026)
+### Bugfixes - (3 Nov, 2026)
 * Preventing any powerup being carried on to next stage or after losing last ball.
 * Multiball 1+ ball collission fix.
 * Multiball no spawn balls with more damage than normal ball.
 * Reviavl now drop more frequqne and granteed after few stages.
 * Reduced the witing time and min tile hit to spawn powerup.
 * Every 3rd combo spawns a new powerup.
+* Randomised speed of falling powerup.
+* Added more formations.
+* THe new layouts now have wide range of dimensions.
+* Changed backgroud of survival mode.
 
 ### Improved powerup - (1 Nov, 2026)
 * Fixed glitches and powerup bugs.

@@ -37,7 +37,7 @@ Survival Mode features a dynamic power-up capsule drop system. Capsules fall fro
 * **MultiBall**: Spawns 1–3 additional balls with randomized boosted damage (2–5 HP) and divergent upward trajectories.
 * **Fireball**: Spawns a high-heat blazing ball that destroys any tile in one hit, including indestructible metal bricks.
 * **Expanded**: Widens the paddle by 1.5x (12s) or 2.0x (8s) for easier catches and wider coverage.
-* **Revival**: Restores one lost heart. Guaranteed to spawn after completing every 4th stage if hearts are not full.
+* **Revival**: Restores one lost heart. Guaranteed to spawn after completing every 5th stage if hearts are not full.
 * **Guardian**: Deploys an emergency laser barrier across the bottom deadzone that saves a ball from dropping.
 
 ### ⚠️ Punishing

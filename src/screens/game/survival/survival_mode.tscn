@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dpjhdbg7ymv0f"]
 
-[ext_resource type="Texture2D" uid="uid://dgcsee1bbpsaa" path="res://assets/textures/backgrounds/skyline.png" id="1_3c3qm"]
 [ext_resource type="Script" uid="uid://kn0mo1vb1yai" path="res://src/screens/game/survival/survival_mode.gd" id="1_rpxn3"]
 [ext_resource type="PackedScene" uid="uid://flgqh3dlwr0a" path="res://src/ui/button/custom_icon_button.tscn" id="2_7eowh"]
+[ext_resource type="Texture2D" uid="uid://0rqysl7kifpa" path="res://assets/textures/backgrounds/night_light.png" id="2_l1pf8"]
 [ext_resource type="PackedScene" uid="uid://d07gjgjv7reh3" path="res://src/game/powerup/props/guardian/guardian_prop.tscn" id="3_l1pf8"]
 [ext_resource type="Texture2D" uid="uid://b7mwsiamuf3i6" path="res://assets/textures/icons/pause.png" id="3_u5cu1"]
 [ext_resource type="Texture2D" uid="uid://dg20l0c0blct6" path="res://assets/textures/icons/triangle-right.png" id="4_j1mdf"]
@@ -83,7 +83,7 @@ shape = SubResource("RectangleShape2D_j58sk")
 [node name="Background" type="Sprite2D" parent="." unique_id=1646774718]
 position = Vector2(180, 320.00003)
 scale = Vector2(0.99999994, 1)
-texture = ExtResource("1_3c3qm")
+texture = ExtResource("2_l1pf8")
 
 [node name="Tiles" type="Node2D" parent="." unique_id=1195613857]
 

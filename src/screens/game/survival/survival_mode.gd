@@ -231,7 +231,7 @@ func _next_stage() -> void:
 	update_hud()
 	await start_game()
 
-	if completed_stage % 4 == 0 and hearts < max_hearts and powerups:
+	if completed_stage % 5 == 0 and hearts < max_hearts and powerups:
 		powerups.spawn_item(Vector2(window_size.x / 2.0, -8.0), PowerupRegistry.PowerType.REVIVAL)
 
 

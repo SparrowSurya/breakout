@@ -82,7 +82,7 @@ const DEFAULT_COL_GAP: float = 8.0
 
 # Minimum and maximum rows and colums count when generating formation.
 const ROWS_MIN: int = 3
-const COLS_MIN: int = 5
+const COLS_MIN: int = 4
 const ROWS_MAX: int = 8
 const COLS_MAX: int = 8
 

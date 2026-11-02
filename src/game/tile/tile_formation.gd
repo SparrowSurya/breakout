@@ -25,9 +25,15 @@ enum Archetype {
 	FORTRESS_BORDER,
 	SYMMETRIC_INVADER,
 	DIAMOND_CITADEL,
+	HOURGLASS_GATE,
+	TWIN_BASTIONS,
+	CHEVRON_ARROW,
+	CROSSFIRE_NEXUS,
+	CASTLE_BATTLEMENTS,
+	ZIGZAG_SERPENT,
 }
 
-const MAX_HISTORY: int = 3
+const MAX_HISTORY: int = 5
 static var _history: Array[int] = []
 
 
@@ -76,7 +82,7 @@ static func _get_stage_profile(stage: int) -> Dictionary:
 		# Phase 1: Onboarding (Compact, HP 1-2 only, 0 metal)
 		return {
 			"rows": 3,
-			"cols": randi_range(5, 6),
+			"cols": randi_range(4, 5),
 			"min_hp": 1,
 			"max_hp": 2,
 			"high_hp_cap": 0,
@@ -85,8 +91,8 @@ static func _get_stage_profile(stage: int) -> Dictionary:
 	elif stage <= 7:
 		# Phase 2: Volume Expansion (More tiles, HP 1-3 only, 0 metal)
 		return {
-			"rows": 4,
-			"cols": randi_range(5, 6),
+			"rows": randi_range(3, 4),
+			"cols": randi_range(4, 6),
 			"min_hp": 1,
 			"max_hp": 3,
 			"high_hp_cap": 0,
@@ -96,7 +102,7 @@ static func _get_stage_profile(stage: int) -> Dictionary:
 		# Phase 3: Armored Debut (HP 4-5 in low amount <= 3 tiles, 0 metal)
 		return {
 			"rows": randi_range(4, 5),
-			"cols": 6,
+			"cols": randi_range(5, 7),
 			"min_hp": 1,
 			"max_hp": 5,
 			"high_hp_cap": 3,
@@ -105,8 +111,8 @@ static func _get_stage_profile(stage: int) -> Dictionary:
 	elif stage <= 18:
 		# Phase 4: Heavy Fortification (Prominent HP 4-6, 0 metal)
 		return {
-			"rows": randi_range(5, 6),
-			"cols": 6,
+			"rows": randi_range(5, 7),
+			"cols": randi_range(6, 8),
 			"min_hp": 2,
 			"max_hp": 6,
 			"high_hp_cap": 999,
@@ -115,8 +121,8 @@ static func _get_stage_profile(stage: int) -> Dictionary:
 	elif stage <= 25:
 		# Phase 5: The Iron Frontier (Full HP 1-6 + Metal obstacles)
 		return {
-			"rows": randi_range(5, 6),
-			"cols": randi_range(6, 7),
+			"rows": randi_range(6, 8),
+			"cols": randi_range(6, 8),
 			"min_hp": 2,
 			"max_hp": 6,
 			"high_hp_cap": 999,
@@ -129,7 +135,7 @@ static func _get_stage_profile(stage: int) -> Dictionary:
 			# Breather Stage (15% chance: fast clear, low HP, 0 metal)
 			return {
 				"rows": randi_range(3, 4),
-				"cols": 6,
+				"cols": randi_range(4, 6),
 				"min_hp": 1,
 				"max_hp": 3,
 				"high_hp_cap": 0,
@@ -138,8 +144,8 @@ static func _get_stage_profile(stage: int) -> Dictionary:
 		elif roll < 0.40:
 			# Tactical Corridor (25% chance: medium grid, HP 2-5, sparse metal)
 			return {
-				"rows": randi_range(4, 5),
-				"cols": 6,
+				"rows": randi_range(4, 6),
+				"cols": randi_range(5, 7),
 				"min_hp": 2,
 				"max_hp": 5,
 				"high_hp_cap": 6,
@@ -148,8 +154,8 @@ static func _get_stage_profile(stage: int) -> Dictionary:
 		else:
 			# Heavy Citadel / Iron Bastion (60% chance: full spectrum, metal anchors)
 			return {
-				"rows": randi_range(5, 6),
-				"cols": randi_range(6, 7),
+				"rows": randi_range(6, 8),
+				"cols": randi_range(6, 8),
 				"min_hp": 2,
 				"max_hp": 6,
 				"high_hp_cap": 999,
@@ -182,6 +188,18 @@ static func _create(rows: int, cols: int, wall: bool, min_hp: int = 1, max_hp: i
 			_build_symmetric_invader(rows, cols, wall, grid, min_hp, max_hp, allow_metal)
 		Archetype.DIAMOND_CITADEL:
 			_build_diamond_citadel(rows, cols, wall, grid, min_hp, max_hp, allow_metal)
+		Archetype.HOURGLASS_GATE:
+			_build_hourglass_gate(rows, cols, wall, grid, min_hp, max_hp, allow_metal)
+		Archetype.TWIN_BASTIONS:
+			_build_twin_bastions(rows, cols, wall, grid, min_hp, max_hp, allow_metal)
+		Archetype.CHEVRON_ARROW:
+			_build_chevron_arrow(rows, cols, wall, grid, min_hp, max_hp, allow_metal)
+		Archetype.CROSSFIRE_NEXUS:
+			_build_crossfire_nexus(rows, cols, wall, grid, min_hp, max_hp, allow_metal)
+		Archetype.CASTLE_BATTLEMENTS:
+			_build_castle_battlements(rows, cols, wall, grid, min_hp, max_hp, allow_metal)
+		Archetype.ZIGZAG_SERPENT:
+			_build_zigzag_serpent(rows, cols, wall, grid, min_hp, max_hp, allow_metal)
 
 	# Enforce high-HP quota if specified
 	if high_hp_cap < 999:
@@ -334,6 +352,151 @@ static func _build_diamond_citadel(rows: int, cols: int, wall: bool, grid: Array
 			var mid_c: int = row_cols >> 1
 			for c in range(row_cols):
 				if r == mid_r and c == mid_c:
+					grid[idx] = metal_tile
+				idx += 1
+
+
+## 7. Hourglass Gate: inverted pyramid meeting regular pyramid with a narrow choke gate.
+static func _build_hourglass_gate(rows: int, cols: int, wall: bool, grid: Array[int], min_hp: int = 2, max_hp: int = 5, allow_metal: bool = true) -> void:
+	var top_pyr: Array[int] = _mask_pyramid(rows, cols, wall, true)
+	var bot_pyr: Array[int] = _mask_pyramid(rows, cols, wall, false)
+	var hourglass_mask: Array[int] = _mask_or(top_pyr, bot_pyr)
+	_fill_gradient(rows, cols, grid, hourglass_mask, wall, min_hp, max_hp)
+
+	if allow_metal:
+		var idx: int = 0
+		var mid_r: int = rows >> 1
+		for r in range(rows):
+			var row_cols: int = cols - ((r & 1) if wall else 0)
+			for c in range(row_cols):
+				if hourglass_mask[idx] != 0:
+					if r == 0 and (c == 0 or c == row_cols - 1):
+						grid[idx] = metal_tile
+					elif r == mid_r and (c == 0 or c == row_cols - 1):
+						grid[idx] = metal_tile
+				idx += 1
+
+
+## 8. Twin Bastions: two fortified flanking towers leaving an open central infiltration lane.
+static func _build_twin_bastions(rows: int, cols: int, wall: bool, grid: Array[int], min_hp: int = 2, max_hp: int = 6, allow_metal: bool = true) -> void:
+	var mask: Array[int] = []
+	for r in range(rows):
+		var row_cols: int = cols - ((r & 1) if wall else 0)
+		var bastion_width: int = maxi(1, row_cols / 3)
+		for c in range(row_cols):
+			var in_left: bool = c < bastion_width
+			var in_right: bool = c >= (row_cols - bastion_width)
+			var center_stone: bool = (r == rows - 1) and (c == row_cols >> 1)
+			mask.append(1 if (in_left or in_right or center_stone) else 0)
+
+	_fill_gradient(rows, cols, grid, mask, wall, min_hp, max_hp)
+
+	if allow_metal:
+		var idx: int = 0
+		for r in range(rows):
+			var row_cols: int = cols - ((r & 1) if wall else 0)
+			for c in range(row_cols):
+				if mask[idx] != 0 and r == 0 and (c == 0 or c == row_cols - 1):
+					grid[idx] = metal_tile
+				idx += 1
+
+
+## 9. Chevron Arrow: layered forward ^ arrow guiding diagonal bank shots.
+static func _build_chevron_arrow(rows: int, cols: int, wall: bool, grid: Array[int], min_hp: int = 1, max_hp: int = 5, allow_metal: bool = true) -> void:
+	var mask: Array[int] = []
+	for r in range(rows):
+		var row_cols: int = cols - ((r & 1) if wall else 0)
+		var mid: int = row_cols >> 1
+		for c in range(row_cols):
+			var dist: int = absi(c - mid)
+			var chevron_row: int = r % max(1, rows - 1)
+			var in_chevron: bool = (dist == chevron_row) or (dist == chevron_row + 1) or (r == 0 and dist <= 1)
+			mask.append(1 if in_chevron else 0)
+
+	_fill_gradient(rows, cols, grid, mask, wall, min_hp, max_hp)
+
+	if allow_metal:
+		var idx: int = 0
+		for r in range(rows):
+			var row_cols: int = cols - ((r & 1) if wall else 0)
+			var mid: int = row_cols >> 1
+			for c in range(row_cols):
+				if r == 0 and c == mid and mask[idx] != 0:
+					grid[idx] = metal_tile
+				idx += 1
+
+
+## 10. Crossfire Nexus: central plus-cross with reinforced intersection and open quadrants.
+static func _build_crossfire_nexus(rows: int, cols: int, wall: bool, grid: Array[int], min_hp: int = 2, max_hp: int = 6, allow_metal: bool = true) -> void:
+	var mask: Array[int] = []
+	var mid_r: int = rows >> 1
+	for r in range(rows):
+		var row_cols: int = cols - ((r & 1) if wall else 0)
+		var mid_c: int = row_cols >> 1
+		for c in range(row_cols):
+			var on_horizontal: bool = (r == mid_r or (rows % 2 == 0 and r == mid_r - 1))
+			var on_vertical: bool = (c == mid_c or (row_cols % 2 == 0 and c == mid_c - 1))
+			var corner_node: bool = (r == 0 or r == rows - 1) and (c == 0 or c == row_cols - 1)
+			mask.append(1 if (on_horizontal or on_vertical or corner_node) else 0)
+
+	_fill_gradient(rows, cols, grid, mask, wall, min_hp, max_hp)
+
+	if allow_metal:
+		var idx: int = 0
+		for r in range(rows):
+			var row_cols: int = cols - ((r & 1) if wall else 0)
+			var mid_c: int = row_cols >> 1
+			for c in range(row_cols):
+				if r == mid_r and c == mid_c and mask[idx] != 0:
+					grid[idx] = metal_tile
+				idx += 1
+
+
+## 11. Castle Battlements: castellated crenellation teeth on top with slotted gaps over a foundation wall.
+static func _build_castle_battlements(rows: int, cols: int, wall: bool, grid: Array[int], min_hp: int = 1, max_hp: int = 6, allow_metal: bool = true) -> void:
+	var mask: Array[int] = []
+	for r in range(rows):
+		var row_cols: int = cols - ((r & 1) if wall else 0)
+		for c in range(row_cols):
+			if r == 0:
+				mask.append(1 if (c % 2 == 0) else 0)
+			elif r == rows - 1:
+				var mid: int = row_cols >> 1
+				var is_gate: bool = (c == mid) or (row_cols % 2 == 0 and c == mid - 1)
+				mask.append(0 if is_gate else 1)
+			else:
+				mask.append(1)
+
+	_fill_gradient(rows, cols, grid, mask, wall, min_hp, max_hp)
+
+	if allow_metal:
+		var idx: int = 0
+		for r in range(rows):
+			var row_cols: int = cols - ((r & 1) if wall else 0)
+			for c in range(row_cols):
+				if r == 0 and (c == 0 or c == row_cols - 1) and mask[idx] != 0:
+					grid[idx] = metal_tile
+				idx += 1
+
+
+## 12. Zigzag Serpent: alternating staggered shelves forcing the ball to snake through layers.
+static func _build_zigzag_serpent(rows: int, cols: int, wall: bool, grid: Array[int], min_hp: int = 2, max_hp: int = 5, allow_metal: bool = true) -> void:
+	var mask: Array[int] = []
+	for r in range(rows):
+		var row_cols: int = cols - ((r & 1) if wall else 0)
+		for c in range(row_cols):
+			var is_gap: bool = (r % 2 == 0 and c == row_cols - 1) or (r % 2 == 1 and c == 0)
+			mask.append(0 if is_gap else 1)
+
+	_fill_gradient(rows, cols, grid, mask, wall, min_hp, max_hp)
+
+	if allow_metal:
+		var idx: int = 0
+		for r in range(rows):
+			var row_cols: int = cols - ((r & 1) if wall else 0)
+			for c in range(row_cols):
+				var is_stud: bool = (r % 2 == 0 and c == row_cols - 2) or (r % 2 == 1 and c == 1)
+				if is_stud and r > 0 and r < rows - 1 and mask[idx] != 0:
 					grid[idx] = metal_tile
 				idx += 1
 
