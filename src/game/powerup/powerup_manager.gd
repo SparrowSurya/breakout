@@ -25,7 +25,7 @@ func setup(p_game: BaseGame, p_config: PowerupConfig) -> void:
 
 
 ## Clears all active powerups (triggering deactivate), removes falling capsules,
-## and resets drop counters.
+## resets paddle modifiers, and resets drop counters.
 func clear() -> void:
 	for p in active.values():
 		p.deactivate()
@@ -33,6 +33,8 @@ func clear() -> void:
 	clear_items()
 	recent_drops.clear()
 	_since_drop = 0
+	if game and game.paddle:
+		game.paddle.reset_modifiers()
 
 
 ## Removes all currently falling powerup capsules from the scene.
@@ -64,6 +66,8 @@ func tick(delta: float) -> void:
 func on_tile_destroyed(pos: Vector2) -> void:
 	if config == null or not config.enabled:
 		return
+	if GameManager.game_state != GameManager.GameState.PLAYING:
+		return
 	_since_drop += 1
 	var pity := config.pity_tiles > 0 and _since_drop >= config.pity_tiles
 	if pity or randf() < config.drop_chance:
@@ -72,6 +76,8 @@ func on_tile_destroyed(pos: Vector2) -> void:
 
 ## Activates a powerup upon collection, or refreshes its duration if already active.
 func collect(type: PowerupRegistry.PowerType, pos: Vector2 = Vector2.ZERO) -> void:
+	if GameManager.game_state != GameManager.GameState.PLAYING:
+		return
 	if active.has(type):
 		active[type].refresh()
 		activated.emit(active[type])
@@ -156,6 +162,8 @@ func spawn_item(pos: Vector2, power_type: Variant = null) -> Powerup:
 ## Internal drop logic respecting max falling capsule limits on screen.
 func _drop(pos: Vector2) -> void:
 	if config == null or not config.enabled:
+		return
+	if GameManager.game_state != GameManager.GameState.PLAYING:
 		return
 	if get_tree().get_nodes_in_group(GROUP).size() >= config.max_falling:
 		return

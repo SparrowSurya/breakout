@@ -239,16 +239,26 @@ func resume_game() -> void:
 ## call this before doing something.
 func end_game(_result) -> void:
 	GameManager.game_state = GameManager.GameState.END
-	if powerups:
-		powerups.clear()
+	reset_powerups()
 
 
 ## Restarts the game again.
 func restart_game() -> void:
-	if powerups:
-		powerups.clear()
+	reset_powerups()
 	setup()
 	start_game()
+
+
+## Clears active powerups, falling items, paddle modifiers, and resets temporary game modifiers.
+func reset_powerups() -> void:
+	if powerups:
+		powerups.clear()
+	if paddle:
+		paddle.reset_modifiers()
+	disable_shield()
+	set_tiles_immune(false)
+	_ball_damage_mods.clear()
+	_ball_damage_offsets.clear()
 
 
 ## Resets position of paddle and ball.
@@ -258,6 +268,7 @@ func reposition() -> void:
 	paddle.position.x = window_size.x / 2.0
 	paddle.position.y = window_size.y - PADDLE_Y_OFFSET
 	paddle.z_index = 1
+	paddle.reset_modifiers()
 
 	var current_balls: Array[Ball] = []
 	for child in balls_node.get_children():

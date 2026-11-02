@@ -98,6 +98,21 @@ func clear_speed_mod(key: StringName) -> void:
 	_speed_mods.erase(key)
 
 
+func reset_modifiers(immediate: bool = true) -> void:
+	if _scale_tween and _scale_tween.is_valid():
+		_scale_tween.kill()
+		_scale_tween = null
+	_width_mods.clear()
+	_speed_mods.clear()
+	if immediate:
+		scale.x = 1.0
+		if paddle_size.x > 0 and window_size.x > 0:
+			var half_width = (paddle_size.x * scale.x) / 2.0
+			position.x = clampf(position.x, half_width, window_size.x - half_width)
+	else:
+		_apply_width()
+
+
 func get_speed() -> float:
 	var m: float = 1.0
 	for v in _speed_mods.values():

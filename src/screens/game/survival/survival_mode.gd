@@ -197,6 +197,7 @@ func _another_chance() -> void:
 	GameManager.game_state = GameManager.GameState.WAITING
 	pause_button.disabled = true
 	resume_button.disabled = true
+	reset_powerups()
 	
 	var player := SoundManager.play_sfx(Constants.SOUND.LifeLost)
 	await player.finished
@@ -213,9 +214,7 @@ func tiles_finished() -> void:
 ## Setups and starts the next stage.
 func _next_stage() -> void:
 	GameManager.game_state = GameManager.GameState.WAITING
-
-	if powerups:
-		powerups.clear()
+	reset_powerups()
 
 	var player := SoundManager.play_sfx(Constants.SOUND.StageFinished)
 	await player.finished
@@ -232,8 +231,7 @@ func _next_stage() -> void:
 
 ## Exit to levels screen.
 func exit_game() -> void:
-	if powerups:
-		powerups.clear()
+	reset_powerups()
 	GameManager.navigate_to_mainmenu()
 
 

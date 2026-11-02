@@ -19,6 +19,11 @@ func activate() -> void:
 	pass
 
 
+## Runs when an already-active powerup is collected again.
+func refresh() -> void:
+	remaining = duration
+
+
 ## Runs on when expires or cleard.
 func deactivate() -> void:
 	pass

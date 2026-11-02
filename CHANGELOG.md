@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Bugfixe - (2 Nov, 2026)
+* Preventing any powerup being carried on to next stage or after losing last ball.
+
 ### Improved powerup - (1 Nov, 2026)
 * Fixed glitches and powerup bugs.
 * Added sounds effects to the powerup collecting adn expire sound.
