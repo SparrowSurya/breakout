@@ -69,6 +69,8 @@ func _physics_process(delta: float) -> void:
 			SoundManager.play_sfx(Constants.SOUND.BallHitWall)
 			if game and game.powerups:
 				game.powerups.expire(PowerupRegistry.PowerType.GUARDIAN)
+		elif collider is Ball:
+			pass
 		else: # Wall or Barrier
 			velocity = velocity.bounce(collision.get_normal())
 			SoundManager.play_sfx(Constants.SOUND.BallHitWall)
@@ -101,6 +103,12 @@ func update_color() -> void:
 func set_random_velocity() -> void:
 	var angle = randf_range(-MAX_ANGLE_RAD, MAX_ANGLE_RAD)
 	velocity = Vector2(sin(angle), -cos(angle)) * BALL_SPEED
+
+
+## Sets velocity of ball to a specific launch angle in radians.
+func set_angle_velocity(angle_rad: float) -> void:
+	var clamped_angle = clampf(angle_rad, -MAX_ANGLE_RAD, MAX_ANGLE_RAD)
+	velocity = Vector2(sin(clamped_angle), -cos(clamped_angle)) * BALL_SPEED
 
 
 func bounce_from_paddle(paddle: Paddle) -> void:

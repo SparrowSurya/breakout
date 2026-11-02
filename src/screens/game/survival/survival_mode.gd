@@ -23,6 +23,7 @@ const TAB_RESUME: int = 1
 var stage_no: int = 0 ## Stage number being played.
 var score: int = 0    ## Score value
 var combo: int = 1    ## Combo as hit multiplier
+var _tiles_since_combo_powerup: int = 0  ## Tile hits since last combo-spawned powerup
 
 var total_damage: int = 0    ## Total damage given
 var tiles_cleared: int = 0   ## Total tiles cleared.
@@ -49,6 +50,7 @@ func initialise() -> void:
 func setup() -> void:
 
 	combo = 1
+	_tiles_since_combo_powerup = 0
 	stage_no = 1
 	score = 0
 	total_damage = 0
@@ -220,13 +222,22 @@ func _next_stage() -> void:
 	await player.finished
 	await Utils.wait(1.0)
 
+	var completed_stage := stage_no
 	stage_no += 1
 	progress_bar.value = 0.0
 	
 	reposition()
 	setup_tiles()
 	update_hud()
-	start_game()
+	await start_game()
+
+	if completed_stage % 4 == 0 and hearts < max_hearts and powerups:
+		powerups.spawn_item(Vector2(window_size.x / 2.0, -8.0), PowerupRegistry.PowerType.REVIVAL)
+
+
+func reset_powerups() -> void:
+	super.reset_powerups()
+	_tiles_since_combo_powerup = 0
 
 
 ## Exit to levels screen.
@@ -240,7 +251,7 @@ func get_powerup_config() -> PowerupConfig:
 	c.enabled = true
 	c.drop_chance = 0.08
 	c.pity_tiles = 15
-	c.interval = 25.0
+	c.interval = 24.0
 	c.max_falling = 2
 	c.weights = {
 		PowerupRegistry.PowerType.MYSTERY: 20,
@@ -273,6 +284,18 @@ func _on_tile_hit(_tile: Tile, effective_damage: int, destroyed: bool) -> void:
 	if destroyed:
 		tiles_cleared += 1
 	
-	score += effective_damage * combo
+	var current_combo := combo
+	score += effective_damage * current_combo
 	combo += 1
 	_update_score()
+
+	if current_combo % 3 == 0:
+		_tiles_since_combo_powerup = 0
+		if powerups:
+			powerups.spawn_item(_tile.global_position)
+	else:
+		_tiles_since_combo_powerup += 1
+		if _tiles_since_combo_powerup >= 8:
+			_tiles_since_combo_powerup = 0
+			if powerups:
+				powerups.spawn_item(_tile.global_position)

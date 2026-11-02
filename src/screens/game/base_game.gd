@@ -337,6 +337,9 @@ func add_ball(damage: int = 1, is_fireball: bool = false, spawn_pos: Vector2 = V
 	new_ball.game = self
 	new_ball.damage = damage
 	new_ball.is_fireball = is_fireball
+	for existing_ball in balls:
+		new_ball.add_collision_exception_with(existing_ball)
+		existing_ball.add_collision_exception_with(new_ball)
 	balls_node.add_child(new_ball)
 	if spawn_pos != Vector2.ZERO:
 		new_ball.global_position = spawn_pos

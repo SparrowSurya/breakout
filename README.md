@@ -29,6 +29,37 @@ A modern, pastel-infused 2D arcade brick-breaker built with **Godot Engine 4**. 
 
 ---
 
+## ⚡ Power-ups System
+
+Survival Mode features a dynamic power-up capsule drop system. Capsules fall from destroyed tiles or the ceiling and activate upon touching the paddle:
+
+### 🎁 Rewarding
+* **MultiBall**: Spawns 1–3 additional balls with randomized boosted damage (2–5 HP) and divergent upward trajectories.
+* **Fireball**: Spawns a high-heat blazing ball that destroys any tile in one hit, including indestructible metal bricks.
+* **Expanded**: Widens the paddle by 1.5x (12s) or 2.0x (8s) for easier catches and wider coverage.
+* **Revival**: Restores one lost heart. Guaranteed to spawn after completing every 4th stage if hearts are not full.
+* **Guardian**: Deploys an emergency laser barrier across the bottom deadzone that saves a ball from dropping.
+
+### ⚠️ Punishing
+* **Shrinked**: Contracts paddle width to 40%–60% of normal size for 8–16 seconds.
+* **Lazy**: Slows paddle movement speed to 40%–60% for 8–16 seconds.
+* **Immortal**: Renders all destructible tiles temporarily immune to damage for 8–16 seconds.
+* **Imposter**: Weakens the ball's striking power, causing it to deal reduced or zero damage for 8 seconds.
+
+### 🎲 Situational & Chaos
+* **Oiled**: Turbocharges paddle speed by 1.5x–2.0x for 8–16 seconds.
+* **Phase Shifter**: Sets all destructible tiles on the board to the exact same uniform health tier (1–6 HP).
+* **Reforged**: Scrambles and randomizes the health of every destructible tile on the board independently (1–6 HP).
+* **Mystery**: Surprises the player by rolling a completely random power-up effect.
+
+### ⏱️ Spawning & Pacing Rules
+* **Combo Drops**: Chaining hits to every 3rd combo multiplier (`combo % 3 == 0`) spawns a power-up.
+* **Pity Guarantee**: If no power-up has dropped from combos, hitting the 8th tile guarantees a power-up spawn.
+* **Periodic Drops**: A random power-up capsule descends from the ceiling every 24 seconds.
+* **Clean State Reset**: Active power-up timers, paddle size/speed modifiers, and falling capsules automatically reset to default when a ball is lost or when advancing to the next stage.
+
+---
+
 ## ✨ Key Features
 
 - **Brick Health Tiers (1–6 HP + Metal)**: Bricks feature varying durability color-coded in a clean pastel palette:
