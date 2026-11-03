@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+
+### Added CustomSpinbox - (3 Nov, 2026)
+* Added new scene for spinbox.
+* Added its script.
+* Added few icons.
+
 ### Bugfixes - (3 Nov, 2026)
 * Preventing any powerup being carried on to next stage or after losing last ball.
 * Multiball 1+ ball collission fix.

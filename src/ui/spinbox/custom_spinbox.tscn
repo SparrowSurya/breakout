@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://y4xiyu84qvx2"]
+
+[ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="1_4phgx"]
+[ext_resource type="Script" uid="uid://h4d07l8bgtew" path="res://src/ui/spinbox/custom_spinbox.gd" id="1_q4ew5"]
+[ext_resource type="PackedScene" uid="uid://flgqh3dlwr0a" path="res://src/ui/button/custom_icon_button.tscn" id="1_yenr0"]
+[ext_resource type="Texture2D" uid="uid://ckt0ep31f2lfv" path="res://assets/textures/icons/minus.png" id="4_d1vw0"]
+[ext_resource type="Texture2D" uid="uid://n61sjpem1cit" path="res://assets/textures/icons/plus.png" id="5_3xt7r"]
+
+[node name="CustomSpinbox" type="VBoxContainer" unique_id=764628747 node_paths=PackedStringArray("label_text", "label_value", "indicator", "minus_button", "plus_button")]
+custom_minimum_size = Vector2(252, 50)
+custom_maximum_size = Vector2(252, 50)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 8
+script = ExtResource("1_q4ew5")
+label_text = NodePath("LabelRow/LabelText")
+label_value = NodePath("LabelRow/LabelValue")
+indicator = NodePath("IndicatorRow/Indicator")
+minus_button = NodePath("IndicatorRow/MinusButton")
+plus_button = NodePath("IndicatorRow/PlusButton")
+
+[node name="LabelRow" type="HBoxContainer" parent="." unique_id=414098316]
+layout_mode = 2
+
+[node name="LabelText" type="Label" parent="LabelRow" unique_id=1867296241]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("1_4phgx")
+theme_override_font_sizes/font_size = 8
+text = "LABEL"
+
+[node name="Spacer" type="Control" parent="LabelRow" unique_id=166233749]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LabelValue" type="Label" parent="LabelRow" unique_id=1091423301]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
+theme_override_fonts/font = ExtResource("1_4phgx")
+text = "0"
+
+[node name="IndicatorRow" type="HBoxContainer" parent="." unique_id=394602544]
+layout_mode = 2
+
+[node name="MinusButton" parent="IndicatorRow" unique_id=354671964 instance=ExtResource("1_yenr0")]
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("4_d1vw0")
+
+[node name="Indicator" type="HBoxContainer" parent="IndicatorRow" unique_id=1211907890]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+alignment = 1
+
+[node name="PlusButton" parent="IndicatorRow" unique_id=1362186758 instance=ExtResource("1_yenr0")]
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("5_3xt7r")
