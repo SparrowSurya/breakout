@@ -91,11 +91,24 @@ Survival Mode features a dynamic power-up capsule drop system. Capsules fall fro
 
 ## 🛠️ Development & Export
 
-The project supports multi-platform Web exports (**Itch.io** and **YouTube Playables**) and includes a `Makefile` to streamline builds, packaging, and local testing:
+The project supports multi-platform exports (**Itch.io Web**, **YouTube Playables Web**, and **Android APK**) and includes a `Makefile` to streamline builds, packaging, and local testing:
 
 ```bash
-# Build and package both platforms (Itch.io & YouTube Playables)
+# Build and package both web platforms (Itch.io & YouTube Playables)
 make build-all
+
+# --- Android APK Targets ---
+# Export Android APK to build/android/breakout.apk (default: release)
+make export-android
+
+# Export and package into versioned APK (build/Breakout-vX.Y.Z.apk)
+make build-android
+
+# Build in debug mode (uses debug keystore)
+make build-android RELEASE=false
+
+# Clean only Android build artifacts
+make clean-android
 
 # --- Itch.io Targets ---
 # Export Web build to build/itch/
@@ -118,6 +131,7 @@ make build-yt
 make server-yt
 
 # --- Cleanup ---
+# Remove entire build/ directory
 make clean
 ```
 

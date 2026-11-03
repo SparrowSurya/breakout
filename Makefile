@@ -1,5 +1,5 @@
 # ==============================================================================
-# Breakout Makefile - Multi-Platform Web Export (Itch.io & YouTube Playables)
+# Breakout Makefile - Multi-Platform Export (Itch.io, YouTube Playables & Android)
 # ==============================================================================
 
 GODOT ?= godot
@@ -7,36 +7,54 @@ BUILD_DIR ?= build
 
 ITCH_DIR ?= $(BUILD_DIR)/itch
 YT_DIR ?= $(BUILD_DIR)/youtube
+ANDROID_DIR ?= $(BUILD_DIR)/android
 
-# Extract semver from constants.gd
-VERSION := $(shell python3 -c "import re; f=open('src/core/constants.gd').read(); print('.'.join(re.findall(r'const VERSION_(?:MAJOR|MINOR|PATCH):\s*int\s*=\s*(\d+)', f)))" 2>/dev/null || echo "0.1.0")
+# Extract semver from project.godot
+VERSION := $(shell python3 -c "import re; f=open('project.godot').read(); m=re.search(r'config/version=\"([^\"]+)\"', f); print(m.group(1) if m else '0.1.0')" 2>/dev/null || echo "0.1.0")
 PROJECT_NAME := Breakout
 
 ITCH_ZIP := $(PROJECT_NAME)-Itch-v$(VERSION).zip
 YT_ZIP := $(PROJECT_NAME)-YouTube-v$(VERSION).zip
+ANDROID_APK := $(PROJECT_NAME)-v$(VERSION).apk
 
-.PHONY: all help build-all build-itch build-yt export-itch export-yt server-itch server-yt clean clean-itch clean-yt
+# Release mode configuration (default: true)
+RELEASE ?= true
+ifeq ($(filter 0 false FALSE False NO no,$(RELEASE)),)
+  EXPORT_FLAG := --export-release
+  BUILD_TYPE := release
+else
+  EXPORT_FLAG := --export-debug
+  BUILD_TYPE := debug
+endif
+
+.PHONY: all help build-all build-itch build-yt build-android export-itch export-yt export-android server-itch server-yt clean clean-itch clean-yt clean-android
 
 all: build-all
 
 help:
 	@echo "Available commands:"
-	@echo "  make build-all     - Export and package both Itch.io and YouTube Playables builds"
-	@echo "  make build-itch    - Export and zip for Itch.io ($(BUILD_DIR)/$(ITCH_ZIP))"
-	@echo "  make build-yt      - Export and zip for YouTube Playables ($(BUILD_DIR)/$(YT_ZIP))"
-	@echo "  make export-itch   - Export Itch.io Web files to $(ITCH_DIR)/"
-	@echo "  make export-yt     - Export YouTube Web files to $(YT_DIR)/"
-	@echo "  make server-itch   - Host Itch build locally on http://localhost:8000"
-	@echo "  make server-yt     - Host YouTube build locally on http://localhost:8000"
-	@echo "  make clean         - Remove entire $(BUILD_DIR) directory"
+	@echo "  make build-all       - Export and package both Itch.io and YouTube Playables builds"
+	@echo "  make build-itch      - Export and zip for Itch.io ($(BUILD_DIR)/$(ITCH_ZIP))"
+	@echo "  make build-yt        - Export and zip for YouTube Playables ($(BUILD_DIR)/$(YT_ZIP))"
+	@echo "  make build-android   - Export and package Android APK ($(BUILD_DIR)/$(ANDROID_APK))"
+	@echo "  make export-itch     - Export Itch.io Web files to $(ITCH_DIR)/"
+	@echo "  make export-yt       - Export YouTube Web files to $(YT_DIR)/"
+	@echo "  make export-android  - Export Android APK to $(ANDROID_DIR)/breakout.apk"
+	@echo "  make server-itch     - Host Itch build locally on http://localhost:8000"
+	@echo "  make server-yt       - Host YouTube build locally on http://localhost:8000"
+	@echo "  make clean           - Remove entire $(BUILD_DIR) directory"
+	@echo "  make clean-android   - Remove Android output from $(BUILD_DIR)"
+	@echo ""
+	@echo "Options:"
+	@echo "  RELEASE=false        - Build in debug mode (--export-debug) instead of release (--export-release)"
 
 # ------------------------------------------------------------------------------
 # Itch.io Target
 # ------------------------------------------------------------------------------
 export-itch:
-	@echo "==> Exporting Web (Itch.io preset)..."
+	@echo "==> Exporting Web (Itch.io preset) [$(BUILD_TYPE)]..."
 	@mkdir -p $(ITCH_DIR)
-	$(GODOT) --headless --export-release "itch" $(ITCH_DIR)/index.html
+	$(GODOT) --headless $(EXPORT_FLAG) "itch" $(ITCH_DIR)/index.html
 	@echo "==> Itch export completed in $(ITCH_DIR)/"
 
 build-itch: export-itch
@@ -48,9 +66,9 @@ build-itch: export-itch
 # YouTube Playables Target
 # ------------------------------------------------------------------------------
 export-yt:
-	@echo "==> Exporting Web (YouTube preset)..."
+	@echo "==> Exporting Web (YouTube preset) [$(BUILD_TYPE)]..."
 	@mkdir -p $(YT_DIR)
-	$(GODOT) --headless --export-release "youtube" $(YT_DIR)/index.html
+	$(GODOT) --headless $(EXPORT_FLAG) "youtube" $(YT_DIR)/index.html
 	@# Ensure the JS SDK connector is included in the output directory
 	@if [ -f yt_game_sdk.js ]; then cp yt_game_sdk.js $(YT_DIR); fi
 	@echo "==> YouTube export completed in $(YT_DIR)/"
@@ -61,7 +79,21 @@ build-yt: export-yt
 	@echo "==> YouTube package created: $(BUILD_DIR)/$(YT_ZIP)"
 
 # ------------------------------------------------------------------------------
-# Build Both
+# Android Target
+# ------------------------------------------------------------------------------
+export-android:
+	@echo "==> Exporting Android APK [$(BUILD_TYPE)]..."
+	@mkdir -p $(ANDROID_DIR)
+	$(GODOT) --headless $(EXPORT_FLAG) "Android" $(ANDROID_DIR)/breakout.apk
+	@echo "==> Android export completed in $(ANDROID_DIR)/breakout.apk"
+
+build-android: export-android
+	@echo "==> Packaging Android build into $(BUILD_DIR)/$(ANDROID_APK)..."
+	@cp $(ANDROID_DIR)/breakout.apk $(BUILD_DIR)/$(ANDROID_APK)
+	@echo "==> Android package created: $(BUILD_DIR)/$(ANDROID_APK)"
+
+# ------------------------------------------------------------------------------
+# Build Both Web Targets
 # ------------------------------------------------------------------------------
 build-all: build-itch build-yt
 	@echo "==> Both builds completed successfully in $(BUILD_DIR)/"
@@ -85,6 +117,9 @@ clean-itch:
 
 clean-yt:
 	@rm -rf $(YT_DIR) $(BUILD_DIR)/$(YT_ZIP)
+
+clean-android:
+	@rm -rf $(ANDROID_DIR) $(BUILD_DIR)/$(PROJECT_NAME)-v*.apk
 
 clean:
 	@echo "==> Cleaning $(BUILD_DIR)..."
