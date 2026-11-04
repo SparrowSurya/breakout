@@ -12,6 +12,7 @@ custom_maximum_size = Vector2(252, 50)
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/separation = 8
+alignment = 1
 script = ExtResource("1_q4ew5")
 label_text = NodePath("LabelRow/LabelText")
 label_value = NodePath("LabelRow/LabelValue")
@@ -37,6 +38,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
 theme_override_fonts/font = ExtResource("1_4phgx")
+theme_override_font_sizes/font_size = 8
 text = "0"
 
 [node name="IndicatorRow" type="HBoxContainer" parent="." unique_id=394602544]

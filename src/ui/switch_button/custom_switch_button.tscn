@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dfi0uc7h0ebsb"]
 
-[ext_resource type="Texture2D" uid="uid://b8dvqs70cyfua" path="res://assets/textures/switch-button/track-on.png" id="1_kix31"]
+[ext_resource type="Texture2D" uid="uid://b8dvqs70cyfua" path="res://assets/textures/switch-button/track-off.png" id="1_kix31"]
 [ext_resource type="Script" uid="uid://st1w0sl835ls" path="res://src/ui/switch_button/custom_switch_button.gd" id="4_x8kyl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kix31"]

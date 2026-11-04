@@ -4,11 +4,16 @@ extends VBoxContainer
 ## Emitted when value changes
 signal value_changed(new_value: int)
 
+# Nodes
+@export_group("Nodes")
 @export var label_text: Label               ## Label name.
 @export var label_value: Label              ## Value of the node.
 @export var indicator: HBoxContainer        ## Node showing levels.
 @export var minus_button: CustomIconButton  ## Value decrement button.
 @export var plus_button: CustomIconButton   ## Value increment button.
+
+@export_group("Settings")
+@export var label_name: String = "Label"
 
 @export var length: int = 10:
 	set(p_length):
@@ -24,14 +29,13 @@ signal value_changed(new_value: int)
 
 
 func _ready() -> void:
+	label_text.text = label_name
 	minus_button.pressed.connect(_decrement_value)
 	plus_button.pressed.connect(_increment_value)
-	setup("Label", 10, 5)
+	setup(10, 5)
 
 
-func setup(label: String, p_length: int, p_value: int) -> void:
-	if label_text:
-		label_text.text = label
+func setup(p_length: int, p_value: int) -> void:
 	length = p_length
 	value = p_value
 	_render()

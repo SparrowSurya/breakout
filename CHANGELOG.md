@@ -2,8 +2,9 @@
 
 ## Unreleased
 
-### Modified CustomSpinbox - (4 Nov, 2026)
+### Modified CustomSpinbox and CustomSwitchButton - (4 Nov, 2026)
 * Clicking on individual level indicator also changes the value.
+* Adding correct texture for on and off state of switch.
 
 ### Added CustomSwitchButton - (4 Nov, 2026)
 * Added new scene for switch button.
