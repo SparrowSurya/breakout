@@ -45,7 +45,6 @@ func _render() -> void:
 		label_value.text = str(value)
 
 	if indicator:
-		# Ensure indicator has exactly 'length' boxes
 		while indicator.get_child_count() > length:
 			var child = indicator.get_child(indicator.get_child_count() - 1)
 			indicator.remove_child(child)
@@ -55,6 +54,9 @@ func _render() -> void:
 			var node = ColorRect.new()
 			node.custom_minimum_size = Vector2(14.0, 14.0)
 			node.custom_maximum_size = Vector2(14.0, 14.0)
+			node.mouse_filter = Control.MOUSE_FILTER_STOP
+			node.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+			node.gui_input.connect(_on_indicator_clicked.bind(node))
 			indicator.add_child(node)
 
 		# Color active (LAVENDER) and inactive (SURFACE1) boxes
@@ -62,6 +64,14 @@ func _render() -> void:
 			var node = indicator.get_child(i)
 			node.modulate = Palette.LAVENDER if i < value else Palette.SURFACE1
 
+
+func _on_indicator_clicked(event: InputEvent, node: Control) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		value = node.get_index() + 1
+
+
+func _set_value(p_value: int) -> void:
+	value = p_value
 
 func _increment_value() -> void:
 	value += 1

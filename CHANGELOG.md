@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Modified CustomSpinbox - (4 Nov, 2026)
+* Clicking on individual level indicator also changes the value.
+
 ### Added CustomSwitchButton - (4 Nov, 2026)
 * Added new scene for switch button.
 * Added its script.
