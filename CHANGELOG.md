@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added common PauseMenu - (4 Nov, 2026)
+* Added and integrated common PauseMenu for all game modes.
+
 ### Added SoundMenu - (4 Nov, 2026)
 * Added SoundMenu
 * Integrated SoundMenu to MainMenu

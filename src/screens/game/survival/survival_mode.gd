@@ -13,7 +13,7 @@ extends BaseGame
 
 # Menu related nodes.
 @export var menus_node: Control
-@export var pause_menu: SurvivalPauseMenu
+@export var pause_menu: PauseMenu
 @export var gameover_menu: GameoverMenu
 
 
@@ -133,9 +133,8 @@ func pause_game() -> void:
 
 	GameManager.game_state = GameManager.GameState.PAUSED
 	pause_resume_tab.current_tab = TAB_RESUME
-	
-	var stage_text := "%03d" % stage_no
-	pause_menu.update(stage_text, progress_bar.value, Utils.format_time(elapsed_ms))
+
+	pause_menu.update(progress_bar.value, elapsed_ms, stage_no)
 	pause_menu.resume_button.grab_focus()
 	pause_menu.show()
 	menus_node.show()

@@ -11,7 +11,7 @@ extends BaseGame
 
 # Menu node
 @export var menus_node: Control
-@export var pause_menu: QuickPauseMenu
+@export var pause_menu: PauseMenu
 @export var end_menu: QuickEndMenu
 
 const TAB_PAUSE: int = 0
@@ -120,7 +120,7 @@ func pause_game() -> void:
 
 	GameManager.game_state = GameManager.GameState.PAUSED
 	pause_resume_tab.current_tab = TAB_RESUME
-	pause_menu.update(Utils.format_time(elapsed_ms), progress_bar.value)
+	pause_menu.update(progress_bar.value, elapsed_ms)
 	pause_menu.resume_button.grab_focus()
 	pause_menu.show()
 	menus_node.show()

@@ -11,6 +11,13 @@ enum GameState {
 	END,       # Game end screen state
 }
 
+## Game modes in the game
+enum GameMode {
+	NONE,
+	QUICK,
+	LEVEL,
+	SURVIVAL,
+}
 
 ## Screen in the viewport.
 enum Screen {
@@ -106,3 +113,15 @@ func play_survival() -> void:
 # Know if the level exists.
 func level_exists(level: int) -> bool:
 	return level > 0 and level <= LevelDef.level_count
+
+
+## Provide the respective game mode based on current screen.
+func game_mode() -> GameMode:
+	match current_screen:
+		Screen.QUICK_PLAY:
+			return GameMode.QUICK
+		Screen.LEVEL_MODE:
+			return GameMode.LEVEL
+		Screen.SURVIVAL_MODE:
+			return GameMode.SURVIVAL
+	return GameMode.NONE

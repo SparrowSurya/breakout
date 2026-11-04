@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dg20l0c0blct6" path="res://assets/textures/icons/triangle-right.png" id="4_3efp8"]
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="5_ts2sw"]
 [ext_resource type="Texture2D" uid="uid://ct0l3mhdv2bdy" path="res://assets/textures/icons/heart.png" id="6_coric"]
-[ext_resource type="PackedScene" uid="uid://8l2uhre8h1o0" path="res://src/ui/pause_menu/quick_pause_menu.tscn" id="7_3efp8"]
+[ext_resource type="PackedScene" uid="uid://8n0xv7fcmbht" path="res://src/game/menus/pause/pause_menu.tscn" id="8_coric"]
 [ext_resource type="PackedScene" uid="uid://mdwah5lur7ak" path="res://src/ui/quick_end_menu/quick_end_menu.tscn" id="8_ts2sw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qk88f"]
@@ -41,7 +41,7 @@ time_value = NodePath("UI/Hud/Content/Heading/Column/Row2/TimeValue")
 progress_value = NodePath("UI/Hud/Content/Heading/Column/Row2/ProgressValue")
 progress_bar = NodePath("UI/Hud/Content/Heading/Column/ProgressBar")
 menus_node = NodePath("UI/Menus")
-pause_menu = NodePath("UI/Menus/Center/QuickPauseMenu")
+pause_menu = NodePath("UI/Menus/Center/PauseMenu")
 end_menu = NodePath("UI/Menus/Center/QuickEndMenu")
 tiles_node = NodePath("Tiles")
 balls_node = NodePath("Balls")
@@ -239,7 +239,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Menus" type="Control" parent="UI" unique_id=579873225]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -265,11 +264,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="QuickPauseMenu" parent="UI/Menus/Center" unique_id=933271589 instance=ExtResource("7_3efp8")]
-visible = false
+[node name="PauseMenu" parent="UI/Menus/Center" unique_id=933271589 instance=ExtResource("8_coric")]
 layout_mode = 2
 
 [node name="QuickEndMenu" parent="UI/Menus/Center" unique_id=1774828620 instance=ExtResource("8_ts2sw")]
+visible = false
 layout_mode = 2
 current_tab = 0
 

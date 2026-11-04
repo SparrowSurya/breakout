@@ -12,7 +12,7 @@ extends BaseGame
 
 # Menus nodes
 @export var menus_node: Control
-@export var pause_menu: LevelPauseMenu
+@export var pause_menu: PauseMenu
 @export var end_menu: LevelEndMenu
 
 # Tab values
@@ -79,7 +79,6 @@ func setup_tiles() -> void:
 # Sets the information in HUD
 func update_hud() -> void:
 	title_label.text = "Level %d" % level_no
-	pause_menu.level_value.text = "Level %03d" % level_no
 
 	_update_heart()
 	_update_time()
@@ -127,8 +126,7 @@ func pause_game() -> void:
 	GameManager.game_state = GameManager.GameState.PAUSED
 	pause_resume_tab.current_tab = TAB_RESUME
 
-	var level_text := "%03d" % level_no
-	pause_menu.update(level_text, progress_bar.value)
+	pause_menu.update(progress_bar.value, elapsed_ms, level_no)
 	pause_menu.resume_button.grab_focus()
 	pause_menu.show()
 	menus_node.show()
