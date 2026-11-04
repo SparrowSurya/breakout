@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bqh7dppd0tiif"]
+
+[ext_resource type="Script" uid="uid://bmk00f1o4v8f" path="res://src/game/menus/end/end_menu.gd" id="1_1xw6s"]
+
+[node name="EndMenu" type="TabContainer" unique_id=1510749122]
+offset_right = 8.0
+offset_bottom = 40.0
+script = ExtResource("1_1xw6s")

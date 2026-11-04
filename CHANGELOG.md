@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added common EndMenu - (4 Nov, 2026)
+* Added common EndMenu for game modes having win and lose menus.
+
 ### Added common PauseMenu - (4 Nov, 2026)
 * Added and integrated common PauseMenu for all game modes.
 * Deleted previous pause_menu scene and script files.
