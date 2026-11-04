@@ -4,6 +4,7 @@
 
 ### Added common PauseMenu - (4 Nov, 2026)
 * Added and integrated common PauseMenu for all game modes.
+* Deleted previous pause_menu scene and script files.
 
 ### Added SoundMenu - (4 Nov, 2026)
 * Added SoundMenu
