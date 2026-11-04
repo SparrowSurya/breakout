@@ -1,0 +1,152 @@
+[gd_scene format=3 uid="uid://bwhx1kqvneren"]
+
+[ext_resource type="Script" uid="uid://byimslwhe3po5" path="res://src/game/menus/sound/sound_menu.gd" id="1_sf6pa"]
+[ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_ubbww"]
+[ext_resource type="PackedScene" uid="uid://flgqh3dlwr0a" path="res://src/ui/button/custom_icon_button.tscn" id="2_v7266"]
+[ext_resource type="Texture2D" uid="uid://dmcncaudf6iub" path="res://assets/textures/icons/triangle-left.png" id="3_ncqmi"]
+[ext_resource type="PackedScene" uid="uid://y4xiyu84qvx2" path="res://src/ui/spinbox/custom_spinbox.tscn" id="5_kh5dy"]
+[ext_resource type="PackedScene" uid="uid://dfi0uc7h0ebsb" path="res://src/ui/switch_button/custom_switch_button.tscn" id="6_kh5dy"]
+[ext_resource type="PackedScene" uid="uid://dy1xomrq02t83" path="res://src/ui/button/custom_button.tscn" id="6_ncqmi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilsnw"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.11764706, 0.11764706, 0.18039216, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.19215687, 0.19607843, 0.26666668, 1)
+
+[node name="SoundMenu" type="Control" unique_id=751461936 node_paths=PackedStringArray("back_button_1", "music_control", "sound_control", "sfx_control", "mute_control", "back_button_2")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sf6pa")
+back_button_1 = NodePath("Margin/VBoxContainer/BackButton1")
+music_control = NodePath("Margin/VBoxContainer/VBoxContainer/MusicContainer/MusicControl")
+sound_control = NodePath("Margin/VBoxContainer/VBoxContainer/SoundContainer/SoundControl")
+sfx_control = NodePath("Margin/VBoxContainer/VBoxContainer/SfxContainer/SfxControl")
+mute_control = NodePath("Margin/VBoxContainer/VBoxContainer/MuteContainer/Row/MuteControl")
+back_button_2 = NodePath("Margin/VBoxContainer/Margin/BackButton2")
+
+[node name="Background" type="ColorRect" parent="." unique_id=142462129]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11764706, 0.11764706, 0.18039216, 0.9411765)
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=100268524]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin" unique_id=1753132101]
+layout_mode = 2
+
+[node name="Spacer1" type="Control" parent="Margin/VBoxContainer" unique_id=1386010886]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="BackButton1" parent="Margin/VBoxContainer" unique_id=354671964 instance=ExtResource("2_v7266")]
+layout_mode = 2
+icon = ExtResource("3_ncqmi")
+
+[node name="Spacer2" type="Control" parent="Margin/VBoxContainer" unique_id=1156454353]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Margin/VBoxContainer" unique_id=1775047003]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7058824, 0.74509805, 0.99607843, 1)
+theme_override_fonts/font = ExtResource("2_ubbww")
+text = "Audio Setting"
+horizontal_alignment = 1
+
+[node name="Spacer3" type="Control" parent="Margin/VBoxContainer" unique_id=1744291260]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/VBoxContainer" unique_id=1206111778]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="MusicContainer" type="PanelContainer" parent="Margin/VBoxContainer/VBoxContainer" unique_id=876585822]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ilsnw")
+
+[node name="MusicControl" parent="Margin/VBoxContainer/VBoxContainer/MusicContainer" unique_id=764628747 instance=ExtResource("5_kh5dy")]
+layout_mode = 2
+label_name = "Music"
+
+[node name="SoundContainer" type="PanelContainer" parent="Margin/VBoxContainer/VBoxContainer" unique_id=219945150]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ilsnw")
+
+[node name="SoundControl" parent="Margin/VBoxContainer/VBoxContainer/SoundContainer" unique_id=426851857 instance=ExtResource("5_kh5dy")]
+layout_mode = 2
+label_name = "Sound"
+
+[node name="SfxContainer" type="PanelContainer" parent="Margin/VBoxContainer/VBoxContainer" unique_id=156697884]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ilsnw")
+
+[node name="SfxControl" parent="Margin/VBoxContainer/VBoxContainer/SfxContainer" unique_id=1514518951 instance=ExtResource("5_kh5dy")]
+layout_mode = 2
+label_name = "SFX"
+
+[node name="MuteContainer" type="PanelContainer" parent="Margin/VBoxContainer/VBoxContainer" unique_id=950097986]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ilsnw")
+
+[node name="Row" type="HBoxContainer" parent="Margin/VBoxContainer/VBoxContainer/MuteContainer" unique_id=966959213]
+layout_mode = 2
+
+[node name="MuteLabel" type="Label" parent="Margin/VBoxContainer/VBoxContainer/MuteContainer/Row" unique_id=665295305]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27058825, 0.2784314, 0.3529412, 1)
+theme_override_fonts/font = ExtResource("2_ubbww")
+theme_override_font_sizes/font_size = 8
+text = "MUTE ALL"
+
+[node name="Spacer" type="Control" parent="Margin/VBoxContainer/VBoxContainer/MuteContainer/Row" unique_id=834333539]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MuteControl" parent="Margin/VBoxContainer/VBoxContainer/MuteContainer/Row" unique_id=8111276 instance=ExtResource("6_kh5dy")]
+layout_mode = 2
+
+[node name="Spacer4" type="Control" parent="Margin/VBoxContainer" unique_id=29487477]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Margin" type="MarginContainer" parent="Margin/VBoxContainer" unique_id=23091388]
+layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_right = 64
+
+[node name="BackButton2" parent="Margin/VBoxContainer/Margin" unique_id=1882703824 instance=ExtResource("6_ncqmi")]
+layout_mode = 2
+text = "Back"
+
+[node name="Spacer5" type="Control" parent="Margin/VBoxContainer" unique_id=1762054848]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2

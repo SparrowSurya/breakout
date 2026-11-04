@@ -6,12 +6,15 @@ extends CanvasLayer
 @export var survival_button: CustomButton
 @export var highscore_value: Label
 @export var version_value: Label
+@export var sound_button: CustomIconButton
+@export var sound_menu: SoundMenu
 
 
 func _ready() -> void:
 	quick_play_button.pressed.connect(_on_quick_play_button_pressed)
 	levels_button.pressed.connect(_on_levels_button_pressed)
 	survival_button.pressed.connect(_on_survival_button_pressed)
+	sound_button.pressed.connect(_open_sound_menu)
 
 	highscore_value.text = "%06d" % UserProgress.highscore
 	version_value.text = "v%s" % Constants.VERSION_STRING
@@ -42,3 +45,7 @@ func _on_survival_button_pressed() -> void:
 
 func _progress_update() -> void:
 	highscore_value.text = "%06d" % UserProgress.highscore
+
+
+func _open_sound_menu() -> void:
+	sound_menu.show()

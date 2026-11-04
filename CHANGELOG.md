@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added SoundMenu - (4 Nov, 2026)
+* Added SoundMenu
+* Integrated SoundMenu to MainMenu
+
 ### Modified CustomSpinbox and CustomSwitchButton - (4 Nov, 2026)
 * Clicking on individual level indicator also changes the value.
 * Adding correct texture for on and off state of switch.
