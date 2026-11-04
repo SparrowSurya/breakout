@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added CustomSwitchButton - (4 Nov, 2026)
+* Added new scene for switch button.
+* Added its script.
+* Added textures.
 
 ### Added CustomSpinbox - (3 Nov, 2026)
 * Added new scene for spinbox.
