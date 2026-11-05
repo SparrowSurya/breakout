@@ -1,6 +1,6 @@
 extends BaseGame
 
-# HUD Nodes
+@export_group("Nodes")
 @export var pause_resume_tab: TabContainer
 @export var pause_button: CustomIconButton
 @export var resume_button: CustomIconButton
@@ -9,13 +9,16 @@ extends BaseGame
 @export var progress_value: Label
 @export var progress_bar: ProgressBar
 
-# Menu node
+@export_group("Menus")
 @export var menus_node: Control
 @export var pause_menu: PauseMenu
 @export var end_menu: EndMenu
 
+
 const TAB_PAUSE: int = 0
 const TAB_RESUME: int = 1
+
+var _new_grid: bool = true
 
 
 func initialise() -> void:
@@ -28,10 +31,12 @@ func initialise() -> void:
 	pause_menu.restart_button.pressed.connect(restart_game)
 	pause_menu.exit_button.pressed.connect(exit_game)
 
-	end_menu.win_menu.replay_button.pressed.connect(restart_game)
+	end_menu.win_menu.play_next_button.pressed.connect(_restart_new)
+	end_menu.win_menu.play_again_button.pressed.connect(_restart_old)
 	end_menu.win_menu.exit_button.pressed.connect(exit_game)
 
-	end_menu.lose_menu.replay_button.pressed.connect(restart_game)
+	end_menu.lose_menu.play_next_button.pressed.connect(_restart_new)
+	end_menu.lose_menu.play_again_button.pressed.connect(_restart_old)
 	end_menu.lose_menu.exit_button.pressed.connect(exit_game)
 
 
@@ -49,20 +54,22 @@ func setup() -> void:
 	pause_menu.hide()
 	end_menu.hide()
 
+
 func player_attempts_count() -> int:
 	return hearts_node.get_children().filter(func(node): return node is TextureRect).size()
 
 
 func setup_tiles() -> void:
-	var rows := randi_range(Constants.ROWS_MIN, Constants.ROWS_MAX)
-	var cols := randi_range(Constants.COLS_MIN, Constants.COLS_MAX)
+	if _new_grid:
+		var rows := randi_range(Constants.ROWS_MIN, Constants.ROWS_MAX)
+		var cols := randi_range(Constants.COLS_MIN, Constants.COLS_MAX)
 
-	var formation := TileFormation.create(rows, cols)
-	
-	grid_data = formation.grid_data
-	grid_rows = formation.grid_rows
-	grid_cols = formation.grid_cols
-	
+		var formation := TileFormation.create(rows, cols)
+		
+		grid_data = formation.grid_data
+		grid_rows = formation.grid_rows
+		grid_cols = formation.grid_cols
+
 	super.setup_tiles()
 
 
@@ -151,12 +158,12 @@ func end_game(won: bool) -> void:
 	await Utils.wait(1.5)
 
 	if won:
-		end_menu.win_menu.update(Utils.format_time(elapsed_ms), hearts)
-		end_menu.win_menu.replay_button.grab_focus()
+		end_menu.win_menu.update(elapsed_ms, hearts)
+		end_menu.win_menu.play_next_button.grab_focus()
 		end_menu.show_win()
 	else:
-		end_menu.lose_menu.update(Utils.format_time(elapsed_ms), progress_bar.value)
-		end_menu.lose_menu.replay_button.grab_focus()
+		end_menu.lose_menu.update(elapsed_ms, progress_bar.value)
+		end_menu.lose_menu.play_next_button.grab_focus()
 		end_menu.show_lose()
 	
 	menus_node.show()
@@ -194,3 +201,13 @@ func tiles_finished() -> void:
 func exit_game() -> void:
 	reset_powerups()
 	GameManager.navigate_to_mainmenu()
+
+
+func _restart_new() -> void:
+	_new_grid = true
+	restart_game()
+
+
+func _restart_old() -> void:
+	_new_grid = false
+	restart_game()

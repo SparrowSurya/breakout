@@ -2,6 +2,7 @@ class_name BaseGame
 extends Node2D
 
 # Common game related nodes.
+@export_group("Game")
 @export var tiles_node: Node2D           ## Contains instance tiles
 @export var balls_node: Node2D           ## COntains instance balls
 @export var dead_zone: Area2D            ## Deadzone area
@@ -9,6 +10,7 @@ extends Node2D
 @export var countdown_label: Label       ## Countdown label
 
 # Power-up related stuff.
+@export_group("Powerup")
 @export var powerup_props: Node2D  ## Powerup associated prop items
 @export var guardian_prop: GuardianProp
 
@@ -240,7 +242,6 @@ func resume_game() -> void:
 func end_game(_result) -> void:
 	GameManager.game_state = GameManager.GameState.END
 	reset_powerups()
-
 
 ## Restarts the game again.
 func restart_game() -> void:

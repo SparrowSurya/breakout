@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## Added WinMenu and LoseMenu - (5 Nov, 2026)
+* Added common scene for win and lose menu.
+* Integrated these menus in quick and level mode.
+
 ### Fixed GameoverMenu - (5 Nov, 2026)
 * Modified z-index to 30.
 * Renamed some nodes.

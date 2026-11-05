@@ -21,7 +21,7 @@ func update(level: String, time: String, lives: int, has_next_level: bool) -> vo
 		var star_node = stars_node.get_child(i)
 		if star_node is TextureRect:
 			star_node.modulate = Palette.YELLOW if i < lives else Palette.SURFACE2
-	
+
 	if has_next_level:
 		play_next_button.show()
 	else:

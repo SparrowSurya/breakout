@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://ct0l3mhdv2bdy" path="res://assets/textures/icons/heart.png" id="6_sjl88"]
 [ext_resource type="PackedScene" uid="uid://8n0xv7fcmbht" path="res://src/game/menus/pause/pause_menu.tscn" id="8_0mpae"]
 [ext_resource type="PackedScene" uid="uid://bqh7dppd0tiif" path="res://src/game/menus/end/end_menu.tscn" id="9_alm8m"]
-[ext_resource type="PackedScene" uid="uid://y4qqygcyuk1y" path="res://src/ui/level_end_menu/level_win_menu.tscn" id="10_sjl88"]
-[ext_resource type="PackedScene" uid="uid://btpimlc3dgaww" path="res://src/ui/level_end_menu/level_lose_menu.tscn" id="11_gmulr"]
+[ext_resource type="PackedScene" uid="uid://dcxmite2flbvo" path="res://src/game/menus/win/win_menu.tscn" id="10_oc6km"]
+[ext_resource type="PackedScene" uid="uid://ctbcl51ktk70h" path="res://src/game/menus/lose/lose_menu.tscn" id="11_alm8m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yxymf"]
 size = Vector2(20.5, 640.22656)
@@ -274,14 +274,14 @@ layout_mode = 2
 [node name="EndMenu" parent="UI/Menus/Center" unique_id=1510749122 node_paths=PackedStringArray("win_menu", "lose_menu") instance=ExtResource("9_alm8m")]
 layout_mode = 2
 current_tab = 0
-win_menu = NodePath("LevelWinMenu")
-lose_menu = NodePath("LevelLoseMenu")
+win_menu = NodePath("WinMenu")
+lose_menu = NodePath("LoseMenu")
 
-[node name="LevelWinMenu" parent="UI/Menus/Center/EndMenu" unique_id=517087513 instance=ExtResource("10_sjl88")]
+[node name="WinMenu" parent="UI/Menus/Center/EndMenu" unique_id=517087513 instance=ExtResource("10_oc6km")]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="LevelLoseMenu" parent="UI/Menus/Center/EndMenu" unique_id=1626180265 instance=ExtResource("11_gmulr")]
+[node name="LoseMenu" parent="UI/Menus/Center/EndMenu" unique_id=1626180265 instance=ExtResource("11_alm8m")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1

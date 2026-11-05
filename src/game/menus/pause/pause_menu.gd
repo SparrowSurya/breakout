@@ -41,7 +41,7 @@ func update(progress: float, time: float, no: int = -1) -> void:
 		number_value.text = "%03d" % no
 	time_value.text = Utils.format_time(time)
 	progress_bar.value = progress
-	progress_value.text = "%02d" % int(progress)
+	progress_value.text = "%02d%%" % int(progress)
 
 
 func _number_label(mode: GameManager.GameMode) -> String:

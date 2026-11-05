@@ -1,8 +1,8 @@
 class_name EndMenu
 extends TabContainer
 
-@export var win_menu: Control
-@export var lose_menu: Control
+@export var win_menu: WinMenu
+@export var lose_menu: LoseMenu
 
 const TAB_WIN: int = 0
 const TAB_LOSE: int = 1

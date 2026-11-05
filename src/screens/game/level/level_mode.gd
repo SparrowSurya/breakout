@@ -44,6 +44,7 @@ func initialise() -> void:
 	end_menu.win_menu.play_again_button.pressed.connect(restart_game)
 	end_menu.win_menu.exit_button.pressed.connect(exit_game)
 
+	end_menu.lose_menu.play_next_button.pressed.connect(play_next_level)
 	end_menu.lose_menu.play_again_button.pressed.connect(restart_game)
 	end_menu.lose_menu.exit_button.pressed.connect(exit_game)
 
@@ -156,24 +157,26 @@ func end_game(won: bool) -> void:
 	await Utils.wait(1.5)
 
 	var level_progress: LevelProgress
-	var level_text := "%03d" % level_no
+	var has_next_level := GameManager.level_exists(level_no + 1)
 
 	if won:
-		var has_next_level := GameManager.level_exists(level_no + 1)
-		end_menu.win_menu.update(level_text, Utils.format_time(elapsed_ms), hearts, has_next_level)
-		
+		level_progress = LevelProgress.as_done(level_no, hearts, elapsed_ms)
+		end_menu.win_menu.update(elapsed_ms, hearts, level_no)
 		if has_next_level:
 			end_menu.win_menu.play_next_button.grab_focus()
 		else:
-			end_menu.win_menu.exit_button.grab_focus()
-
-		level_progress = LevelProgress.as_done(level_no, hearts, elapsed_ms)
+			end_menu.win_menu.play_again_button.grab_focus()
 		end_menu.show_win()
 	else:
-		end_menu.lose_menu.update(level_text, Utils.format_time(elapsed_ms), progress_bar.value)
-		end_menu.lose_menu.play_again_button.grab_focus()
 		level_progress = LevelProgress.as_wip(level_no, progress_bar.value)
+		end_menu.lose_menu.update(elapsed_ms, progress_bar.value, level_no)
+		if has_next_level:
+			end_menu.lose_menu.play_next_button.grab_focus()
+		else:
+			end_menu.lose_menu.play_next_button.hide()
+			end_menu.lose_menu.play_again_button.grab_focus()
 		end_menu.show_lose()
+
 
 	end_menu.show()
 	menus_node.show()

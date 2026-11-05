@@ -115,6 +115,13 @@ func level_exists(level: int) -> bool:
 	return level > 0 and level <= LevelDef.level_count
 
 
+## Returns true if level unlocked otherwise false even if level not exits.
+func is_level_unlocked(level: int) -> bool:
+	if level_exists(level):
+		return UserProgress.get_level(level).status == LevelProgress.LevelStatus.UNLOCKED
+	return true
+
+
 ## Provide the respective game mode based on current screen.
 func game_mode() -> GameMode:
 	match current_screen:

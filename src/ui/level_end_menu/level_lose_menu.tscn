@@ -31,6 +31,8 @@ thickness = 6
 [node name="LevelLoseMenu" type="PanelContainer" unique_id=1626180265 node_paths=PackedStringArray("stars_node", "level_value", "time_value", "progress_value", "progress_bar", "play_again_button", "exit_button")]
 custom_minimum_size = Vector2(296, 0)
 custom_maximum_size = Vector2(296, -1)
+offset_right = 296.0
+offset_bottom = 400.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_vse7m")
 script = ExtResource("1_m0soo")
@@ -39,7 +41,7 @@ level_value = NodePath("MainLayout/Margin/Column/LevelInfoRow/LevelValue")
 time_value = NodePath("MainLayout/Margin/Column/TimeInfoRow/TimeValue")
 progress_value = NodePath("MainLayout/Margin/Column/ProgressInfoRow/ProgressValue")
 progress_bar = NodePath("MainLayout/Margin/Column/ProgressBar")
-play_again_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/PlayAgainButton")
+play_again_button = NodePath("")
 exit_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/ExitButton")
 
 [node name="MainLayout" type="VBoxContainer" parent="." unique_id=1777561138]
@@ -183,7 +185,7 @@ theme_override_constants/margin_right = 8
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="PlayAgainButton" parent="MainLayout/Margin/Column/Margin/Buttons" unique_id=1882703824 instance=ExtResource("3_vhpid")]
+[node name="PlayAgainButton2" parent="MainLayout/Margin/Column/Margin/Buttons" unique_id=1449852663 instance=ExtResource("3_vhpid")]
 layout_mode = 2
 text = "Play Again"
 
