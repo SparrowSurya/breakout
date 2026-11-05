@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://vsydh28yy6x7"]
 
-[ext_resource type="Script" uid="uid://ct0wbtdnlb75p" path="res://src/ui/gameover_menu/gameover_menu.gd" id="1_6owjg"]
+[ext_resource type="Script" uid="uid://ct0wbtdnlb75p" path="res://src/game/menus/gameover/gameover_menu.gd" id="1_6owjg"]
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="2_0cgyt"]
 [ext_resource type="PackedScene" uid="uid://dy1xomrq02t83" path="res://src/ui/button/custom_button.tscn" id="3_45ghm"]
 
@@ -36,6 +36,7 @@ grow_end = 0.0
 thickness = 6
 
 [node name="GameoverMenu" type="PanelContainer" unique_id=832792062 node_paths=PackedStringArray("score_value", "new_best", "stage_value", "time_value", "progress_value", "progress_bar", "play_again_button", "exit_button")]
+z_index = 30
 custom_minimum_size = Vector2(296, 0)
 custom_maximum_size = Vector2(296, -1)
 offset_right = 40.0
@@ -44,9 +45,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_f5ycd")
 script = ExtResource("1_6owjg")
 score_value = NodePath("MainLayout/Margin/Column/ScoreContainer/Margin1/ScoreValue")
 new_best = NodePath("MainLayout/Margin/Column/ScoreContainer/Margin2/NewBest")
-stage_value = NodePath("MainLayout/Margin/Column/StageInfoRow/StageValue")
-time_value = NodePath("MainLayout/Margin/Column/TimeInfoRow/TimeValue")
-progress_value = NodePath("MainLayout/Margin/Column/ProgressInfoRow/ProgressValue")
+stage_value = NodePath("MainLayout/Margin/Column/StageRow/StageValue")
+time_value = NodePath("MainLayout/Margin/Column/TimeRow/TimeValue")
+progress_value = NodePath("MainLayout/Margin/Column/ProgressRow/ProgressValue")
 progress_bar = NodePath("MainLayout/Margin/Column/ProgressBar")
 play_again_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/PlayAgainButton")
 exit_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/ExitButton")
@@ -113,63 +114,63 @@ theme_override_font_sizes/font_size = 8
 theme_override_styles/normal = SubResource("StyleBoxFlat_hjt3c")
 text = "NEW BEST!"
 
-[node name="StageInfoRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=361666484]
+[node name="StageRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=361666484]
 layout_mode = 2
 
-[node name="StageLabel" type="Label" parent="MainLayout/Margin/Column/StageInfoRow" unique_id=705351715]
+[node name="StageLabel" type="Label" parent="MainLayout/Margin/Column/StageRow" unique_id=705351715]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
 theme_override_fonts/font = ExtResource("2_0cgyt")
 theme_override_font_sizes/font_size = 8
 text = "STAGE"
 
-[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/StageInfoRow" unique_id=1903061411]
+[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/StageRow" unique_id=1903061411]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="StageValue" type="Label" parent="MainLayout/Margin/Column/StageInfoRow" unique_id=1068883401]
+[node name="StageValue" type="Label" parent="MainLayout/Margin/Column/StageRow" unique_id=1068883401]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
 theme_override_fonts/font = ExtResource("2_0cgyt")
 theme_override_font_sizes/font_size = 8
 text = "00"
 
-[node name="TimeInfoRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=1758452469]
+[node name="TimeRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=1758452469]
 layout_mode = 2
 
-[node name="TimeLabel" type="Label" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=1950258121]
+[node name="TimeLabel" type="Label" parent="MainLayout/Margin/Column/TimeRow" unique_id=1950258121]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
 theme_override_fonts/font = ExtResource("2_0cgyt")
 theme_override_font_sizes/font_size = 8
 text = "TIME TAKEN"
 
-[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=1763884578]
+[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/TimeRow" unique_id=1763884578]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TimeValue" type="Label" parent="MainLayout/Margin/Column/TimeInfoRow" unique_id=1091534942]
+[node name="TimeValue" type="Label" parent="MainLayout/Margin/Column/TimeRow" unique_id=1091534942]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
 theme_override_fonts/font = ExtResource("2_0cgyt")
 theme_override_font_sizes/font_size = 8
 text = "00:00"
 
-[node name="ProgressInfoRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=846413091]
+[node name="ProgressRow" type="HBoxContainer" parent="MainLayout/Margin/Column" unique_id=846413091]
 layout_mode = 2
 
-[node name="ProgressLabel" type="Label" parent="MainLayout/Margin/Column/ProgressInfoRow" unique_id=789833233]
+[node name="ProgressLabel" type="Label" parent="MainLayout/Margin/Column/ProgressRow" unique_id=789833233]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42352942, 0.4392157, 0.5254902, 1)
 theme_override_fonts/font = ExtResource("2_0cgyt")
 theme_override_font_sizes/font_size = 8
 text = "STAGE PROGRESS"
 
-[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/ProgressInfoRow" unique_id=1284195954]
+[node name="Spacer" type="Control" parent="MainLayout/Margin/Column/ProgressRow" unique_id=1284195954]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ProgressValue" type="Label" parent="MainLayout/Margin/Column/ProgressInfoRow" unique_id=1505083854]
+[node name="ProgressValue" type="Label" parent="MainLayout/Margin/Column/ProgressRow" unique_id=1505083854]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
 theme_override_fonts/font = ExtResource("2_0cgyt")

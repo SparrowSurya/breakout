@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Fixed GameoverMenu - (5 Nov, 2026)
+* Modified z-index to 30.
+* Renamed some nodes.
+
 ### Added common EndMenu - (4 Nov, 2026)
 * Added common EndMenu for game modes having win and lose menus.
 * Integrated EndMenu in quick and levels mode.

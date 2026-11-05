@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dg20l0c0blct6" path="res://assets/textures/icons/triangle-right.png" id="4_j1mdf"]
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="5_rpxn3"]
 [ext_resource type="Texture2D" uid="uid://ct0l3mhdv2bdy" path="res://assets/textures/icons/heart.png" id="6_l1pf8"]
-[ext_resource type="PackedScene" uid="uid://vsydh28yy6x7" path="res://src/ui/gameover_menu/gameover_menu.tscn" id="8_j1mdf"]
+[ext_resource type="PackedScene" uid="uid://vsydh28yy6x7" path="res://src/game/menus/gameover/gameover_menu.tscn" id="8_j1mdf"]
 [ext_resource type="PackedScene" uid="uid://8n0xv7fcmbht" path="res://src/game/menus/pause/pause_menu.tscn" id="9_l1pf8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wcew"]
@@ -312,5 +312,4 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="GameoverMenu" parent="UI/Menus/Center" unique_id=832792062 instance=ExtResource("8_j1mdf")]
-visible = false
 layout_mode = 2
