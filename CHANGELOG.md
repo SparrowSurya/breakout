@@ -4,6 +4,7 @@
 
 ### Added common EndMenu - (4 Nov, 2026)
 * Added common EndMenu for game modes having win and lose menus.
+* Integrated EndMenu in quick and levels mode.
 
 ### Added common PauseMenu - (4 Nov, 2026)
 * Added and integrated common PauseMenu for all game modes.

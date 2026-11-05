@@ -8,7 +8,9 @@
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="5_alm8m"]
 [ext_resource type="Texture2D" uid="uid://ct0l3mhdv2bdy" path="res://assets/textures/icons/heart.png" id="6_sjl88"]
 [ext_resource type="PackedScene" uid="uid://8n0xv7fcmbht" path="res://src/game/menus/pause/pause_menu.tscn" id="8_0mpae"]
-[ext_resource type="PackedScene" uid="uid://dfq8a462g8n60" path="res://src/ui/level_end_menu/level_end_menu.tscn" id="8_pbhj0"]
+[ext_resource type="PackedScene" uid="uid://bqh7dppd0tiif" path="res://src/game/menus/end/end_menu.tscn" id="9_alm8m"]
+[ext_resource type="PackedScene" uid="uid://y4qqygcyuk1y" path="res://src/ui/level_end_menu/level_win_menu.tscn" id="10_sjl88"]
+[ext_resource type="PackedScene" uid="uid://btpimlc3dgaww" path="res://src/ui/level_end_menu/level_lose_menu.tscn" id="11_gmulr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yxymf"]
 size = Vector2(20.5, 640.22656)
@@ -269,15 +271,17 @@ mouse_filter = 2
 [node name="PauseMenu" parent="UI/Menus/Center" unique_id=933271589 instance=ExtResource("8_0mpae")]
 layout_mode = 2
 
-[node name="EndMenu" parent="UI/Menus/Center" unique_id=1290878506 instance=ExtResource("8_pbhj0")]
+[node name="EndMenu" parent="UI/Menus/Center" unique_id=1510749122 node_paths=PackedStringArray("win_menu", "lose_menu") instance=ExtResource("9_alm8m")]
+layout_mode = 2
+current_tab = 0
+win_menu = NodePath("LevelWinMenu")
+lose_menu = NodePath("LevelLoseMenu")
+
+[node name="LevelWinMenu" parent="UI/Menus/Center/EndMenu" unique_id=517087513 instance=ExtResource("10_sjl88")]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="LevelLoseMenu" parent="UI/Menus/Center/EndMenu" unique_id=1626180265 instance=ExtResource("11_gmulr")]
 visible = false
 layout_mode = 2
-current_tab = 1
-
-[node name="LevelWinMenu" parent="UI/Menus/Center/EndMenu" index="1" unique_id=517087513]
-visible = false
-
-[node name="LevelLoseMenu" parent="UI/Menus/Center/EndMenu" index="2" unique_id=1626180265]
-visible = true
-
-[editable path="UI/Menus/Center/EndMenu"]
+metadata/_tab_index = 1

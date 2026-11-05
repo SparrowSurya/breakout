@@ -12,7 +12,7 @@ extends BaseGame
 # Menu node
 @export var menus_node: Control
 @export var pause_menu: PauseMenu
-@export var end_menu: QuickEndMenu
+@export var end_menu: EndMenu
 
 const TAB_PAUSE: int = 0
 const TAB_RESUME: int = 1

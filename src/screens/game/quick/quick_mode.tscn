@@ -8,7 +8,9 @@
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="5_ts2sw"]
 [ext_resource type="Texture2D" uid="uid://ct0l3mhdv2bdy" path="res://assets/textures/icons/heart.png" id="6_coric"]
 [ext_resource type="PackedScene" uid="uid://8n0xv7fcmbht" path="res://src/game/menus/pause/pause_menu.tscn" id="8_coric"]
-[ext_resource type="PackedScene" uid="uid://mdwah5lur7ak" path="res://src/ui/quick_end_menu/quick_end_menu.tscn" id="8_ts2sw"]
+[ext_resource type="PackedScene" uid="uid://bqh7dppd0tiif" path="res://src/game/menus/end/end_menu.tscn" id="10_j4pxi"]
+[ext_resource type="PackedScene" uid="uid://cfjkpljlpdxtp" path="res://src/ui/quick_end_menu/quick_win_menu.tscn" id="11_qgvst"]
+[ext_resource type="PackedScene" uid="uid://b75rylwi12a20" path="res://src/ui/quick_end_menu/quick_lose_menu.tscn" id="12_vxsb8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qk88f"]
 size = Vector2(20.5, 640.22656)
@@ -42,7 +44,7 @@ progress_value = NodePath("UI/Hud/Content/Heading/Column/Row2/ProgressValue")
 progress_bar = NodePath("UI/Hud/Content/Heading/Column/ProgressBar")
 menus_node = NodePath("UI/Menus")
 pause_menu = NodePath("UI/Menus/Center/PauseMenu")
-end_menu = NodePath("UI/Menus/Center/QuickEndMenu")
+end_menu = NodePath("UI/Menus/Center/EndMenu")
 tiles_node = NodePath("Tiles")
 balls_node = NodePath("Balls")
 dead_zone = NodePath("DeadZone")
@@ -265,17 +267,20 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PauseMenu" parent="UI/Menus/Center" unique_id=933271589 instance=ExtResource("8_coric")]
+visible = false
 layout_mode = 2
 
-[node name="QuickEndMenu" parent="UI/Menus/Center" unique_id=1774828620 instance=ExtResource("8_ts2sw")]
-visible = false
+[node name="EndMenu" parent="UI/Menus/Center" unique_id=1510749122 node_paths=PackedStringArray("win_menu", "lose_menu") instance=ExtResource("10_j4pxi")]
 layout_mode = 2
 current_tab = 0
+win_menu = NodePath("QuickWinMenu")
+lose_menu = NodePath("QuickLoseMenu")
 
-[node name="QuickWinMenu" parent="UI/Menus/Center/QuickEndMenu" index="1" unique_id=517087513]
-visible = true
+[node name="QuickWinMenu" parent="UI/Menus/Center/EndMenu" unique_id=23063554 instance=ExtResource("11_qgvst")]
+layout_mode = 2
+metadata/_tab_index = 0
 
-[node name="QuickLoseMenu" parent="UI/Menus/Center/QuickEndMenu" index="2" unique_id=1626180265]
+[node name="QuickLoseMenu" parent="UI/Menus/Center/EndMenu" unique_id=1255883121 instance=ExtResource("12_vxsb8")]
 visible = false
-
-[editable path="UI/Menus/Center/QuickEndMenu"]
+layout_mode = 2
+metadata/_tab_index = 1
