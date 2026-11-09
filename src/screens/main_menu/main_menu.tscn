@@ -270,4 +270,5 @@ layout_mode = 2
 text = "Survival"
 
 [node name="SoundMenu" parent="." unique_id=751461936 instance=ExtResource("17_10n6u")]
+visible = false
 z_index = 10

@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://ct0l3mhdv2bdy" path="res://assets/textures/icons/heart.png" id="6_l1pf8"]
 [ext_resource type="PackedScene" uid="uid://vsydh28yy6x7" path="res://src/game/menus/gameover/gameover_menu.tscn" id="8_j1mdf"]
 [ext_resource type="PackedScene" uid="uid://8n0xv7fcmbht" path="res://src/game/menus/pause/pause_menu.tscn" id="9_l1pf8"]
+[ext_resource type="Texture2D" uid="uid://bgxc5meoa3lop" path="res://assets/textures/icons/speaker.png" id="9_o7lel"]
+[ext_resource type="PackedScene" uid="uid://bwhx1kqvneren" path="res://src/game/menus/sound/sound_menu.tscn" id="11_wgdfq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wcew"]
 size = Vector2(20.5, 640.22656)
@@ -32,7 +34,7 @@ grow_begin = 0.0
 grow_end = 0.0
 thickness = 6
 
-[node name="SurvivalMode" type="Node2D" unique_id=723584759 node_paths=PackedStringArray("pause_resume_tab", "pause_button", "resume_button", "hearts_node", "score_value", "stage_value", "progress_bar", "best_value", "progress_value", "menus_node", "pause_menu", "gameover_menu", "tiles_node", "balls_node", "dead_zone", "top_wall", "countdown_label", "powerup_props", "guardian_prop")]
+[node name="SurvivalMode" type="Node2D" unique_id=723584759 node_paths=PackedStringArray("pause_resume_tab", "pause_button", "resume_button", "hearts_node", "score_value", "stage_value", "progress_bar", "best_value", "progress_value", "menus_node", "sound_button", "pause_menu", "gameover_menu", "sound_menu", "tiles_node", "balls_node", "dead_zone", "top_wall", "countdown_label", "powerup_props", "guardian_prop")]
 script = ExtResource("1_rpxn3")
 pause_resume_tab = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab")
 pause_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/PauseButton")
@@ -44,8 +46,10 @@ progress_bar = NodePath("UI/Hud/Content/Heading/Column/ProgressBar")
 best_value = NodePath("UI/Hud/Content/Heading/Column/Row4/BestValue")
 progress_value = NodePath("UI/Hud/Content/Heading/Column/Row4/ProgressValue")
 menus_node = NodePath("UI/Menus")
+sound_button = NodePath("UI/Menus/SoundButton")
 pause_menu = NodePath("UI/Menus/Center/PauseMenu")
 gameover_menu = NodePath("UI/Menus/Center/GameoverMenu")
+sound_menu = NodePath("UI/Menus/SoundMenu")
 tiles_node = NodePath("Tiles")
 balls_node = NodePath("Balls")
 dead_zone = NodePath("DeadZone")
@@ -312,4 +316,19 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="GameoverMenu" parent="UI/Menus/Center" unique_id=832792062 instance=ExtResource("8_j1mdf")]
+visible = false
 layout_mode = 2
+
+[node name="SoundButton" parent="UI/Menus" unique_id=1238930864 instance=ExtResource("2_7eowh")]
+custom_minimum_size = Vector2(24, 24)
+custom_maximum_size = Vector2(24, 24)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 48.0
+offset_bottom = 48.0
+icon = ExtResource("9_o7lel")
+
+[node name="SoundMenu" parent="UI/Menus" unique_id=751461936 instance=ExtResource("11_wgdfq")]
+visible = false
+layout_mode = 1

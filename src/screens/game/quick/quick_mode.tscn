@@ -8,6 +8,8 @@
 [ext_resource type="FontFile" uid="uid://dkv16dvnbdjan" path="res://assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf" id="5_ts2sw"]
 [ext_resource type="Texture2D" uid="uid://ct0l3mhdv2bdy" path="res://assets/textures/icons/heart.png" id="6_coric"]
 [ext_resource type="PackedScene" uid="uid://8n0xv7fcmbht" path="res://src/game/menus/pause/pause_menu.tscn" id="8_coric"]
+[ext_resource type="PackedScene" uid="uid://bwhx1kqvneren" path="res://src/game/menus/sound/sound_menu.tscn" id="8_j4pxi"]
+[ext_resource type="Texture2D" uid="uid://bgxc5meoa3lop" path="res://assets/textures/icons/speaker.png" id="8_qgvst"]
 [ext_resource type="PackedScene" uid="uid://bqh7dppd0tiif" path="res://src/game/menus/end/end_menu.tscn" id="10_j4pxi"]
 [ext_resource type="PackedScene" uid="uid://dcxmite2flbvo" path="res://src/game/menus/win/win_menu.tscn" id="10_o4fes"]
 [ext_resource type="PackedScene" uid="uid://ctbcl51ktk70h" path="res://src/game/menus/lose/lose_menu.tscn" id="11_j4pxi"]
@@ -33,7 +35,7 @@ grow_begin = 0.0
 grow_end = 0.0
 thickness = 6
 
-[node name="QuickMode" type="Node2D" unique_id=874209024 node_paths=PackedStringArray("pause_resume_tab", "pause_button", "resume_button", "hearts_node", "time_value", "progress_value", "progress_bar", "menus_node", "pause_menu", "end_menu", "tiles_node", "balls_node", "dead_zone", "top_wall", "countdown_label")]
+[node name="QuickMode" type="Node2D" unique_id=874209024 node_paths=PackedStringArray("pause_resume_tab", "pause_button", "resume_button", "hearts_node", "time_value", "progress_value", "progress_bar", "sound_button", "menus_node", "pause_menu", "end_menu", "sound_menu", "tiles_node", "balls_node", "dead_zone", "top_wall", "countdown_label")]
 script = ExtResource("1_s058p")
 pause_resume_tab = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab")
 pause_button = NodePath("UI/Hud/Content/Heading/Column/Row1/PauseResumeTab/PauseButton")
@@ -42,9 +44,11 @@ hearts_node = NodePath("UI/Hud/Content/Heading/Column/Row1/HeartsNode")
 time_value = NodePath("UI/Hud/Content/Heading/Column/Row2/TimeValue")
 progress_value = NodePath("UI/Hud/Content/Heading/Column/Row2/ProgressValue")
 progress_bar = NodePath("UI/Hud/Content/Heading/Column/ProgressBar")
+sound_button = NodePath("UI/Menus/SoundButton")
 menus_node = NodePath("UI/Menus")
 pause_menu = NodePath("UI/Menus/Center/PauseMenu")
 end_menu = NodePath("UI/Menus/Center/EndMenu")
+sound_menu = NodePath("UI/Menus/SoundMenu")
 tiles_node = NodePath("Tiles")
 balls_node = NodePath("Balls")
 dead_zone = NodePath("DeadZone")
@@ -271,6 +275,7 @@ visible = false
 layout_mode = 2
 
 [node name="EndMenu" parent="UI/Menus/Center" unique_id=1510749122 node_paths=PackedStringArray("win_menu", "lose_menu") instance=ExtResource("10_j4pxi")]
+visible = false
 layout_mode = 2
 current_tab = 0
 win_menu = NodePath("WinMenu")
@@ -284,3 +289,17 @@ metadata/_tab_index = 0
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
+
+[node name="SoundButton" parent="UI/Menus" unique_id=764562330 instance=ExtResource("2_pk85u")]
+custom_minimum_size = Vector2(24, 24)
+custom_maximum_size = Vector2(24, 24)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 48.0
+offset_bottom = 48.0
+icon = ExtResource("8_qgvst")
+
+[node name="SoundMenu" parent="UI/Menus" unique_id=751461936 instance=ExtResource("8_j4pxi")]
+visible = false
+layout_mode = 1

@@ -34,6 +34,7 @@ var is_hovered: bool = false
 
 # Track original baseline Y positions
 var orig_border_y: float
+var orig_border_color: Color
 var orig_indicator_y: float
 var orig_margin_y: float
 var orig_overlay_y: float
@@ -60,7 +61,9 @@ func _ready() -> void:
 
 	apply()
 
-	if border_node: orig_border_y = border_node.position.y
+	if border_node:
+		orig_border_y = border_node.position.y
+		orig_border_color = border_node.color
 	if indicator_node: orig_indicator_y = indicator_node.position.y
 	if margin_node: orig_margin_y = margin_node.position.y
 	if overlay_node: orig_overlay_y = overlay_node.position.y
@@ -109,7 +112,7 @@ func _on_gui_input(event: InputEvent) -> void:
 		elif event.is_released():
 			_on_button_up()
 
-	if has_focus() and event.is_action_pressed("continue"):
+	if has_focus() and (event.is_action_pressed("continue") or event.is_action_pressed("ui_accept")):
 		accept_event()
 		GameManager.play_level(level_no)
 
@@ -166,7 +169,8 @@ func _on_mouse_exited() -> void:
 	if locked: return
 
 	is_hovered = false
-	animate_lift(0.0, 0.0)
+	if not has_focus():
+		animate_lift(0.0, 0.0)
 
 
 func _on_button_down() -> void:
@@ -177,15 +181,22 @@ func _on_button_up() -> void:
 	var mouse_pos = get_local_mouse_position()
 	var is_mouse_inside = Rect2(Vector2.ZERO, size).has_point(mouse_pos)
 	
-	if is_mouse_inside:
+	if is_mouse_inside or has_focus():
 		animate_lift(HOVER_Y_DELTA, 0.1)
 	else:
 		animate_lift(0.0, 0.0)
 
 
 func _on_focus_enter() -> void:
+	if border_node:
+		border_node.color = Palette.LAVENDER
 	highlight_node.color = Palette.LAVENDER
+	animate_lift(HOVER_Y_DELTA, HOVER_BRIGHTNESS)
 
 
 func _on_focus_exit() -> void:
+	if border_node:
+		border_node.color = orig_border_color
 	highlight_node.color = Color.TRANSPARENT
+	if not is_hovered:
+		animate_lift(0.0, 0.0)

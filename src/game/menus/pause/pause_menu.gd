@@ -34,7 +34,7 @@ func _setup(mode: GameManager.GameMode) -> void:
 		number_row.hide()
 	elif mode == GameManager.GameMode.LEVEL:
 		number_value.text = "%03d" % GameManager.level_data.level_no
-	
+
 
 func update(progress: float, time: float, no: int = -1) -> void:
 	if no != -1:

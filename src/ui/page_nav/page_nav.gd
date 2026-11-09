@@ -41,8 +41,18 @@ func _update() -> void:
 
 
 func _update_buttons() -> void:
+	var next_had_focus := next_button_node.has_focus()
+	var prev_had_focus := prev_button_node.has_focus()
+
 	prev_button_node.disabled = current_page == 1
 	next_button_node.disabled = current_page == total_pages
+
+	if next_had_focus and next_button_node.disabled:
+		if not prev_button_node.disabled:
+			prev_button_node.grab_focus()
+	elif prev_had_focus and prev_button_node.disabled:
+		if not next_button_node.disabled:
+			next_button_node.grab_focus()
 
 
 func _update_indicators() -> void:

@@ -27,7 +27,7 @@ grow_begin = 0.0
 grow_end = 0.0
 thickness = 6
 
-[node name="PauseMenu" type="PanelContainer" unique_id=933271589 node_paths=PackedStringArray("number_label", "number_value", "time_label", "time_value", "progress_label", "progress_value", "progress_bar", "number_row", "time_row", "progress_row", "resume_button", "restart_button", "exit_button")]
+[node name="PauseMenu" type="PanelContainer" unique_id=933271589 node_paths=PackedStringArray("number_label", "number_value", "time_label", "time_value", "progress_label", "progress_value", "progress_bar", "number_row", "time_row", "progress_row", "resume_button", "restart_button", "sound_button", "exit_button")]
 custom_minimum_size = Vector2(296, 0)
 custom_maximum_size = Vector2(296, -1)
 theme_override_styles/panel = SubResource("StyleBoxFlat_peth0")
@@ -44,6 +44,7 @@ time_row = NodePath("MainLayout/Margin/Column/TimeRow")
 progress_row = NodePath("MainLayout/Margin/Column/ProgressRow")
 resume_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/ResumeButton")
 restart_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/RestartButton")
+sound_button = NodePath("")
 exit_button = NodePath("MainLayout/Margin/Column/Margin/Buttons/ExitButton")
 
 [node name="MainLayout" type="VBoxContainer" parent="." unique_id=1036003651]

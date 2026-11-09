@@ -125,6 +125,19 @@ func get_sfx_volume() -> float:
 	return _levels[BUS_SFX]
 
 
+func update_mute(mute: bool) -> void:
+	var master_idx: int = AudioServer.get_bus_index(BUS_MASTER)
+	if master_idx != -1:
+		AudioServer.set_bus_mute(master_idx, mute)
+
+
+func is_mute() -> bool:
+	var master_idx: int = AudioServer.get_bus_index(BUS_MASTER)
+	if master_idx != -1:
+		return AudioServer.is_bus_mute(master_idx)
+	return false
+	
+
 func _play(player: AudioStreamPlayer, stream: AudioStream, pitch_variation: float = 0.0) -> void:
 	if stream == null:
 		push_warning("SoundManager: stream is null")

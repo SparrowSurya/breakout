@@ -1,6 +1,6 @@
 extends BaseGame
 
-# HUD nodes
+@export_group("HUD Nodes")
 @export var pause_resume_tab: TabContainer
 @export var pause_button: CustomIconButton
 @export var resume_button: CustomIconButton
@@ -10,10 +10,12 @@ extends BaseGame
 @export var progress_value: Label
 @export var progress_bar: ProgressBar
 
-# Menus nodes
+@export_group("Popup Nodes")
 @export var menus_node: Control
+@export var sound_button: CustomIconButton
 @export var pause_menu: PauseMenu
 @export var end_menu: EndMenu
+@export var sound_menu: SoundMenu
 
 # Tab values
 const TAB_PAUSE: int = 0
@@ -33,6 +35,7 @@ func initialise() -> void:
 	else:
 		level_no = GameManager.level_data.level_no
 
+	sound_button.pressed.connect(_open_sound_menu)
 	pause_button.pressed.connect(pause_game)
 	resume_button.pressed.connect(resume_game)
 
@@ -141,6 +144,7 @@ func resume_game() -> void:
 	pause_resume_tab.current_tab = TAB_PAUSE
 	menus_node.hide()
 	pause_menu.hide()
+	sound_menu.hide()
 
 
 func end_game(won: bool) -> void:
@@ -252,3 +256,8 @@ func play_prev_level() -> void:
 	var next_level = level_no - 1
 	if GameManager.level_exists(next_level):
 		GameManager.play_level(next_level)
+
+
+func _open_sound_menu() -> void:
+	sound_menu.show()
+	sound_menu.exit_button.grab_focus()

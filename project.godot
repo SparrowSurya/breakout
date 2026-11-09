@@ -42,6 +42,7 @@ gdscript/warnings/integer_division=0
 window/size/viewport_width=360
 window/size/viewport_height=640
 window/stretch/mode="viewport"
+window/handheld/orientation=1
 window/handheld/orientation.android=1
 
 [input]

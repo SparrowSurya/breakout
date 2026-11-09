@@ -20,7 +20,8 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.19215687, 0.19607843, 0.26666668, 1)
 
-[node name="SoundMenu" type="Control" unique_id=751461936 node_paths=PackedStringArray("back_button_1", "music_control", "sound_control", "sfx_control", "mute_control", "back_button_2")]
+[node name="SoundMenu" type="Control" unique_id=751461936 node_paths=PackedStringArray("back_button", "music_control", "sound_control", "sfx_control", "mute_control", "exit_button")]
+z_index = 50
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,12 +29,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sf6pa")
-back_button_1 = NodePath("Margin/VBoxContainer/BackButton1")
+back_button = NodePath("Margin/VBoxContainer/BackButton1")
 music_control = NodePath("Margin/VBoxContainer/VBoxContainer/MusicContainer/MusicControl")
 sound_control = NodePath("Margin/VBoxContainer/VBoxContainer/SoundContainer/SoundControl")
 sfx_control = NodePath("Margin/VBoxContainer/VBoxContainer/SfxContainer/SfxControl")
 mute_control = NodePath("Margin/VBoxContainer/VBoxContainer/MuteContainer/Row/MuteControl")
-back_button_2 = NodePath("Margin/VBoxContainer/Margin/BackButton2")
+exit_button = NodePath("Margin/VBoxContainer/Margin/BackButton2")
 
 [node name="Background" type="ColorRect" parent="." unique_id=142462129]
 layout_mode = 1

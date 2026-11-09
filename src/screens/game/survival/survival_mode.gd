@@ -1,6 +1,6 @@
 extends BaseGame
 
-# Hud related nodes.
+@export_group("HUD Nodes")
 @export var pause_resume_tab: TabContainer
 @export var pause_button: CustomIconButton
 @export var resume_button: CustomIconButton
@@ -11,10 +11,12 @@ extends BaseGame
 @export var best_value: Label
 @export var progress_value: Label
 
-# Menu related nodes.
+@export_group("Popup Nodes")
 @export var menus_node: Control
+@export var sound_button: CustomIconButton
 @export var pause_menu: PauseMenu
 @export var gameover_menu: GameoverMenu
+@export var sound_menu: SoundMenu
 
 
 const TAB_PAUSE: int = 0
@@ -32,6 +34,7 @@ var tiles_cleared: int = 0   ## Total tiles cleared.
 func initialise() -> void:
 	super.initialise()
 
+	sound_button.pressed.connect(_open_sound_menu)
 	pause_button.pressed.connect(pause_game)
 	resume_button.pressed.connect(resume_game)
 
@@ -149,6 +152,7 @@ func resume_game() -> void:
 	pause_resume_tab.current_tab = TAB_PAUSE
 	menus_node.hide()
 	pause_menu.hide()
+	sound_menu.hide()
 
 
 # Ends the game.
@@ -298,3 +302,8 @@ func _on_tile_hit(_tile: Tile, effective_damage: int, destroyed: bool) -> void:
 			_tiles_since_combo_powerup = 0
 			if powerups:
 				powerups.spawn_item(_tile.global_position)
+
+
+func _open_sound_menu() -> void:
+	sound_menu.show()
+	sound_menu.exit_button.grab_focus()
