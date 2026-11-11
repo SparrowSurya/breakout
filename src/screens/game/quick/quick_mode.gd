@@ -152,6 +152,7 @@ func end_game(won: bool) -> void:
 		return
 
 	GameManager.game_state = GameManager.GameState.END
+	reset_powerups()
 
 	pause_button.disabled = true
 	resume_button.disabled = true

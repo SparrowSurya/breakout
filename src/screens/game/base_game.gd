@@ -426,7 +426,7 @@ func _on_tile_hit(_tile: Tile, effective_damage: int, destroyed: bool) -> void:
 
 	if destroyed:
 		tiles_left -= 1
-		if powerups:
+		if tiles_left > 0 and powerups:
 			powerups.on_tile_destroyed(_tile.global_position)
 
 	if tiles_left <= 0:

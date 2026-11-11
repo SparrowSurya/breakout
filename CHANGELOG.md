@@ -2,8 +2,9 @@
 
 ## Unreleased
 
-### Bugfixes
+### Bugfixes - (11 Nov, 2026)
 * Now ball maintains a minimum of 100 y-axis velocity.
+* Discarding end time spawned powerup.
 
 ### Allowing sound control during pause and win/lose menus.
 * Added small sound button.

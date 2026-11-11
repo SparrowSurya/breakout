@@ -292,16 +292,17 @@ func _on_tile_hit(_tile: Tile, effective_damage: int, destroyed: bool) -> void:
 	combo += 1
 	_update_score()
 
-	if current_combo % 3 == 0:
-		_tiles_since_combo_powerup = 0
-		if powerups:
-			powerups.spawn_item(_tile.global_position)
-	else:
-		_tiles_since_combo_powerup += 1
-		if _tiles_since_combo_powerup >= 8:
+	if tiles_left > 0:
+		if current_combo % 3 == 0:
 			_tiles_since_combo_powerup = 0
 			if powerups:
 				powerups.spawn_item(_tile.global_position)
+		else:
+			_tiles_since_combo_powerup += 1
+			if _tiles_since_combo_powerup >= 8:
+				_tiles_since_combo_powerup = 0
+				if powerups:
+					powerups.spawn_item(_tile.global_position)
 
 
 func _open_sound_menu() -> void:

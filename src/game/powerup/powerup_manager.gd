@@ -68,6 +68,8 @@ func on_tile_destroyed(pos: Vector2) -> void:
 		return
 	if GameManager.game_state != GameManager.GameState.PLAYING:
 		return
+	if game and game.tiles_left <= 0:
+		return
 	_since_drop += 1
 	var pity := config.pity_tiles > 0 and _since_drop >= config.pity_tiles
 	if pity or randf() < config.drop_chance:
@@ -77,6 +79,8 @@ func on_tile_destroyed(pos: Vector2) -> void:
 ## Activates a powerup upon collection, or refreshes its duration if already active.
 func collect(type: PowerupRegistry.PowerType, pos: Vector2 = Vector2.ZERO) -> void:
 	if GameManager.game_state != GameManager.GameState.PLAYING:
+		return
+	if game and game.tiles_left <= 0:
 		return
 	if active.has(type):
 		active[type].refresh()
@@ -164,6 +168,8 @@ func _drop(pos: Vector2) -> void:
 	if config == null or not config.enabled:
 		return
 	if GameManager.game_state != GameManager.GameState.PLAYING:
+		return
+	if game and game.tiles_left <= 0:
 		return
 	if get_tree().get_nodes_in_group(GROUP).size() >= config.max_falling:
 		return
