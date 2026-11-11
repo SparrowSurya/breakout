@@ -2,11 +2,14 @@
 
 ## Unreleased
 
-## Allowing sound control during pause and win/lose menus.
+### Bugfixes
+* Now ball maintains a minimum of 100 y-axis velocity.
+
+### Allowing sound control during pause and win/lose menus.
 * Added small sound button.
 * Fixed bugs in keyboard navigation.
 
-## Added WinMenu and LoseMenu - (5 Nov, 2026)
+### Added WinMenu and LoseMenu - (5 Nov, 2026)
 * Added common scene for win and lose menu.
 * Integrated these menus in quick and level mode.
 

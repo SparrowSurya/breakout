@@ -64,6 +64,9 @@ func _physics_process(delta: float) -> void:
 				var effective_damage: int = maxi(0, int(damage * mult) - offset)
 				collider.hit(effective_damage)
 			velocity = velocity.bounce(collision.get_normal())
+			if abs(velocity.y) < 100.0:
+				velocity.y = -100.0 if velocity.y < 0.0 else 100.0
+				velocity = velocity.normalized() * BALL_SPEED
 		elif collider is GuardianProp or (game and collider == game.guardian_prop):
 			velocity = velocity.bounce(collision.get_normal())
 			SoundManager.play_sfx(Constants.SOUND.BallHitWall)
