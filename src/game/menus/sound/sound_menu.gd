@@ -33,7 +33,7 @@ func _ready() -> void:
 
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_VISIBILITY_CHANGED and is_inside_tree():
+	if what == NOTIFICATION_VISIBILITY_CHANGED and is_inside_tree() and is_node_ready():
 		if visible:
 			_isolate_menu()
 		else:
@@ -51,7 +51,7 @@ func _isolate_menu() -> void:
 				_hidden_siblings.append(child)
 				child.visible = false
 	
-	if back_button:
+	if back_button and back_button.is_inside_tree():
 		back_button.grab_focus()
 
 
