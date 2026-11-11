@@ -1,6 +1,7 @@
 # Changelog
 
-## Unreleased
+## Version 0.2.0 - (11 Nov, 2026)
+Major update introducing YouTube Playables integration, a full power-up system with audio and drop mechanics, unified menus (Pause, Sound, Win/Lose) with custom UI widgets, screen transitions, and critical gameplay polish including ball physics and keyboard navigation fixes.
 
 ### Bugfixes - (11 Nov, 2026)
 * Now ball maintains a minimum of 100 y-axis velocity.
